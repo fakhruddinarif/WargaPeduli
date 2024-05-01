@@ -8,13 +8,56 @@ WargaPeduli adalah sebuah sistem `e-gevorment` yang berfokus pada tingkat rukun 
 
 - Laravel 10 : https://laravel.com/docs/10.x
 - MySQL (Database) : https://www.mysql.com/
-- Laragon : https://laragon.org/
 - TailwindCSS : https://tailwindcss.com/
+
+## Software Requirement
+
+- Git : https://git-scm.com/downloads
+- Composer 2.6.6 : https://getcomposer.org/download/
+- NodeJS 20 : https://nodejs.org/en/download/current
+-  PHP 8.1 or Laragon with bundling PHP 8.1 : https://www.php.net/downloads.php or https://laragon.org/download/index.html
+- Postman or Apidog : https://www.postman.com/downloads/ or https://apidog.com/
+
+## Team
+
+- Moch. Cholilur Rokhman
+- Muhammad Fakhruddin Arif
+- Nanda Putra Khamdani
+- Hilyatul Jannah
 
 ## Library & Driver
 
 - DOMPDF : https://github.com/barryvdh/laravel-dompdf
-- MailGun : https://github.com/symfony/mailgun-mailer
+- Data Table : https://yajrabox.com/docs/laravel-datatables/10.0
+
+## Installation
+
+1. Fork repository
+    - Cari Fork di sudut kanan repo dan klik
+    - Klik Create Fork di bagian bawah, pastikan Anda menghapus centang pada Copy the master branch only
+    - Jika di repositori Anda telah melakukan fork dari alamat repositori di atas, maka proses fork Anda berhasil
+2. Clone fork repository
+```shell
+git clone https://github.com/Your_Github_Address/WargaPeduli.git
+```
+3. Masuk ke path folder repository
+```shell
+cd WargaPeduli
+```
+4. Install dependency
+```shell
+composer install
+composer update
+npm install
+```
+5. Salin file `.env.example` to `.env`
+```shell
+cp .env.example .env
+```
+6. Generate key
+```shell
+php artisan key:generate
+```
 
 ## Database Migration
 
@@ -51,8 +94,9 @@ php artisan make:test namaTest
 php artisan test
 ```
 
-### Run Server
+### Run Server*
 
 ```bash
 php artisan serve
 ```
+*Buka browser dan akses localhost `http://localhost:8000` (Untuk Laravel Server) atau `http://localhost/WargaPeduli/public` (Untuk Laragon Server)
