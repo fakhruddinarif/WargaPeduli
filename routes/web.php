@@ -13,6 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::prefix('/bansos')->group(function () {
+   Route::get('/', function () {
+       return view('bansos.index');
+   });
+    Route::get('/create', function () {
+        return view('bansos.create');
+    });
+    Route::get('/detail', function () {
+        return view('bansos.detail');
+    });
 });
