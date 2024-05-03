@@ -6,7 +6,7 @@
     @endcomponent
     @component('layouts.sidebar')
     @endcomponent
-    <section class="bg-white flex flex-wrap justify-start items-start mt-[184px] ml-64 w-full gap-4 overflow-y-scroll py-8 px-5">
+    <section class="bg-white flex flex-wrap justify-start items-start mt-[164px] w-full gap-4 overflow-y-scroll py-8 px-5">
         <div class="flex flex-col justify-between items-center w-full">
             @yield('content')
         </div>

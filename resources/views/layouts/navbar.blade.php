@@ -1,10 +1,10 @@
 <nav class="fixed z-20 w-full bg-white mt-[60px] border-b-2">
-    <div class="flex flex-row justify-between items-center border-2 border-[#F6F6F6]">
-        <a href="{{ url('/') }}" class="flex flex-row justify-center items-center gap-3 w-64 p-6">
+    <div class="flex flex-row justify-between items-center border-2 border-[#F6F6F6] gap-16">
+        <a href="{{ url('/') }}" class="flex flex-row justify-center items-center gap-3 w-64 px-4 py-3">
             <img src="{{ asset('logo-polinema.png') }}" alt="logo-polinema" class="w-10 h-10">
             <span class="font-semibold text-base text-[#1B1B1B]">Peduli Warga</span>
         </a>
-        <div class="flex flex-row justify-between items-center px-12 py-6 w-full">
+        <div class="flex flex-row justify-between items-center px-4 py-3 w-full">
             <div class="flex flex-col justify-center items-center gap-3">
                 <span class="font-medium text-sm text-[#6C6C6C]">22 April 2024</span>
                 <span class="font-semibold text-[28px] text-[#1B1B1B]">Bansos</span>

@@ -1,4 +1,4 @@
-<aside class="fixed left-0 w-64 h-dvh flex-col justify-between items-stretch px-5 py-6 mt-[180px] border-r-2 gap-4 bg-white " aria-label="Sidebar">
+<aside class="flex w-80 flex-col justify-between px-5 py-6 mt-40 border-r-2 bg-white " aria-label="Sidebar">
     <ul class="flex flex-col justify-center items-center gap-6 w-full">
         <li class="flex flex-col justify-start p-4 gap-3 w-full rounded-lg bg-white">
             <a href="{{ url('/dashboard')  }}" class="">
