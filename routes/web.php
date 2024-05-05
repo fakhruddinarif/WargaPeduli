@@ -13,14 +13,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/dashboard', [\App\Http\Controllers\Admin\AdminDashboard::class, 'index']);
+Route::prefix('/penduduk')->group(function () {
+    Route::get('/', [\App\Http\Controllers\Admin\AdminPenduduk::class, 'index']);
+});
 Route::prefix('/bansos')->group(function () {
-   Route::get('/', function () {
-       return view('bansos.index');
-   });
+   Route::get('/', [\App\Http\Controllers\Admin\AdminBansos::class, 'index']);
     Route::get('/create', function () {
-        return view('bansos.create');
+        return view('admin.bansos.create');
     });
     Route::get('/detail', function () {
-        return view('bansos.detail');
+        return view('admin.bansos.detail');
     });
+});
+Route::prefix('/laporan')->group(function () {
+    Route::get('/', [\App\Http\Controllers\Admin\AdminLaporan::class, 'index']);
+});
+Route::prefix('/informasi')->group(function () {
+    Route::get('/', [\App\Http\Controllers\Admin\AdminInformasi::class, 'index']);
 });
