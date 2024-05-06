@@ -17,22 +17,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', [\App\Http\Controllers\Admin\AdminDashboard::class, 'index']);
-Route::prefix('/penduduk')->group(function () {
+Route::get('admin/dashboard', [\App\Http\Controllers\Admin\AdminDashboard::class, 'index']);
+Route::prefix('admin/penduduk')->group(function () {
     Route::get('/', [\App\Http\Controllers\Admin\AdminPenduduk::class, 'index']);
 });
-Route::prefix('/bansos')->group(function () {
+Route::prefix('admin/bansos')->group(function () {
    Route::get('/', [\App\Http\Controllers\Admin\AdminBansos::class, 'index']);
-    Route::get('/create', function () {
-        return view('admin.bansos.create');
-    });
-    Route::get('/detail', function () {
-        return view('admin.bansos.detail');
-    });
+   Route::get('/create', [\App\Http\Controllers\Admin\AdminBansos::class, 'create']);
+   Route::get('/detail', [\App\Http\Controllers\Admin\AdminBansos::class, 'detail']);
 });
-Route::prefix('/laporan')->group(function () {
+Route::prefix('admin/laporan')->group(function () {
     Route::get('/', [\App\Http\Controllers\Admin\AdminLaporan::class, 'index']);
 });
-Route::prefix('/informasi')->group(function () {
+Route::prefix('admin/informasi')->group(function () {
     Route::get('/', [\App\Http\Controllers\Admin\AdminInformasi::class, 'index']);
 });
