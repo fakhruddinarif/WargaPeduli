@@ -16,4 +16,21 @@ class AdminBansos extends Controller
 
         return view('admin.bansos.index', ['page' => $page, 'activeMenu' => $activeMenu, 'date' => $date]);
     }
+
+    public function create()
+    {
+        $date = Carbon::now()->isoFormat('D MMMM Y');
+        $page = "Bantuan Sosial";
+        $activeMenu = "bansos";
+
+        return view('admin.bansos.create', ['page' => $page, 'activeMenu' => $activeMenu, 'date' => $date]);
+    }
+
+    public function detail()
+    {
+        $date = Carbon::now()->isoFormat('D MMMM Y');
+        $page = "Bantuan Sosial";
+        $activeMenu = "bansos";
+        return view('admin.bansos.detail', ['page' => $page, 'activeMenu' => $activeMenu, 'date' => $date]);
+    }
 }

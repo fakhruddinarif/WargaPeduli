@@ -13,7 +13,7 @@
             </div>
         </form>
         <div class="flex justify-center items-center w-fit h-fit rounded-lg bg-[#0EA5E9]">
-            <a href="{{ url('bansos/create') }}" class="py-3 px-5 sm:px-10">
+            <a href="{{ url('/admin/bansos/create') }}" class="py-3 px-5 sm:px-10">
                 <span class="font-medium text-sm text-white">Tambah</span>
             </a>
         </div>
@@ -40,7 +40,7 @@
                     <td class="px-6 py-4">08</td>
                     <td class="px-6 py-4">PKH</td>
                     <td class="px-6 py-4">
-                        <a href="{{ url('bansos/detail') }}" class=" w-fit h-fit px-6 py-2 bg-[#0EA5E9] rounded-md">
+                        <a href="{{ url('/admin/bansos/detail') }}" class=" w-fit h-fit px-6 py-2 bg-[#0EA5E9] rounded-md">
                             <span class="font-semibold text-white">Detail</span>
                         </a>
                     </td>
