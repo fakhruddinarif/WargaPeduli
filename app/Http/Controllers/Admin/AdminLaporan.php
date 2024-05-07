@@ -16,4 +16,11 @@ class AdminLaporan extends Controller
 
         return view('admin.laporan.index', ['page' => $page, 'activeMenu' => $activeMenu, 'date' => $date]);
     }
+     public function detail()
+    {
+        $date = Carbon::now()->isoFormat('D MMMM Y');
+        $page = "Laporan";
+        $activeMenu = "laporan";
+        return view('admin.laporan.detail', ['page' => $page, 'activeMenu' => $activeMenu, 'date' => $date]);
+    }
 }

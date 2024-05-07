@@ -28,7 +28,10 @@ Route::prefix('admin/bansos')->group(function () {
 });
 Route::prefix('admin/laporan')->group(function () {
     Route::get('/', [\App\Http\Controllers\Admin\AdminLaporan::class, 'index']);
+    Route::get('/detail', [\App\Http\Controllers\Admin\AdminLaporan::class, 'detail']);
 });
 Route::prefix('admin/informasi')->group(function () {
     Route::get('/', [\App\Http\Controllers\Admin\AdminInformasi::class, 'index']);
+    Route::get('/create', [\App\Http\Controllers\Admin\AdminInformasi::class, 'create']);
+    Route::get('/detail', [\App\Http\Controllers\Admin\AdminInformasi::class, 'detail']);
 });
