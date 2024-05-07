@@ -41,7 +41,7 @@
                     <td class="px-6 py-4">Infrastruktur</td>
                     <td class="px-6 py-4">Selesai</td>
                     <td class="px-6 py-4">
-                        <a href="{{ url('bansos/detail') }}" class=" w-fit h-fit px-6 py-2 bg-[#0EA5E9] rounded-md">
+                        <a href="{{ url('/admin/laporan/detail') }}" class=" w-fit h-fit px-6 py-2 bg-[#0EA5E9] rounded-md">
                             <span class="font-semibold text-white">Detail</span>
                         </a>
                     </td>
