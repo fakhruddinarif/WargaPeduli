@@ -27,6 +27,14 @@
                             <label for="konten" class="block font-normal text-sm text-[#1A1A1A]">Konten</label>
                             <input type="text" name="konten" id="konten" class="px-2 py-3 font-normal text-base text-black w-full rounded-lg border-2" placeholder="Masukkan Konten">
                         </div>
+                        <div class="flex flex-col justify-start items-start gap-4 w-[100%]">
+                            <span class="font-semibold text-sm text-[#1A1A1A]">Upload Gambar</span>
+                            <label for="gambar" class="flex flex-col items-center justify-center w-full h-64 border-2 border-[#5E51D9]/[8%] border-dashed rounded-lg cursor-pointer bg-[#F6F6F6]">
+                                <p class="mb-2 text-sm text-[#F6F6F6]"><span class="font-semibold">Klik untuk upload</span></p>
+                                <p class="text-xs text-black">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+                                <input id="gambar" type="file" class="hidden">
+                            </label>
+                        </div>
                     </div>
                 </div>
                 <div class="flex flex-row items-start justify-start gap-4">
