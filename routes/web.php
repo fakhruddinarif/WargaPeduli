@@ -17,6 +17,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/pengajuan', function () {
+    return view('pengajuan');
+});
+Route::get('/login', function () {
+    return view('login');
+});
+
+
 Route::get('admin/dashboard', [\App\Http\Controllers\Admin\AdminDashboard::class, 'index']);
 Route::prefix('admin/penduduk')->group(function () {
     Route::get('/', [\App\Http\Controllers\Admin\AdminPenduduk::class, 'index']);
