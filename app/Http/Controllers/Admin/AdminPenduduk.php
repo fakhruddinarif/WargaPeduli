@@ -16,4 +16,18 @@ class AdminPenduduk extends Controller
 
         return view('admin.penduduk.index', ['page' => $page, 'activeMenu' => $activeMenu, 'date' => $date]);
     }
+
+    public function create()
+    {
+        $date = Carbon::now()->isoFormat('D MMMM Y');
+        $page = "Penduduk";
+        $activeMenu = "penduduk";
+
+        return view('admin.penduduk.create', ['page' => $page, 'activeMenu' => $activeMenu, 'date' => $date]);
+    }
+
+    public function store(Request $request)
+    {
+
+    }
 }
