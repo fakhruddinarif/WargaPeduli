@@ -28,6 +28,8 @@ Route::get('/login', function () {
 Route::get('admin/dashboard', [\App\Http\Controllers\Admin\AdminDashboard::class, 'index']);
 Route::prefix('admin/penduduk')->group(function () {
     Route::get('/', [\App\Http\Controllers\Admin\AdminPenduduk::class, 'index']);
+    Route::get('/create', [\App\Http\Controllers\Admin\AdminPenduduk::class, 'create']);
+    Route::post('/', [\App\Http\Controllers\Admin\AdminPenduduk::class,'store']);
 });
 Route::prefix('admin/bansos')->group(function () {
    Route::get('/', [\App\Http\Controllers\Admin\AdminBansos::class, 'index']);

@@ -27,6 +27,10 @@
                             <label for="konten" class="block font-normal text-sm text-[#1A1A1A]">Konten</label>
                             <input type="text" name="konten" id="konten" class="px-2 py-3 font-normal text-base text-black w-full rounded-lg border-2" value="6">
                         </div>
+                        <div class="flex flex-col justify-start items-start gap-2 w-full">
+                            <label for="gambar" class="block font-normal text-sm text-[#1A1A1A]">Gambar</label>
+                             <img src="{{ asset('logo-polinema.png') }}" alt="Gambar" class="w-50 h-50 rounded-lg border-2">
+                        </div>
                     </div>
                 </div>
                 <div class="flex flex-row items-start justify-start gap-4">

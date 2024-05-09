@@ -11,7 +11,7 @@
                 </a>
             </div>
         </div>
-        <form method="POST" action="" class="w-full border-2 p-4 rounded-b-lg">
+        <form method="POST" action="{{ route('/admin/bansos') }}" class="w-full border-2 p-4 rounded-b-lg">
             <div class="flex flex-col justify-start items-start gap-4 w-full">
                 <div class="flex flex-row justify-start items-center w-full gap-8">
                     <div class="flex flex-col justify-center items-center w-[50%] gap-4">

@@ -25,7 +25,12 @@
                         </div>
                         <div class="flex flex-col justify-start items-start gap-2 w-full">
                             <label for="jenis_laporan" class="block font-normal text-sm text-[#1A1A1A]">Jenis Laporan</label>
-                            <input type="text" name="jenis_laporan" id="jenis_laporan" class="px-2 py-3 font-normal text-base text-black w-full rounded-lg border-2" value="6">
+                            <select name="jenis_laporan" id="jenis_laporan" class="px-2 py-3 font-normal text-base text-black w-full rounded-lg border-2">
+                                <option value="1">P</option>
+                                <option value="2">P</option>
+                                <option value="3">P</option>
+                                <option value="4">P</option>
+                            </select>
                         </div>
                         <div class="flex flex-col justify-start items-start gap-2 w-full">
                             <label for="status" class="block font-normal text-sm text-[#1A1A1A]">Status</label>
