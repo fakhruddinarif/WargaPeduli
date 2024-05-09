@@ -10,12 +10,12 @@
                 </a>
             </div>
             <div class="flex flex-row justify-end items-center px-2 py-3 w-full sm:px-4 gap-2">
-                <button type="button" class="px-5 py-2 w-fit bg-white border-[#0EA5E9] border-2 rounded-md">
+                <button type="button" class="px-5 py-2 w-fit bg-green border-[#0EA5E9] border-2 rounded-md">
                     <span class="font-medium text-base text-[#0EA5E9]">Pengajuan</span>
                 </button>
-                <button type="button" class="px-5 py-2 w-fit bg-[#0EA5E9] border-2 rounded-md">
+                <a href="login" class="px-5 py-2 w-fit bg-[#0EA5E9] border-2 rounded-md">
                     <span class="font-medium text-base text-white">Login</span>
-                </button>
+                </a>
             </div>
         </div>
     </nav>
