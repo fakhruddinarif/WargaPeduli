@@ -1,26 +1,30 @@
-<nav class="fixed z-20 w-full bg-white mt-[60px] border-b-2">
-    <div class="flex flex-row justify-between items-center w-full border-2 border-[#F6F6F6] gap-8 md:gap-12 lg:gap-10 px-2 sm:px-4">
-        <div class="flex justify-start items-center rtl:justify-end w-fit">
-            <button id="toggle" data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar" aria-controls="logo-sidebar" type="button" class="inline-flex items-center p-2 text-sm text-[#7F7F7F] rounded-lg xl:hidden">
-                <span class="sr-only">Open sidebar</span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#7f7f7f" viewBox="0 0 256 256"><path d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z"></path></svg>
-            </button>
-            <a href="{{ url('/') }}" class="flex flex-row justify-start items-center gap-3 lg:w-44 px-2 py-3">
-                <img src="{{ asset('logo-polinema.png') }}" alt="logo-polinema" class="w-10 h-10">
-                <span class="font-semibold text-sm text-[#1B1B1B] sm:text-base">Warga Peduli</span>
-            </a>
-        </div>
-        <div class="flex flex-row justify-end sm:justify-between items-center px-2 py-3 w-full sm:px-4">
-            <div id="text-date-title" class="flex flex-col justify-center items-stretch gap-0 sm:gap-3">
-                <span class="font-medium text-xs text-[#6C6C6C] md:text-sm">{{ $date }}</span>
-                <span class="font-semibold text-[#1B1B1B] md:text-[28px] text-xl">{{ $page }}</span>
-            </div>
-            <div class="flex flex-row justify-between items-center gap-2 sm:gap-[14px] border-2 rounded-lg border-[#EEEEEE] px-3 py-[14px]">
-                <a href="{{ url("/akun") }}" class="flex flex-col justify-center items-start w-full text-left">
-                    <span class="font-semibold text-xs sm:text-base text-black">Sutresno</span>
-                    <span class="font-medium text-xs text-[#121212]/[40%]">Admin</span>
+<nav class="fixed top-[60px] z-50 w-full bg-white border-b border-neutral-300">
+    <div class="px-3 py-3 lg:px-5 lg:pl-3">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center justify-start rtl:justify-end h-20 w-fit">
+                <button id="toggle" data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar" aria-controls="logo-sidebar" type="button" class="inline-flex items-center p-2 text-sm text-neutral-900 rounded-lg lg:hidden hover:bg-neutral-100 focus:outline-none focus:ring-2 focus:ring-neutral-200">
+                    <span class="sr-only">Open sidebar</span>
+                    <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
+                    </svg>
+                </button>
+                <a href="{{ url('/') }}" class="flex ms-2 md:me-24">
+                    <img src="{{ asset('logo-polinema.png') }}" class="h-8 me-3" alt="Logo Polinema" />
+                    <span class="self-center text-base font-semibold sm:text-xl whitespace-nowrap">Warga Peduli</span>
                 </a>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#292d32" viewBox="0 0 256 256"><path d="M230.92,212c-15.23-26.33-38.7-45.21-66.09-54.16a72,72,0,1,0-73.66,0C63.78,166.78,40.31,185.66,25.08,212a8,8,0,1,0,13.85,8c18.84-32.56,52.14-52,89.07-52s70.23,19.44,89.07,52a8,8,0,1,0,13.85-8ZM72,96a56,56,0,1,1,56,56A56.06,56.06,0,0,1,72,96Z"></path></svg>
+            </div>
+            <div class="w-full flex flex-row justify-end sm:justify-between items-center px-2 py-3 sm:px-4">
+                <div id="text-date-title" class="flex flex-col justify-center items-stretch gap-0 sm:gap-3">
+                    <span class="font-medium text-xs text-neutral-500 md:text-sm">{{ $date }}</span>
+                    <span class="font-semibold text-neutral-900 md:text-2xl text-xl">{{ $page }}</span>
+                </div>
+                <div class="flex flex-row justify-between items-center gap-2 sm:gap-[14px] border-2 rounded-lg border-neutral-200 px-3 py-[14px]">
+                    <a href="{{ url("/akun") }}" class="flex flex-col justify-center items-start w-full text-left">
+                        <span class="font-semibold text-xs sm:text-base text-black">Sutresno</span>
+                        <span class="font-medium text-xs text-neutral-400">Admin</span>
+                    </a>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#292d32" viewBox="0 0 256 256"><path d="M230.92,212c-15.23-26.33-38.7-45.21-66.09-54.16a72,72,0,1,0-73.66,0C63.78,166.78,40.31,185.66,25.08,212a8,8,0,1,0,13.85,8c18.84-32.56,52.14-52,89.07-52s70.23,19.44,89.07,52a8,8,0,1,0,13.85-8ZM72,96a56,56,0,1,1,56,56A56.06,56.06,0,0,1,72,96Z"></path></svg>
+                </div>
             </div>
         </div>
     </div>
