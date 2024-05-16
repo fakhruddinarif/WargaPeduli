@@ -24,12 +24,15 @@ Route::get('/login', function () {
     return view('login');
 });
 
-
 Route::get('admin/dashboard', [\App\Http\Controllers\Admin\AdminDashboard::class, 'index']);
 Route::prefix('admin/penduduk')->group(function () {
     Route::get('/', [\App\Http\Controllers\Admin\AdminPenduduk::class, 'index']);
-    Route::get('/create', [\App\Http\Controllers\Admin\AdminPenduduk::class, 'create']);
-    Route::post('/', [\App\Http\Controllers\Admin\AdminPenduduk::class,'store']);
+    Route::get('/create/keluarga', [\App\Http\Controllers\Admin\AdminPenduduk::class, 'createKeluarga']);
+    Route::post('/keluarga', [\App\Http\Controllers\Admin\AdminPenduduk::class,'storeKeluarga']);
+    Route::get('/keluarga/{id}', [\App\Http\Controllers\Admin\AdminPenduduk::class, 'detailKeluarga']);
+    Route::get('/create/warga', [\App\Http\Controllers\Admin\AdminPenduduk::class, 'createWarga']);
+    Route::post('/warga', [\App\Http\Controllers\Admin\AdminPenduduk::class,'storeWarga']);
+    Route::get('/warga/{id}', [\App\Http\Controllers\Admin\AdminPenduduk::class, 'detailWarga']);
 });
 Route::prefix('admin/bansos')->group(function () {
    Route::get('/', [\App\Http\Controllers\Admin\AdminBansos::class, 'index']);
