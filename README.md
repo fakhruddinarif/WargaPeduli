@@ -28,7 +28,8 @@ WargaPeduli adalah sebuah sistem `e-gevorment` yang berfokus pada tingkat rukun 
 ## Library & Driver
 
 - DOMPDF : https://github.com/barryvdh/laravel-dompdf
-- Data Table : https://yajrabox.com/docs/laravel-datatables/10.0
+- Data Table : https://livewire.laravel.com/docs/installation
+- UUID : https://github.com/ramsey/uuid
 
 ## Installation
 

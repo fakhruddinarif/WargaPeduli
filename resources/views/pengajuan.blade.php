@@ -1,50 +1,41 @@
 @extends('layouts.app')
 @section('template')
 @include('layouts.navigation')
-<div class="font-[sans-serif] text-[#333] h-screen w-screen">
-    <div class="min-w-screen min-h-screen flex fle-col items-center justify-center py-6 px-4">
-        <form class="max-w-md border border-gray-300 rounded-md p-6 shadow-[0_2px_22px_-4px_rgba(93,96,127,0.2)] max-md:mx-auto ml-20">
-            <div class="mb-5">
-                <h3 class="text-3xl font-extrabold"> Oke Bro </h3>
-            </div>
-            <div class="grid sm:grid-cols-2 gap-10">
-                <div class="relative flex items-center">
-                    <input type="text" placeholder="First Name" class="px-4 py-3 bg-[#f0f1f2] text-black w-full text-sm border outline-[#007bff] rounded" />
-                     <svg xmlns="http://www.w3.org/2000/svg" fill="#bbb" stroke="#bbb" class="w-[18px] h-[18px] absolute right-4" viewBox="0 0 24 24">
-                        <circle cx="10" cy="7" r="6" data-original="#000000"></circle>
-                            <path d="M14 15H6a5 5 0 0 0-5 5 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 5 5 0 0 0-5-5zm8-4h-2.59l.3-.29a1 1 0 0 0-1.42-1.42l-2 2a1 1 0 0 0 0 1.42l2 2a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42l-.3-.29H22a1 1 0 0 0 0-2z" data-original="#000000"></path>
-                    </svg>
+    <div class="flex flex-col justify-center items-center w-full rounded-lg mx-auto max-w-80 sm:max-w-xl px-4 py-4">
+        <div class="flex flex-row w-full gap-1 justify-start items-center px-2 py-1 bg-blue-500 rounded-t-lg">
+            <a href="{{ url('/') }}" class="px-2 py-3 content-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#ffffff" viewBox="0 0 256 256"><path d="M228,128a12,12,0,0,1-12,12H69l51.52,51.51a12,12,0,0,1-17,17l-72-72a12,12,0,0,1,0-17l72-72a12,12,0,0,1,17,17L69,116H216A12,12,0,0,1,228,128Z"></path></svg>
+            </a>
+            <span class="text-base font-semibold text-white">Pengajuan</span>
+        </div>
+        <div class="flex flex-col w-full h-fit justify-center items-center border-2 rounded-b-lg gap-4 px-4 py-4">
+            <form method="POST" action="{{ url('/pengajuan') }}" class="w-full flex flex-col justify-end items-end gap-4">
+                @csrf
+                <div class="w-full gap-1 flex flex-col justify-start items-start">
+                    <label for="nkk" class="block font-medium text-sm text-neutral-900">NKK</label>
+                    <input type="text" id="nkk" name="nkk" class="px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan NKK">
                 </div>
-                <div class="relative flex items-center">
-                    <input type="text" placeholder="Last Name" class="px-4 py-3 bg-[#f0f1f2] text-black w-full text-sm border outline-[#007bff] rounded"/>
-                     <svg xmlns="http://www.w3.org/2000/svg" fill="#bbb" stroke="#bbb" class="w-[18px] h-[18px] absolute right-4" viewBox="0 0 24 24">
-                        <circle cx="10" cy="7" r="6" data-original="#000000"></circle>
-                            <path d="M14 15H6a5 5 0 0 0-5 5 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 5 5 0 0 0-5-5zm8-4h-2.59l.3-.29a1 1 0 0 0-1.42-1.42l-2 2a1 1 0 0 0 0 1.42l2 2a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42l-.3-.29H22a1 1 0 0 0 0-2z" data-original="#000000"></path>
-                    </svg>
+                <div class="w-full gap-1 flex flex-col justify-start items-start">
+                    <label for="username" class="block font-medium text-sm text-neutral-900">Username</label>
+                    <input type="text" id="username" name="username" class="px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Username">
                 </div>
-                <div class="relative flex items-center">
-                    <input type="email" placeholder="Email" class="px-4 py-3 bg-[#f0f1f2] text-black w-full text-sm border outline-[#007bff] rounded" />                     
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="#bbb" stroke="#bbb" class="w-[18px] h-[18px] absolute right-4" viewBox="0 0 682.667 682.667">
-                        <defs>
-                            <clipPath id="a" clipPathUnits="userSpaceOnUse">
-                                <path d="M0 512h512V0H0Z" data-original="#000000"></path>
-                            </clipPath>
-                        </defs>
-                        <g clip-path="url(#a)" transform="matrix(1.33 0 0 -1.33 0 682.667)">
-                                <path fill="none" stroke-miterlimit="10" stroke-width="40" d="M452 444H60c-22.091 0-40-17.909-40-40v-39.446l212.127-157.782c14.17-10.54 33.576-10.54 47.746 0L492 364.554V404c0 22.091-17.909 40-40 40Z" data-original="#000000"></path>
-                                <path d="M472 274.9V107.999c0-11.027-8.972-20-20-20H60c-11.028 0-20 8.973-20 20V274.9L0 304.652V107.999c0-33.084 26.916-60 60-60h392c33.084 0 60 26.916 60 60v196.653Z" data-original="#000000"></path>
-                        </g>
-                    </svg>
+                <div class="w-full gap-1 flex flex-col justify-start items-start">
+                    <label for="password" class="block font-medium text-sm text-neutral-900">Password</label>
+                    <input type="password" id="password" name="password" class="px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Password">
                 </div>
-                <div class="relative flex items-center">
-                    <input type="password" placeholder="Password" class="px-4 py-3 bg-[#f0f1f2] text-black w-full text-sm border outline-[#007bff] rounded" />
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="#bbb" stroke="#bbb" class="w-[18px] h-[18px] absolute right-4 cursor-pointer" viewBox="0 0 128 128">
-                        <path d="M64 104C22.127 104 1.367 67.496.504 65.943a4 4 0 0 1 0-3.887C1.367 60.504 22.127 24 64 24s62.633 36.504 63.496 38.057a4 4 0 0 1 0 3.887C126.633 67.496 105.873 104 64 104zM8.707 63.994C13.465 71.205 32.146 96 64 96c31.955 0 50.553-24.775 55.293-31.994C114.535 56.795 95.854 32 64 32 32.045 32 13.447 56.775 8.707 63.994zM64 88c-13.234 0-24-10.766-24-24s10.766-24 24-24 24 10.766 24 24-10.766 24-24 24zm0-40c-8.822 0-16 7.178-16 16s7.178 16 16 16 16-7.178 16-16-7.178-16-16-16z" data-original="#000000"></path>
-                    </svg>
+                <div class="w-full gap-1 flex flex-col justify-start items-start">
+                    <label for="rt_id" class="block font-medium text-sm text-neutral-900">Rukun Tetangga<span class="font-medium text-sm text-red-600">*</span></label>
+                    <select id="rt_id" name="rt_id" class="px-2 py-3 font normal text-sm text-black rounded-lg w-full border-2">
+                        <option class="font normal text-sm text-black" value="">Pilih Rukun Tetangga</option>
+                        @for($i = 0; $i < 8; $i++)
+                            <option class="font normal text-sm text-black" value="{{ $i + 1 }}">RT 0{{ $i + 1 }}</option>
+                        @endfor
+                    </select>
                 </div>
-            </div>
-            <button type="button" class="mt-8 px-6 py-2.5 text-sm w-full font-semibold bg-[#0EA5E9] text-white rounded hover:bg-[#006bff] focus:outline-none">Submit</button>
-        </form>
+                <button type="submit" class="w-full px-4 py-3 bg-blue-500 rounded-md">
+                    <span class="font-medium text-sm text-white">Simpan</span>
+                </button>
+            </form>
+        </div>
     </div>
-</div>
 @endsection
