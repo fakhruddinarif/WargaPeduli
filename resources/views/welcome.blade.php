@@ -1,6 +1,8 @@
 @extends('layouts.app')
+
 @section('template')
     @include('layouts.navigation')
+
     <nav class="fixed z-20 w-full bg-white mt-[60px] border-b-2">
         <div class="flex flex-row justify-between items-center w-full border-2 border-b-neutral-50 gap-8 md:gap-12 lg:gap-10 px-2 sm:px-4">
             <div class="flex justify-start items-center rtl:justify-end w-fit">
@@ -19,11 +21,95 @@
             </div>
         </div>
     </nav>
-    <div class="w-full">
-        <img src="{{ asset('laia-nunez.jpg') }}" class="w-full h-[30rem]">
-        <div class="absolute top-[60%] left-1/2 -translate-x-1/2 -translate-y-1/2 bg-neutral-950/70 px-4 py-2">
+
+    <div class="w-full h-screen overflow-y-scroll">
+        <img src="{{ asset('laia-nunez.jpg') }}" class="w-full h-[35rem]">
+        {{-- <div class="fixed top-[48%] left-1/2 -translate-x-1/2 -translate-y-1/2 bg-neutral-950/70 px-4 py-2">
             <span class="text-base font-medium text-white">Website Desa</span>
-            <p class="text-sm font-normal text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat, id!</p>
+            <p class="text-sm font-normal text-white">
+                Website desa adalah sebuah website yang dibuat untuk menampilkan informasi tentang suatu desa secara online
+            </p>
+        </div> --}}
+        <div class="container mx-auto max-w-7xl">
+            <div class="px-4 bg-white">
+                <div class="flex flex-col md:flex-row gap-8">
+                    <!-- Berita Terkini -->
+                    <div class="w-full md:w-1/2">
+                        <h1 class="text-2xl text-blue-500 mb-4 mt-8">Berita <strong>Terkini</strong></h1>
+                        <hr class="w-[190%] h-0.5 mt-2 border-0 rounded bg-blue-500">
+                        <div class="flex flex-col mb-8">
+                            <div class="flex items-center">
+                                <div class="bg-white mr-4 py-22 mt-14 rounded-md">
+                                    <img src="{{ asset('laia-nunez.jpg') }}" class="w-[50rem] h-[13rem]">
+                                </div>
+                                <div class="flex flex-col justify-center">
+                                    <h class="text-lg text-blue-500 mb-36 ml-5">Melakukan diagnosa jaringan</h>
+                                    <p class="text-sm text-gray-400 font-normal ml-5">asndo</p>
+                                </div>
+                            </div>
+                            <div class="bg-blue-500/90 w-[40%] h-[3rem] mt-7 px-6 py-3">
+                                <h2 class="text-white mx-2">Mar 17, 2024</h2>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="bg-white mr-4 py-22 mt-14 rounded-md">
+                                    <img src="{{ asset('laia-nunez.jpg') }}" class="w-[50rem] h-[13rem]">
+                                </div>
+                                <div class="flex flex-col justify-center">
+                                    <h2 class="text-lg text-blue-500 mb-36 ml-5">Melakukan diagnosa jaringan</h2>
+                                    <p class="text-sm text-gray-400 font-normal ml-5">asndo</p>
+                                </div>
+                            </div>
+                            <div class="bg-blue-500/90 w-[40%] h-[3rem] mt-7 px-6 py-3">
+                                <h2 class="text-white mx-2">Mar 17, 2024</h2>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pengumuman -->
+                    <div class="w-full md:w-1/2 ml-96">
+                        <h1 class="text-2xl text-blue-500 mb-4 mt-8">Pengumuman</h1>
+                        <hr class="w-[100%] h-0.5 mt-2 border-0 rounded bg-blue-500">
+                        <div class="flex flex-col mb-8">
+                            <div class="flex items-center">
+                                <div class="mt-4 ml-0.25 bg-blue-800 rounded py-2">
+                                    <span class="text-lg text-white mr-[10rem] text-center ml-6">Pengumuman penting desa</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="mt-4 ml-0.25 bg-blue-800 rounded py-2">
+                                    <span class="text-lg text-white mr-[10rem] text-center ml-6">Pengumuman penting desa</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="mt-4 ml-0.25 bg-blue-800 rounded py-2">
+                                    <span class="text-lg text-white mr-[10rem] text-center ml-6">Pengumuman penting desa</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Agenda Kegiatan -->
+                        <h1 class="text-2xl text-blue-500 mb-4 mt-8">Agenda <Strong>Kegiatan</Strong></h1>
+                        <hr class="w-[100%] h-0.5 mt-2 border-0 rounded bg-blue-500">
+                        <div class="flex flex-col mb-8">
+                            <div class="flex items-center">
+                                <div class="mt-4 ml-0.25 bg-blue-800 rounded py-2">
+                                    <span class="text-lg text-white mr-[10rem] text-center ml-6">Pengumuman penting desa</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="mt-4 ml-0.25 bg-blue-800 rounded py-2">
+                                    <span class="text-lg text-white mr-[10rem] text-center ml-6">Pengumuman penting desa</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="mt-4 ml-0.25 bg-blue-800 rounded py-2">
+                                    <span class="text-lg text-white mr-[10rem] text-center ml-6">Pengumuman penting desa</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 @endsection
