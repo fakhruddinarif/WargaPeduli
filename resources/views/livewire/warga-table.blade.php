@@ -90,4 +90,3 @@
         {{ $data->links() }}
     </div>
 </div>
-

@@ -24,7 +24,7 @@
                             <div class="mt-4 flex text-sm leading-6 text-neutral-600">
                                 <label for="dokumen" class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
                                     <span>Upload a file</span>
-                                    <input id="dokumen" name="dokumen" type="file" class="sr-only" value="{{ url('storage/app/dokumen/31530356_bird_2.jpg') }}">
+                                    <input id="dokumen" name="dokumen" type="file" class="sr-only"">
                                 </label>
                                 <p class="pl-1">or drag and drop</p>
                             </div>
@@ -102,9 +102,6 @@
                     <input type="tel" id="telepon" name="telepon" class="px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Nomor Telepon" value="{{ $data->telepon }}">
                 </div>
                 <div class="flex flex-row justify-between items-end w-full">
-                    <a href="{{url('/admin/penduduk/create/keluarga')}}" class="px-4 py-3 bg-blue-500 rounded-md">
-                        <span class="font-medium text-sm text-white">Sebelumnya</span>
-                    </a>
                     <button type="submit" class="px-4 py-3 bg-blue-500 rounded-md">
                         <span class="font-medium text-sm text-white">Simpan</span>
                     </button>
