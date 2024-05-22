@@ -16,8 +16,11 @@ class WebAuthMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $authenticate = true;
-        $user = Auth::user();
+        if (!Auth::check()) {
+            return redirect('/');
+        }
+
         return $next($request);
+
     }
 }

@@ -37,6 +37,7 @@ class WargaSeeder extends Seeder
                     'tanggal_lahir' => $faker->date,
                     'alamat' => $alamat,
                     'status_warga' => 'Menetap',
+                    'ibu_kandung' => $faker->name(),
                     'status_keluarga' => $sk,
                     'keluarga_id' => $id[$i]->id,
                     'rt_id' => $rt,

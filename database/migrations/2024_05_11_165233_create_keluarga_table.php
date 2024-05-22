@@ -15,10 +15,11 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('nkk', 20)->unique()->nullable(false);
             $table->string('dokumen', 255)->nullable();
-            $table->double('pendapatan')->nullable();
-            $table->double('luas_bangunan')->nullable();
+            $table->integer('pendapatan')->nullable();
+            $table->integer('luas_bangunan')->nullable();
             $table->integer('jumlah_tanggungan')->nullable();
-            $table->double('pajak_bumi')->nullable();
+            $table->integer('pajak_bumi')->nullable();
+            $table->integer('tagihan_listrik')->nullable();
             $table->timestamps();
         });
     }

@@ -76,10 +76,16 @@ php artisan make:model namaModel --migration --seed
 php artisan migrate
 ```
 
-### Run Seeder
+### Run Data Untuk Database
 
 ```shell
-php artisan db:seed --class=namaSeeder
+php artisan db:seed --class=LevelSeeder
+
+php artisan db:seed --class=RukunTetanggaSeeder
+
+Keluarga::factory()->count(40)->create()
+
+php artisan db:seed --class=WargaSeeder
 ```
 
 ## Run Application & Testing

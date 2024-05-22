@@ -9,6 +9,7 @@
         </div>
     </section>
     <script>
+        // Sidebar
         const sidebar = document.getElementById('sidebar')
         const toggle = document.getElementById('toggle')
         const dateTitle = document.getElementById('text-date-title')
@@ -53,6 +54,47 @@
             else {
                 dateTitle.classList.remove('hidden');
             }
+        });
+
+        // Drag and Drop
+        var dropzone = document.getElementById('dropzone');
+        var dokumen = document.getElementById('dokumen');
+        var preview = document.getElementById('preview');
+        var areaUpload = document.getElementById('area-upload');
+
+        dropzone.ondragover = function(event) {
+        event.preventDefault();
+        this.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+        };
+
+        dropzone.ondragleave = function(event) {
+            this.style.backgroundColor = 'initial';
+        };
+
+        dropzone.ondrop = function(event) {
+            event.preventDefault();
+            this.style.backgroundColor = 'initial';
+
+            dokumen.files = event.dataTransfer.files;
+            var reader = new FileReader();
+
+            reader.onloadend = function() {
+                preview.src = reader.result;
+                preview.classList.remove('hidden');
+                areaUpload.classList.add('hidden');
+            };
+            reader.readAsDataURL(dokumen.files[0]);
+        };
+
+        dokumen.addEventListener('change', function() {
+            var reader = new FileReader();
+
+            reader.onloadend = function() {
+                preview.src = reader.result;
+                preview.classList.remove('hidden');
+                areaUpload.classList.add('hidden');
+            };
+            reader.readAsDataURL(dokumen.files[0]);
         });
     </script>
 @endsection

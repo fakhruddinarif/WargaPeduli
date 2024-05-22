@@ -19,10 +19,17 @@ class Keluarga extends Model
     public $timestamps = true;
 
     protected $fillable = ['nkk', 'dokumen', 'pendapatan', 'luas_bangunan', 'jumlah_tanggungan', 'pajak_bumi'];
-    public function users() : HasMany
+    
+    public function warga() : HasMany
+    {
+        return $this->hasMany(Warga::class, 'keluarga_id', 'id');
+    }
+
+    public function user() : HasMany
     {
         return $this->hasMany(User::class, 'keluarga_id', 'id');
     }
+
 
     public function scopeSearch($query, $value)
     {

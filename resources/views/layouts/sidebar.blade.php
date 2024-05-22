@@ -31,10 +31,18 @@
                     <span class="font-medium text-base {{ ($activeMenu == 'informasi') ? 'text-indigo-600' : 'text-neutral-500' }}">Informasi</span>
                 </a>
             </li>
+            <li class="flex flex-col justify-start p-3 gap-3 w-full rounded-lg {{ ($activeMenu == 'akun') ? 'bg-indigo-600/10 border-b-indigo-600' : 'bg-white' }}">
+                <a href="{{ url('/admin/akun')  }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="{{ ($activeMenu == 'akun') ? '#4746e5' : '#737373' }}" viewBox="0 0 256 256"><path d="M200,112a8,8,0,0,1-8,8H152a8,8,0,0,1,0-16h40A8,8,0,0,1,200,112Zm-8,24H152a8,8,0,0,0,0,16h40a8,8,0,0,0,0-16Zm40-80V200a16,16,0,0,1-16,16H40a16,16,0,0,1-16-16V56A16,16,0,0,1,40,40H216A16,16,0,0,1,232,56ZM216,200V56H40V200H216Zm-80.26-34a8,8,0,1,1-15.5,4c-2.63-10.26-13.06-18-24.25-18s-21.61,7.74-24.25,18a8,8,0,1,1-15.5-4,39.84,39.84,0,0,1,17.19-23.34,32,32,0,1,1,45.12,0A39.76,39.76,0,0,1,135.75,166ZM96,136a16,16,0,1,0-16-16A16,16,0,0,0,96,136Z"></path></svg>
+                    <span class="font-medium text-base {{ ($activeMenu == 'akun') ? 'text-indigo-600' : 'text-neutral-500' }}">Akun</span>
+                </a>
+            </li>
+            <li class="flex flex-row justify-start p-3 gap-3 w-full rounded-lg bg-white">
+                <a href=""  class="flex flex-row justify-start items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#737373" viewBox="0 0 256 256"><path d="M124,216a12,12,0,0,1-12,12H48a12,12,0,0,1-12-12V40A12,12,0,0,1,48,28h64a12,12,0,0,1,0,24H60V204h52A12,12,0,0,1,124,216Zm108.49-96.49-40-40a12,12,0,0,0-17,17L195,116H112a12,12,0,0,0,0,24h83l-19.52,19.51a12,12,0,0,0,17,17l40-40A12,12,0,0,0,232.49,119.51Z"></path></svg>
+                    <span class="font-semibold text-base text-neutral-500">Keluar</span>
+                </a>
+            </li>
         </ul>
-        <a href="" class="flex flex-row p-3 gap-2 w-full h-fit justify-start items-center cursor-pointer group rounded-lg">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#737373" viewBox="0 0 256 256"><path d="M124,216a12,12,0,0,1-12,12H48a12,12,0,0,1-12-12V40A12,12,0,0,1,48,28h64a12,12,0,0,1,0,24H60V204h52A12,12,0,0,1,124,216Zm108.49-96.49-40-40a12,12,0,0,0-17,17L195,116H112a12,12,0,0,0,0,24h83l-19.52,19.51a12,12,0,0,0,17,17l40-40A12,12,0,0,0,232.49,119.51Z"></path></svg>
-            <span class="font-semibold text-base text-neutral-500">Keluar</span>
-        </a>
     </div>
 </aside>

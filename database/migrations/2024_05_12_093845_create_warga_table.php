@@ -16,11 +16,12 @@ return new class extends Migration
             $table->string('nik', 20)->unique()->nullable(false);
             $table->string('nama', 100)->nullable(false);
             $table->enum('jenis_kelamin', ['Laki-Laki', 'Perempuan'])->nullable(false);
-            $table->string('tempat_lahir', 50)->nullable();
-            $table->date('tanggal_lahir')->nullable();
-            $table->string('alamat', 255)->nullable();
-            $table->enum('status_warga', ['Menetap', 'Pendatang', 'Merantau'])->nullable();
-            $table->enum('status_keluarga', ['Kepala Keluarga', 'Istri', 'Anak', 'Cucu', 'Menantu', 'Lainnya'])->nullable();
+            $table->string('tempat_lahir', 50)->nullable(false);
+            $table->date('tanggal_lahir')->nullable(false);
+            $table->string('alamat', 255)->nullable(false);
+            $table->string('ibu_kandung', 100)->nullable(false);
+            $table->enum('status_warga', ['Menetap', 'Pendatang', 'Merantau'])->nullable(false);
+            $table->enum('status_keluarga', ['Kepala Keluarga', 'Istri', 'Anak', 'Cucu', 'Menantu', 'Lainnya'])->nullable(false);
             $table->string('telepon', 16)->nullable();
             $table->uuid('keluarga_id')->index();
             $table->unsignedBigInteger('rt_id')->nullable(false)->index();
