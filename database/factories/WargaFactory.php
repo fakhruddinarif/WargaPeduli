@@ -20,9 +20,10 @@ class WargaFactory extends Factory
         return [
             'nik' => '35755625' . strval($number),
             'nama' => fake()->name(),
-            'jenis_kelamin' => fake()->randomElement(['Laki-Laki', 'Perempuan']),
+            'jenis_kelamin' => fake()->randomElement(['Laki-laki', 'Perempuan']),
             'tempat_lahir' => fake()->randomElement(['Kota Malang', 'Kota Batu', 'Kab. Malang']),
-            'alamat_lahir' => fake()->address(),
+            'tanggal_lahir' => fake()->date(),
+            'alamat' => fake()->address(),
             'status_warga' => fake()->randomElement(['Menetap', 'Pendatang', 'Merantau']),
             'status_keluarga' => fake()->randomElement(['Kepala Keluarga', 'Istri', 'Anak', 'Cucu', 'Menantu', 'Lainnya']),
             'telepon' => fake()->phoneNumber(),

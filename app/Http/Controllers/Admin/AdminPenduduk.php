@@ -7,10 +7,12 @@ use App\Models\Keluarga;
 use App\Models\RukunTetangga;
 use App\Models\Warga;
 use Carbon\Carbon;
+use GuzzleHttp\Psr7\Query;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use function Laravel\Prompts\error;
 
@@ -38,21 +40,69 @@ class AdminPenduduk extends Controller
         $page = "Penduduk";
         $activeMenu = "penduduk";
 
-        return view('admin.penduduk.create_keluarga', ['page' => $page, 'activeMenu' => $activeMenu, 'date' => $date]);
+        $pendapatan = [
+            '5' => 'Kurang dari Rp. 500.000',
+            '4' => 'Rp. 500.000 - Rp. 1.000.000',
+            '3' => 'Rp. 1.000.000 - Rp. 2.500.000',
+            '2' => 'Rp. 2.500.000 - Rp. 3.500.000',
+            '1' => 'Lebih dari Rp. 3.500.000' 
+        ];
+        $luasBangunan = [
+            '5' => 'Kurang dari 12 m²',
+            '4' => '12 m² - 20 m²',
+            '3' => '20 m² - 30 m²',
+            '2' => '30 m² - 35 m²',
+            '1' => 'Lebih dari 35 m²'
+        ];
+        $jumlahTanggungan = [
+            '5' => '1 Orang',
+            '4' => '2 Orang',
+            '3' => '3 Orang',
+            '2' => '4 Orang',
+            '1' => 'Lebih dari 5 Orang'
+        ];
+        $pajakBumi = [
+            '5' => 'Kurang dari Rp. 20.000',
+            '4' => 'Rp. 20.000 - Rp. 50.000',
+            '3' => 'Rp. 50.000 - Rp. 75.000',
+            '2' => 'Rp. 75.000 - Rp. 120.000',
+            '1' => 'Lebih dari Rp. 120.000'
+        ];
+        $tagihanListrik = [
+            '5' => 'Kurang dari Rp. 70.000',
+            '4' => 'Rp. 70.000 - Rp. 100.000',
+            '3' => 'Rp. 100.000 - Rp. 125.000',
+            '2' => 'Rp. 125.000 - Rp. 150.000',
+            '1' => 'Lebih dari Rp. 150.000'
+        ];
+
+        return view('admin.penduduk.create_keluarga', ['page' => $page, 'activeMenu' => $activeMenu, 'date' => $date, 'pendapatan' => $pendapatan, 'luas_bangunan' => $luasBangunan, 'jumlah_tanggungan' => $jumlahTanggungan, 'pajak_bumi' => $pajakBumi, 'tagihan_listrik' => $tagihanListrik]);
     }
 
     public function storeKeluarga(Request $request)
     {
-        $request->validate([
-            'dokumen' => 'string|max:255',
+        $rules = [
+            'dokumen' => 'image|max:2048|nullable|mimes:jpg,png,jpeg,gif,svg',
             'nkk' => 'required|string|unique:keluarga,nkk',
-            'pendapatan' => 'integer',
-            'luas_bangunan' => 'integer',
-            'jumlah_tanggungan' => 'integer',
-            'pajak_bumi' => 'integer'
-        ]);
+        ];
 
-        return redirect()->route('admin/penduduk/create/warga');
+        try {
+            $request->validate($rules);
+            $data = $request->all();
+            if ($request->hasFile('dokumen')) {
+                $nkk = $request->input('nkk');
+                $extension = $request->file('dokumen')->extension();
+                $dokumen = $request->file('dokumen')->storeAs('dokumen/kk', "{$nkk}.{$extension}", 'local');
+                $url = Storage::url($dokumen);
+                $data['dokumen'] = $url;
+            }
+            $request->session()->put('keluarga', $data);
+        } catch(QueryException $err) {
+            Session::flash('error', 'Terjadi kesalahan saat menyimpan data keluarga: ' . $err->getMessage());
+            return redirect('/admin/penduduk/create/keluarga')->withInput();
+        }
+
+        return redirect('admin/penduduk/create/warga');
     }
 
     public function createWarga()
@@ -89,27 +139,73 @@ class AdminPenduduk extends Controller
 
         try {
             $request->validate($rules);
-            $file = $request->file('dokumen');
-            $name = $file->getClientOriginalName();
-
-                // Save the file to the 'dokumen' disk (which corresponds to storage/app/dokumen)
-            $path = $file->storeAs('dokumen', $name);
-
-            $requestData = $request->all();
-            DB::transaction(function () use ($requestData) {
-                Warga::create($requestData);
+            $data = $request->all();
+            if ($request->hasFile('dokumen')) {
+                $nik = $request->input('nik');
+                $extension = $request->file('dokumen')->extension();
+                $dokumen = $request->file('dokumen')->storeAs('dokumen/ktp', "{$nik}.{$extension}", 'local');
+                $url = Storage::url($dokumen);
+                $data['dokumen'] = $url;
+            }
+            DB::transaction(function () use ($data) {
+                $keluarga = Session::get('keluarga');
+                $keluarga = Keluarga::create($keluarga);
+                $data['keluarga_id'] = $keluarga->id;
+                Warga::create($data);
             });
             Session::flash('success', 'Data Penduduk Berhasil Ditambah');
             return redirect('/admin/penduduk');
         } catch (QueryException $err) {
-            Session::flash('error', 'Terjadi kesalahan saat menyimpan data penduduk: ' . $err->getMessage());
-            return redirect('/admin/penduduk/create_warga')->withInput();
+            Session::flash('errors', 'Terjadi kesalahan saat menyimpan data penduduk: ' . $err->getMessage());
+            return redirect('/admin/penduduk/create/warga')->withInput();
         }
     }
 
-    public function detailKeluarga()
+    public function detailKeluarga($id)
     {
+        $date = Carbon::now()->isoFormat('D MMMM Y');
+        $page = "Penduduk";
+        $activeMenu = "penduduk";
 
+        $pendapatan = [
+            '5' => 'Kurang dari Rp. 500.000',
+            '4' => 'Rp. 500.000 - Rp. 1.000.000',
+            '3' => 'Rp. 1.000.000 - Rp. 2.500.000',
+            '2' => 'Rp. 2.500.000 - Rp. 3.500.000',
+            '1' => 'Lebih dari Rp. 3.500.000' 
+        ];
+        $luasBangunan = [
+            '5' => 'Kurang dari 12 m²',
+            '4' => '12 m² - 20 m²',
+            '3' => '20 m² - 30 m²',
+            '2' => '30 m² - 35 m²',
+            '1' => 'Lebih dari 35 m²'
+        ];
+        $jumlahTanggungan = [
+            '5' => '1 Orang',
+            '4' => '2 Orang',
+            '3' => '3 Orang',
+            '2' => '4 Orang',
+            '1' => 'Lebih dari 5 Orang'
+        ];
+        $pajakBumi = [
+            '5' => 'Kurang dari Rp. 20.000',
+            '4' => 'Rp. 20.000 - Rp. 50.000',
+            '3' => 'Rp. 50.000 - Rp. 75.000',
+            '2' => 'Rp. 75.000 - Rp. 120.000',
+            '1' => 'Lebih dari Rp. 120.000'
+        ];
+        $tagihanListrik = [
+            '5' => 'Kurang dari Rp. 70.000',
+            '4' => 'Rp. 70.000 - Rp. 100.000',
+            '3' => 'Rp. 100.000 - Rp. 125.000',
+            '2' => 'Rp. 125.000 - Rp. 150.000',
+            '1' => 'Lebih dari Rp. 150.000'
+        ];
+
+        $keluarga = Keluarga::with(['warga', 'user'])->find($id);
+
+        return view('admin.penduduk.detail_keluarga', ['page' => $page, 'activeMenu' => $activeMenu, 'date' => $date, 'data' => $keluarga, 'pendapatan' => $pendapatan, 'luas_bangunan' => $luasBangunan, 'jumlah_tanggungan' => $jumlahTanggungan, 'pajak_bumi' => $pajakBumi, 'tagihan_listrik' => $tagihanListrik]);
     }
 
     public function detailWarga($id)
@@ -135,20 +231,6 @@ class AdminPenduduk extends Controller
     }
 
     public function editWarga($id)
-    {
-
-    }
-
-    public function create()
-    {
-        $date = Carbon::now()->isoFormat('D MMMM Y');
-        $page = "Penduduk";
-        $activeMenu = "penduduk";
-
-        return view('admin.penduduk.create', ['page' => $page, 'activeMenu' => $activeMenu, 'date' => $date]);
-    }
-
-    public function store(Request $request)
     {
 
     }
