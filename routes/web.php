@@ -27,6 +27,9 @@ Route::get('/login', function () {
 Route::get('user/index', function () {
     return view('user.index');
 });
+Route::get('rt/index', function () {
+    return view('rt.index');
+});
 
 Route::middleware(['auth', 'level:Admin'])->prefix('admin')->group(function () {
     

@@ -18,7 +18,7 @@
             <p class="mt-2 text-sm text-gray-600">Laporkan Segala Bentuk Keluhan anda yang ada diwilayah sini </p>
           <div class="flex flex-wrap items-center cursor-pointer border rounded-lg w-full mt-3 ml-0">
             <div class="flex-1">
-               <button href="#" class="text-white bg-[#0EA5E9] hover:bg-[#006bff] focus:outline-none px-3 py-1 rounded-md">Pencet</button>
+               <button id="btnpengaduan" class="text-white bg-[#0EA5E9] hover:bg-[#006bff] focus:outline-none px-3 py-1 rounded-md">Pencet</button>
             </div>
           </div>
         </div>
@@ -32,7 +32,7 @@
             <p class="mt-2 text-sm text-gray-600">Ajukan Bantuan Sosial untuk anda yang membutuhkan</p>
           <div class="flex flex-wrap items-center cursor-pointer border rounded-lg w-full mt-3 ml-0">
             <div class="flex-1">
-               <button href="#" class="text-white bg-[#0EA5E9] hover:bg-[#006bff] focus:outline-none px-3 py-1 rounded-md">Pencet</button>
+               <button id="open-modal" class="text-white bg-[#0EA5E9] hover:bg-[#006bff] focus:outline-none px-3 py-1 rounded-md">Pencet</button>
             </div>
           </div>
         </div>
@@ -53,6 +53,133 @@
       </div> 
   </div> 
 </div>
+
+<!-- Modal Pengaduan -->
+<div id="modalpengaduan" class="fixed inset-0 p-4 flex flex-wrap justify-center items-center w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] overflow-auto font-[sans-serif]" style="display: none;">
+    <div class="w-full max-w-lg bg-white shadow-lg rounded-md p-6 relative">
+        <div class="flex flex-row w-full gap-1 justify-start items-center px-2 py-1 bg-blue-500 rounded-t-lg">
+            <a href="{{ url('/') }}" class="px-2 py-3 content-center"></a>
+            <span class="text-base font-semibold text-white">Laporkan masalahmu</span>
+        </div>
+        <div class="flex flex-col w-full h-fit justify-center items-center border-2 rounded-b-lg gap-4 px-4 py-4">
+            <form method="POST" action="{{ url('/') }}" class="w-full flex flex-col justify-end items-end gap-4">
+                @csrf
+                <div class="w-full gap-1 flex flex-col justify-start items-start">
+                    <label for="username" class="block font-medium text-sm text-neutral-900">Username</label>
+                    <input type="text" id="username" name="username" class="px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Nama">
+                </div>
+                <div class="w-full gap-1 flex flex-col justify-start items-start">
+                    <label for="rt_id" class="block font-medium text-sm text-neutral-900">Rukun Tetangga<span class="font-medium text-sm text-red-600">*</span></label>
+                    <select id="rt_id" name="rt_id" class="px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2">
+                        <option class="font-normal text-sm text-black" value="">Pilih Rukun Tetangga</option>
+                        @for($i = 0; $i < 8; $i++)
+                            <option class="font-normal text-sm text-black" value="{{ $i + 1 }}">RT 0{{ $i + 1 }}</option>
+                        @endfor
+                    </select>
+                </div>
+                <div class="w-full gap-1 flex flex-col justify-start items-start">
+                    <label for="keterangan" class="block font-medium text-sm text-neutral-900">Masukkan Keterangan</label>
+                    <textarea id="keterangan" name="keterangan" class="px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Keterangan"></textarea>
+                </div>
+            </form>
+        </div>
+        <div class="border-t flex justify-end pt-6 space-x-4">
+            <button id="btncancel" type="button" class="px-6 py-2 rounded-md text-black text-sm border-none outline-none bg-gray-200 hover:bg-gray-300 active:bg-gray-200">Cancel</button>
+            <button id="btnsave" type="button" class="px-6 py-2 rounded-md text-white text-sm border-none outline-none bg-blue-600 hover:bg-blue-700 active:bg-blue-600">Kirim</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Bansos -->
+<div id="modalbansos" class="fixed inset-0 p-4 flex flex-wrap justify-center items-center w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] overflow-auto font-[sans-serif]" style="display: none;">
+    <div class="w-full max-w-xl bg-white shadow-lg rounded-md p-6 relative">
+        <div class="flex flex-row w-full gap-1 justify-start items-center px-2 py-1 bg-blue-500 rounded-t-lg">
+            <a href="{{ url('/') }}" class="px-2 py-3 content-center"></a>
+            <span class="text-base font-semibold text-white">Pengajuan Bansos</span>
+        </div>
+        <div class="flex flex-col w-full h-fit justify-center items-center border-2 rounded-b-lg gap-2 px-4 py-4">
+            <form method="POST" action="{{ url('/') }}" class="w-full flex flex-col justify-end items-end gap-2">
+                @csrf
+                <div class="w-full flex flex-row gap-2">
+                    <div class="flex-1 flex flex-col gap-1 justify-start items-start">
+                        <label for="nkk" class="block font-medium text-sm text-neutral-900">NKK</label>
+                        <input type="text" id="nkk" name="nkk" class="px-2 py-2 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan NKK">
+                    </div>
+                    <div class="flex-1 flex flex-col justify-start items-start gap-1">
+                        <span class="font-semibold text-sm text-[#1A1A1A]">Upload Kartu Keluarga</span>
+                        <label for="file_kk" class="flex flex-col items-center justify-center w-full h-32 border-2 border-[#5E51D9]/[8%] border-dashed rounded-lg cursor-pointer bg-[#F6F6F6]">
+                            <p class="mb-2 text-sm text-black"><span class="font-semibold">Klik untuk upload</span></p>
+                            <p class="text-xs text-black">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+                            <input id="file_kk" type="file" class="hidden">
+                        </label>
+                    </div>
+                </div>
+                <div class="w-full gap-1 flex flex-col justify-start items-start">
+                    <label for="username" class="block font-medium text-sm text-neutral-900">Username</label>
+                    <input type="text" id="username" name="username" class="px-2 py-2 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Nama">
+                </div>
+                <div class="w-full gap-1 flex flex-col justify-start items-start">
+                    <label for="ibu_kandung" class="block font-medium text-sm text-neutral-900">Nama Ibu Kandung</label>
+                    <input type="text" id="ibu_kandung" name="ibu_kandung" class="px-2 py-2 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Nama Ibu Kandung">
+                </div>
+                <div class="w-full gap-1 flex flex-col justify-start items-start">
+                    <label for="rt_id" class="block font-medium text-sm text-neutral-900">Rukun Tetangga<span class="font-medium text-sm text-red-600">*</span></label>
+                    <select id="rt_id" name="rt_id" class="px-2 py-2 font-normal text-sm text-black rounded-lg w-full border-2">
+                        <option class="font-normal text-sm text-black" value="">Pilih Rukun Tetangga</option>
+                        @for($i = 0; $i < 8; $i++)
+                            <option class="font-normal text-sm text-black" value="{{ $i + 1 }}">RT 0{{ $i + 1 }}</option>
+                        @endfor
+                    </select>
+                </div>
+            </form>
+        </div>
+        <div class="border-t flex justify-end pt-4 space-x-4">
+            <button id="btncancelb" type="button" class="px-4 py-2 rounded-md text-black text-sm border-none outline-none bg-gray-200 hover:bg-gray-300 active:bg-gray-200">Cancel</button>
+            <button id="btnsaveb" type="button" class="px-4 py-2 rounded-md text-white text-sm border-none outline-none bg-blue-600 hover:bg-blue-700 active:bg-blue-600">Kirim</button>
+        </div>
+    </div>
+</div>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+    <script>
+        $(document).ready(function(){
+            showmodalbansos();
+            showmodalpengaduan();
+        });
+
+        function showmodalbansos(){
+            $('#open-modal').click(function(){
+                $('#modalbansos').fadeIn();
+            });
+
+            $('#btncancelb').click(function(){
+                $('#modalbansos').fadeOut();
+            });
+
+            $('#btnsaveb').click(function(){
+                $('#modalbansos').fadeOut();
+            });
+        }
+
+        function showmodalpengaduan(){
+            $('#btnpengaduan').click(function(){
+                $('#modalpengaduan').fadeIn();
+            });
+
+            $('#btncancel').click(function(){
+                $('#modalpengaduan').fadeOut();
+            });
+
+            $('#btnsave').click(function(){
+                $('#modalpengaduan').fadeOut();
+            });
+        }
+
+    </script>
 
 @endsection
       
