@@ -1,5 +1,18 @@
 @extends('layouts.template')
 @section('content')
+    @if (Session::has('error'))
+        <div class="w-full p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
+            <ul>
+                @foreach(Session::get('errors')->all() as $error)
+                    <li class="font-medium">{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @elseif(Session::has('success'))
+        <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50" role="alert">
+            <span class="font-medium">{{ Session::get('success')}}</span>
+        </div>
+    @endif
     <div class="w-full flex flex-col justify-center items-center rounded-lg border-2">
         <div class="w-full flex flex-row justify-between items-center bg-blue-500 rounded-tr-lg rounded-tl-lg px-4 py-2">
             <div class="w-fit h-fit">
@@ -12,28 +25,37 @@
             </div>
         </div>
         <div class="w-full flex flex-col justify-center items-center gap-4 px-4 py-4">
-            <form method="PUT" action="{{ url('/admin/penduduk/warga' . $data->id) }}" enctype="multipart/form-data" class="w-full flex flex-col justify-end items-end gap-4">
+            <form method="POST" action="{{ url('/admin/penduduk/update/warga/' . $data->id) }}" enctype="multipart/form-data" class="w-full flex flex-col justify-end items-end gap-4">
                 @csrf
+                {!! method_field('PUT') !!}
                 <div class="col-span-full w-full">
                     <label for="dokumen" class="block text-sm font-medium leading-6 text-neutral-900">Dokumen Kartu Tanda Penduduk</label>
-                    <div class="mt-2 flex justify-center rounded-lg border border-dashed border-neutral-900/25 px-6 py-10">
-                        <div class="text-center">
-                            <svg class="mx-auto h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                                <path fill-rule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clip-rule="evenodd" />
-                            </svg>
-                            <div class="mt-4 flex text-sm leading-6 text-neutral-600">
-                                <label for="dokumen" class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
-                                    <span>Upload a file</span>
-                                    <input id="dokumen" name="dokumen" type="file" class="sr-only"">
-                                </label>
-                                <p class="pl-1">or drag and drop</p>
+                    <div id="dropzone" class="mt-2 flex flex-col items-center gap-4 justify-center rounded-lg border border-dashed border-neutral-900/25 px-6 py-10">
+                        @if($data->dokumen != null)
+                            <img src="{{asset($data->dokumen)}}" alt="Dokumen Kartu Tanda Penduduk" id="preview" class="w-[80%] md:w-[30%] h-[50%] rounded-lg">
+                            <label for="dokumen" class="relative cursor-pointer rounded-md font-semibold text-white px-4 py-2 bg-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-white focus-within:ring-offset-2">
+                                <span>Change a file</span>
+                                <input id="dokumen" name="dokumen" type="file" class="sr-only">
+                            </label>
+                        @else
+                            <div id="area-upload" class="text-center">
+                                <svg class="mx-auto h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                    <path fill-rule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clip-rule="evenodd" />
+                                </svg>
+                                <div class="mt-4 flex text-sm leading-6 text-neutral-600">
+                                    <label for="dokumen" class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
+                                        <span>Upload a file</span>
+                                        <input id="dokumen" name="dokumen" type="file" class="sr-only">
+                                    </label>
+                                    <p class="pl-1">or drag and drop</p>
+                                </div>
+                                <p class="text-xs leading-5 text-neutral-600">PNG, JPG, GIF up to 2MB</p>
                             </div>
-                            <p class="text-xs leading-5 text-neutral-600">PNG, JPG, GIF up to 2MB</p>
-                        </div>
+                        @endif
                     </div>
                 </div>
                 <div class="w-full gap-1 flex flex-col justify-start items-start">
-                    <label for="nik" class="block font-medium text-sm text-neutral-900">Nomor Tanda Penduduk<span class="font-medium text-sm text-red-600">*</span></label>
+                    <label for="nik" class="block font-medium text-sm text-neutral-900">Nomor Kartu Tanda Penduduk<span class="font-medium text-sm text-red-600">*</span></label>
                     <input type="text" id="nik" name="nik" class="px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Nomor Tanda Penduduk" value="{{ $data->nik }}">
                 </div>
                 <div class="w-full gap-1 flex flex-col justify-start items-start">
@@ -60,6 +82,10 @@
                 <div class="w-full gap-1 flex flex-col justify-start items-start">
                     <label for="alamat" class="block font-medium text-sm text-neutral-900">Alamat<span class="font-medium text-sm text-red-600">*</span></label>
                     <input type="text" id="alamat" name="alamat" class="px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" value="{{ $data->alamat }}" placeholder="Masukkan Alamat">
+                </div>
+                <div class="w-full gap-1 flex flex-col justify-start items-start">
+                    <label for="ibu_kandung" class="block font-medium text-sm text-neutral-900">Nama Ibu Kandung<span class="font-medium text-sm text-red-600">*</span></label>
+                    <input type="text" id="ibu_kandung" name="ibu_kandung" class="px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Alamat" value="{{ $data->ibu_kandung}}">
                 </div>
                 <div class="w-full gap-1 flex flex-col justify-start items-start">
                     <label for="rt_id" class="block font-medium text-sm text-neutral-900">Rukun Tetangga<span class="font-medium text-sm text-red-600">*</span></label>

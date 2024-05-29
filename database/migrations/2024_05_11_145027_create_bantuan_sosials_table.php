@@ -16,6 +16,7 @@ return new class extends Migration
             $table->date('tanggal_mulai')->nullable(false);
             $table->date('tanggal_selesai')->nullable(false);
             $table->enum('jenis', ['PKH', 'Pemakanan', 'KIP', 'BPNT', 'PBIJKN'])->nullable(false);
+            $table->integer('kapasitas')->nullable(false);
             $table->timestamps();
         });
     }

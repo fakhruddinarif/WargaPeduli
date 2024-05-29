@@ -16,7 +16,7 @@ class Warga extends Model
     protected $keyType = "string";
     public $timestamps = true;
 
-    protected $fillable = ['nik', 'nama', 'jenis_kelamin', 'tempat_lahir', 'tanggal_lahir', 'alamat', 'status_warga', 'status_keluarga', 'telepon', 'dokumen', 'rt_id', 'keluarga_id'];
+    protected $fillable = ['nik', 'nama', 'jenis_kelamin', 'tempat_lahir', 'tanggal_lahir', 'alamat', 'status_warga', 'status_keluarga', 'telepon', 'dokumen', 'rt_id', 'keluarga_id', 'ibu_kandung'];
 
     public function rukunTetangga() : BelongsTo
     {

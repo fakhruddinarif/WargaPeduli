@@ -14,13 +14,17 @@ class WebAuthMiddleware
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next, $level): Response
     {
         if (!Auth::check()) {
             return redirect('/');
         }
+        $user = Auth::user();
 
-        return $next($request);
+        if ($user->level->nama == $level) {
+            return $next($request);
+        }
 
+        return redirect('/')->with('error', 'Anda tidak memiliki akses ke halaman ini');
     }
 }

@@ -35,11 +35,12 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($data as $key => $value)
-                <tr class="bg-white border-b">
-                    <th scope="row" class="px-6 py-4 font-normal text-neutral-900 whitespace-nowrap">{{ $value->nik }}</th>
-                    <td class="px-6 py-4">{{ $value->nama }}</td>
-                    <td class="px-6 py-4"><span class="
+                @if(count($data) > 0)
+                    @foreach($data as $key => $value)
+                        <tr class="bg-white border-b">
+                            <th scope="row" class="px-6 py-4 font-normal text-neutral-900 whitespace-nowrap">{{ $value->nik }}</th>
+                            <td class="px-6 py-4">{{ $value->nama }}</td>
+                            <td class="px-6 py-4"><span class="
                     @if($value->status_warga == 'Menetap')
                     bg-blue-500 text-white
                     @elseif($value->status_warga == 'Pendatang')
@@ -49,7 +50,7 @@
                     @else
                     bg-black text-white
                     @endif px-2 py-2 rounded-md">@if($value->status_warga != null) {{ $value->status_warga }} @else - @endif</span></td>
-                    <td class="px-6 py-4"><span class="
+                            <td class="px-6 py-4"><span class="
                     @if($value->status_keluarga == 'Kepala Keluarga')
                     bg-blue-500 text-white
                     @elseif($value->status_keluarga == 'Istri')
@@ -64,13 +65,18 @@
                     bg-violet-500 text-white
                     @endif
                     px-2 py-2 rounded-md">{{ $value->status_keluarga }}</span></td>
-                    <td class="px-6 py-4">
-                        <a href="{{ url('/admin/penduduk/warga/' . $value->id) }}" class=" w-fit h-fit px-6 py-2 bg-blue-500 rounded-md">
-                            <span class="font-semibold text-white">Detail</span>
-                        </a>
-                    </td>
-                </tr>
-            @endforeach
+                            <td class="px-6 py-4">
+                                <a href="{{ url('/admin/penduduk/warga/' . $value->id) }}" class=" w-fit h-fit px-6 py-2 bg-blue-500 rounded-md">
+                                    <span class="font-semibold text-white">Detail</span>
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach
+                @else
+                    <tr>
+                        <td colspan="5" class="w-full bg-white text-center py-4 font-medium text-sm">Tidak ada data</td>
+                    </tr>
+                @endif
             </tbody>
         </table>
     </div>

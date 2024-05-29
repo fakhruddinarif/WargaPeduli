@@ -5,9 +5,6 @@
             <span class="font-medium">{{ Session::get('success')}}</span>
         </div>
     @endif
-    <div class="w-full mb-4">
-        <span class="text-base font-semibold text-neutral-900">Data Penduduk</span>
-    </div>
     <div class="w-full flex flex-row justify-start items-center mb-4">
         <a href="{{ url('/admin/penduduk/?data=keluarga') }}"
            class="w-full px-4 py-3 {{ $keluarga ? 'bg-blue-500' : 'bg-white' }} rounded-l-lg border-y-2 border-l-2 text-center">
