@@ -22,6 +22,9 @@ Route::get('/pengajuan', function () {
 Route::get('user/index', function () {
     return view('user.index');
 });
+Route::get('rt/index', function () {
+    return view('rt.index');
+});
 
 Route::get('/login', [\App\Http\Controllers\AuthController::class, 'index'])->name('login');
 Route::post('/', [\App\Http\Controllers\AuthController::class, 'storelogin']);
