@@ -7,8 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Model
+class User extends Authenticatable
 {
     use HasFactory, HasUuids;
 
@@ -20,23 +21,28 @@ class User extends Model
 
     protected $fillable = ['username', 'password', 'level_id', 'keluarga_id'];
 
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
     public function level() : BelongsTo
     {
-        return $this->belongsTo(User::class, 'level_id', 'id');
+        return $this->belongsTo(Level::class, 'level_id', 'id');
     }
 
     public function keluarga() : BelongsTo
     {
-        return $this->belongsTo(User::class, 'keluarga_id', 'id');
+        return $this->belongsTo(Keluarga::class, 'keluarga_id', 'id');
     }
 
-    public function laporans() : HasMany
+    public function laporan() : HasMany
     {
         return $this->hasMany(Laporan::class, 'user_id', 'id');
     }
 
-    public function informasis() : HasMany
+    public function scopeSearch($query, $value)
     {
-        return $this->hasMany(Informasi::class, 'user_id', 'id');
+        $query->where('username', 'like', "%{$value}%");
     }
 }

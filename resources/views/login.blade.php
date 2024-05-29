@@ -3,11 +3,17 @@
 @include('layouts.navigation')
 <div class="font-[sans-serif] text-[#333] h-screen w-screen">
     <div class="min-w-screen min-h-screen flex fle-col items-center justify-center py-6 px-4">
+        @if(Session::has('failed'))
+            <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
+                <span class="font-medium">{{ Session::get('failed')}}</span>
+            </div>
+        @endif
         <div class="grid md:grid-cols-2 items-center gap-4 max-w-7xl w-full">
             <div class="lg:h-[400px] md:h-[300px] max-md:mt-10 ml-20">
                 <img src="https://readymadeui.com/login-image.webp" class="w-full h-full object-cover" alt="Dining Experience" />
             </div>
-            <form class="max-w-md border border-gray-300 rounded-md p-6 shadow-[0_2px_22px_-4px_rgba(93,96,127,0.2)] max-md:mx-auto ml-20">
+            <form method="post" action="{{ url('/') }}" class="max-w-md border border-gray-300 rounded-md p-6 shadow-[0_2px_22px_-4px_rgba(93,96,127,0.2)] max-md:mx-auto ml-20">
+                @csrf
                 <div class="mb-5">
                     <h3 class="text-3xl font-extrabold">Sign in</h3>
                     <p class="text-sm mt-5 font-bold">Login Bro</p>
@@ -15,7 +21,7 @@
                 <div>
                     <label class="text-sm mb-2 block">Nomor KK mu piro</label>
                     <div class="relative flex items-center">
-                        <input name="username" type="number" required class="w-full text-sm border border-gray-300 px-4 py-3 rounded-md outline-[#333]" placeholder="Enter user name" />
+                        <input name="username" type="text" required class="w-full text-sm border border-gray-300 px-4 py-3 rounded-md outline-[#333]" placeholder="Enter user name" />
                         <svg xmlns="http://www.w3.org/2000/svg" fill="#bbb" stroke="#bbb" class="w-[18px] h-[18px] absolute right-4" viewBox="0 0 24 24">
                             <circle cx="10" cy="7" r="6" data-original="#000000"></circle>
                             <path d="M14 15H6a5 5 0 0 0-5 5 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 5 5 0 0 0-5-5zm8-4h-2.59l.3-.29a1 1 0 0 0-1.42-1.42l-2 2a1 1 0 0 0 0 1.42l2 2a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42l-.3-.29H22a1 1 0 0 0 0-2z" data-original="#000000"></path>
@@ -45,11 +51,11 @@
                     </div>
                 </div>
                 <div class="mt-10">
-                    <button type="button" class="w-full shadow-xl py-2.5 px-4 text-sm font-semibold rounded text-white bg-[#0EA5E9] hover:bg-[#006bff] focus:outline-none">
+                    <button type="submit" class="w-full shadow-xl py-2.5 px-4 text-sm font-semibold rounded text-white bg-[#0EA5E9] hover:bg-[#006bff] focus:outline-none">
                         Log in
                     </button>
                 </div>
-                <p class="text-sm mt-10 text-center">Don't have an account 
+                <p class="text-sm mt-10 text-center">Don't have an account
                     <a href="#" class="text-blue-600 hover:underline ml-1 whitespace-nowrap">Register here</a>
                 </p>
             </form>

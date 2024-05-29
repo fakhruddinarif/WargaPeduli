@@ -15,12 +15,10 @@ return new class extends Migration
             $table->id();
             $table->dateTime('tanggal');
             $table->string('judul', 255)->nullable(false);
-            $table->string('keterangan', 255)->nullable(false);
+            $table->string('keterangan', 500)->nullable(false);
             $table->string('gambar', 255)->nullable(false);
-            $table->uuid('user_id')->nullable(false);
+            $table->enum('jenis', ['Pengumuman', 'Berita', 'Kegiatan'])->nullable(false);
             $table->timestamps();
-
-            $table->foreign('user_id')->on('user')->references("id");
         });
     }
 

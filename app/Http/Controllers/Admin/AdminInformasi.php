@@ -3,32 +3,102 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Informasi;
 use Carbon\Carbon;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 
 class AdminInformasi extends Controller
 {
+    protected $rules = [
+        'judul' => 'required|string|max:100',
+        'jenis' => 'required|string',
+        'keterangan' => 'required|string',
+        'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    ];
     public function index()
     {
-        $date = Carbon::now()->isoFormat('D MMMM Y');
         $page = "Informasi";
         $activeMenu = "informasi";
 
-        return view('admin.informasi.index', ['page' => $page, 'activeMenu' => $activeMenu, 'date' => $date]);
+        return view('admin.informasi.index', ['page' => $page, 'activeMenu' => $activeMenu]);
     }
-    
+
     public function create()
     {
-        $date = Carbon::now()->isoFormat('D MMMM Y');
         $page = "Informasi";
         $activeMenu = "informasi";
-        return view('admin.informasi.create', ['page' => $page, 'activeMenu' => $activeMenu, 'date' => $date]);
+        $jenis = ['Pengumuman', 'Berita', 'Kegiatan'];
+        return view('admin.informasi.create', ['page' => $page, 'activeMenu' => $activeMenu, 'jenis' => $jenis]);
     }
-    public function detail()
+
+    public function store(Request $request)
     {
-        $date = Carbon::now()->isoFormat('D MMMM Y');
+        try {
+            $request->validate($this->rules);
+            $latest = Informasi::latest()->first();
+            $id = $latest ? $latest->id + 1 : 1;
+            if ($request->hasFile('gambar')) {
+                $extension = $request->file('gambar')->extension();
+                $path = $request->file('gambar')->storeAs('informasi', "{$id}.{$extension}", 'public');
+                $url = Storage::url($path);
+                $request->gambar = $url;
+            }
+            Informasi::create([
+                'judul' => $request->judul,
+                'jenis' => $request->jenis,
+                'keterangan' => $request->keterangan,
+                'gambar' => $request->gambar,
+                'tanggal' => Carbon::now()
+            ]);
+            Session::flash('success', 'Informasi berhasil ditambahkan');
+            return redirect('/admin/informasi');
+        } catch (QueryException $e) {
+            Session::flash('errors', 'Informasi gagal ditambahkan');
+            return redirect('/admin/informasi/create')->withInput();
+        }
+    }
+    public function detail($id)
+    {
+        $informasi = Informasi::find($id);
         $page = "Informasi";
         $activeMenu = "informasi";
-        return view('admin.informasi.detail', ['page' => $page, 'activeMenu' => $activeMenu, 'date' => $date]);
+        $jenis = ['Pengumuman', 'Berita', 'Kegiatan'];
+        return view('admin.informasi.detail', ['page' => $page, 'activeMenu' => $activeMenu, 'jenis' => $jenis, 'data' => $informasi]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'judul' => 'required|string|max:100',
+            'jenis' => 'required|string',
+            'keterangan' => 'required|string',
+            'gambar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+        $informasi = Informasi::find($id);
+        $request->gambar = $informasi->gambar;
+        try {
+            if ($request->hasFile('gambar')) {
+                $id = $informasi->id;
+                $extension = $request->file('gambar')->extension();
+                $path = $request->file('gambar')->storeAs('informasi', "{$id}.{$extension}", 'public');
+                $url = Storage::url($path);
+                $request->gambar = $url;
+            }
+            $informasi->update([
+                'judul' => $request->judul,
+                'jenis' => $request->jenis,
+                'keterangan' => $request->keterangan,
+                'gambar' => $request->gambar,
+            ]);
+            Session::flash('success', 'Informasi berhasil diubah');
+            return redirect('/admin/informasi/' . $id);
+        } catch (QueryException $e) {
+            Session::flash('errors', 'Informasi gagal diubah');
+            return redirect('/admin/informasi/' . $id)->withInput();
+        }
     }
 }
