@@ -17,7 +17,7 @@ class Level extends Model
 
     protected $fillable = ['nama'];
 
-    public function users() : HasMany
+    public function user() : HasMany
     {
         return $this->hasMany(User::class, 'level_id', 'id');
     }

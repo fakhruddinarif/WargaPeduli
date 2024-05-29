@@ -15,5 +15,5 @@ class BantuanSosial extends Model
     public $timestamps = true;
     public $incrementing = true;
 
-    protected $fillable = [];
+    protected $fillable = ['tanggal_mulai', 'tanggal_selesai', 'jenis', 'kapasitas'];
 }

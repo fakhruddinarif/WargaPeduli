@@ -5,5 +5,5 @@
             <span class="font-medium">{{ Session::get('success')}}</span>
         </div>
     @endif
-    <livewire:informasi-table/>
+    <livewire:akun-table/>
 @endsection

@@ -2,7 +2,7 @@
     <div class="flex flex-col justify-between items-center px-3 py-4 bg-white w-full">
         <ul class="font-medium w-full">
             <li class="flex flex-col justify-start p-3 gap-3 w-full rounded-lg {{ ($activeMenu == 'dashboard') ? 'bg-indigo-600/10 border-b-indigo-600' : 'bg-white' }}">
-                <a href="{{ url('/admin/dashboard')  }}">
+                <a href="{{ url('/admin/')  }}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="{{ ($activeMenu == 'dashboard') ? '#4f46e5' : '#737373' }}" viewBox="0 0 256 256" aria-hidden="true"><path d="M104,40H56A16,16,0,0,0,40,56v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,104,40Zm0,64H56V56h48v48Zm96-64H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,200,40Zm0,64H152V56h48v48Zm-96,32H56a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,104,136Zm0,64H56V152h48v48Zm96-64H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,200,136Zm0,64H152V152h48v48Z"></path></svg>
                     <span class="font-semibold text-base {{ ($activeMenu == 'dashboard') ? 'text-indigo-600' : 'text-neutral-500' }}">Dashboard</span>
                 </a>
@@ -38,7 +38,7 @@
                 </a>
             </li>
             <li class="flex flex-row justify-start p-3 gap-3 w-full rounded-lg bg-white">
-                <a href=""  class="flex flex-row justify-start items-center gap-2">
+                <a href="{{ url('logout') }}"  class="flex flex-row justify-start items-center gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#737373" viewBox="0 0 256 256"><path d="M124,216a12,12,0,0,1-12,12H48a12,12,0,0,1-12-12V40A12,12,0,0,1,48,28h64a12,12,0,0,1,0,24H60V204h52A12,12,0,0,1,124,216Zm108.49-96.49-40-40a12,12,0,0,0-17,17L195,116H112a12,12,0,0,0,0,24h83l-19.52,19.51a12,12,0,0,0,17,17l40-40A12,12,0,0,0,232.49,119.51Z"></path></svg>
                     <span class="font-semibold text-base text-neutral-500">Keluar</span>
                 </a>

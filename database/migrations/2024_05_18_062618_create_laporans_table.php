@@ -16,7 +16,7 @@ return new class extends Migration
             $table->dateTime('tanggal');
             $table->string('keterangan', 255)->nullable(false);
             $table->string('bukti', 255)->nullable(false);
-            $table->enum('status', ['Menunggu Konfirmasi', 'Diterima', 'Ditolak']);
+            $table->enum('status', ['Menunggu Konfirmasi', 'Diterima', 'Ditolak', 'Diproses', 'Selesai']);
             $table->uuid('user_id')->nullable(false);
             $table->timestamps();
 

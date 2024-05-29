@@ -16,10 +16,10 @@ class Informasi extends Model
     public $timestamps = true;
     public $incrementing = true;
 
-    protected $fillable = ['tanggal', 'judul', 'keterangan', 'gambar', 'user_id'];
+    protected $fillable = ['tanggal', 'judul', 'keterangan', 'gambar', 'jenis'];
 
-    public function user() : BelongsTo
+    public function scopeSearch($query, $value)
     {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        $query->where('judul', 'like', "%{$value}%");
     }
 }
