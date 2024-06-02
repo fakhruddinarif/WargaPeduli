@@ -18,8 +18,8 @@ class Keluarga extends Model
     protected $keyType = "string";
     public $timestamps = true;
 
-    protected $fillable = ['nkk', 'dokumen', 'pendapatan', 'luas_bangunan', 'jumlah_tanggungan', 'pajak_bumi'];
-    
+    protected $fillable = ['nkk', 'dokumen', 'pendapatan', 'luas_bangunan', 'jumlah_tanggungan', 'pajak_bumi', 'tagihan_listrik'];
+
     public function warga() : HasMany
     {
         return $this->hasMany(Warga::class, 'keluarga_id', 'id');

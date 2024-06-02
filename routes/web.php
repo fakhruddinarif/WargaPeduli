@@ -16,9 +16,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/pengajuan', function () {
-    return view('pengajuan');
-});
 Route::get('user/index', function () {
     return view('user.index');
 });
@@ -29,6 +26,9 @@ Route::get('rt/index', function () {
 Route::get('/login', [\App\Http\Controllers\AuthController::class, 'index'])->name('login');
 Route::post('/', [\App\Http\Controllers\AuthController::class, 'storelogin']);
 Route::get('/logout', [\App\Http\Controllers\AuthController::class, 'logout']);
+Route::get('/pengajuan', [\App\Http\Controllers\AuthController::class, 'pengajuan']);
+Route::post('/storePengajuan', [\App\Http\Controllers\AuthController::class, 'storepengajuan']);
+Route::post('/checkPengajuan', [\App\Http\Controllers\AuthController::class, 'checkPengajuan']);
 
 Route::middleware('auth')->group(function () {
     Route::group(['middleware' => 'level:Admin'], function () {
@@ -37,15 +37,15 @@ Route::middleware('auth')->group(function () {
             Route::get('/', [\App\Http\Controllers\Admin\AdminDashboard::class, 'index']);
             // Penduduk
             Route::prefix('/penduduk')->group(function () {
-                Route::get('/', [\App\Http\Controllers\Admin\AdminPenduduk::class, 'index']);
-                Route::get('/create/keluarga', [\App\Http\Controllers\Admin\AdminPenduduk::class, 'createKeluarga']);
-                Route::post('/keluarga', [\App\Http\Controllers\Admin\AdminPenduduk::class,'storeKeluarga']);
-                Route::get('/keluarga/{id}', [\App\Http\Controllers\Admin\AdminPenduduk::class, 'detailKeluarga']);
-                Route::put('/update/keluarga/{id}', [\App\Http\Controllers\Admin\AdminPenduduk::class, 'updateKeluarga']);
-                Route::get('/create/warga', [\App\Http\Controllers\Admin\AdminPenduduk::class, 'createWarga']);
-                Route::post('/warga', [\App\Http\Controllers\Admin\AdminPenduduk::class,'storeWarga']);
-                Route::get('/warga/{id}', [\App\Http\Controllers\Admin\AdminPenduduk::class, 'detailWarga']);
-                Route::put('/update/warga/{id}', [\App\Http\Controllers\Admin\AdminPenduduk::class, 'updateWarga']);
+                Route::get('/', [\App\Http\Controllers\PendudukController::class, 'index']);
+                Route::get('/create/keluarga', [\App\Http\Controllers\PendudukController::class, 'createKeluarga']);
+                Route::post('/keluarga', [\App\Http\Controllers\PendudukController::class,'storeKeluarga']);
+                Route::get('/keluarga/{id}', [\App\Http\Controllers\PendudukController::class, 'detailKeluarga']);
+                Route::put('/update/keluarga/{id}', [\App\Http\Controllers\PendudukController::class, 'updateKeluarga']);
+                Route::get('/create/warga', [\App\Http\Controllers\PendudukController::class, 'createWarga']);
+                Route::post('/warga', [\App\Http\Controllers\PendudukController::class,'storeWarga']);
+                Route::get('/warga/{id}', [\App\Http\Controllers\PendudukController::class, 'detailWarga']);
+                Route::put('/update/warga/{id}', [\App\Http\Controllers\PendudukController::class, 'updateWarga']);
             });
             // Akun
             Route::prefix('/akun')->group(function () {
@@ -54,31 +54,59 @@ Route::middleware('auth')->group(function () {
                 Route::post('/', [\App\Http\Controllers\UserController::class, 'store']);
                 Route::get('/{id}', [\App\Http\Controllers\UserController::class, 'detail']);
                 Route::put('/update/{id}', [\App\Http\Controllers\UserController::class, 'update']);
+                Route::delete('/delete/{id}', [\App\Http\Controllers\UserController::class, 'destroy']);
             });
             // Informasi
             Route::prefix('informasi')->group(function () {
-                Route::get('/', [\App\Http\Controllers\Admin\AdminInformasi::class, 'index']);
-                Route::get('/create', [\App\Http\Controllers\Admin\AdminInformasi::class, 'create']);
-                Route::post('/', [\App\Http\Controllers\Admin\AdminInformasi::class, 'store']);
-                Route::get('/{id}', [\App\Http\Controllers\Admin\AdminInformasi::class, 'detail']);
-                Route::put('/update/{id}', [\App\Http\Controllers\Admin\AdminInformasi::class, 'update']);
+                Route::get('/', [\App\Http\Controllers\InformasiController::class, 'index']);
+                Route::get('/create', [\App\Http\Controllers\InformasiController::class, 'create']);
+                Route::post('/', [\App\Http\Controllers\InformasiController::class, 'store']);
+                Route::get('/{id}', [\App\Http\Controllers\InformasiController::class, 'detail']);
+                Route::put('/update/{id}', [\App\Http\Controllers\InformasiController::class, 'update']);
+                Route::delete('/delete/{id}', [\App\Http\Controllers\InformasiController::class, 'destroy']);
             });
             // Laporan
             Route::prefix('/laporan')->group(function () {
-                Route::get('/', [\App\Http\Controllers\Admin\AdminLaporan::class, 'index']);
-                Route::get('/{id}', [\App\Http\Controllers\Admin\AdminLaporan::class, 'detail']);
-                Route::put('/update/{id}', [\App\Http\Controllers\Admin\AdminLaporan::class, 'update']);
+                Route::get('/', [\App\Http\Controllers\LaporanController::class, 'index']);
+                Route::get('/{id}', [\App\Http\Controllers\LaporanController::class, 'detail']);
+                Route::put('/update/{id}', [\App\Http\Controllers\LaporanController::class, 'update']);
+                Route::delete('/delete/{id}', [\App\Http\Controllers\LaporanController::class, 'destroy']);
             });
             // Bansos
             Route::prefix('/bansos')->group(function () {
-                Route::get('/', [\App\Http\Controllers\Admin\AdminBansos::class, 'index']);
-                Route::get('/create', [\App\Http\Controllers\Admin\AdminBansos::class, 'create']);
-                Route::post('/', [\App\Http\Controllers\Admin\AdminBansos::class, 'store']);
-                Route::get('/{id}', [\App\Http\Controllers\Admin\AdminBansos::class, 'detail']);
-                Route::put('/update/{id}', [\App\Http\Controllers\Admin\AdminBansos::class, 'update']);
-                Route::get('/mabac/{id}', [\App\Http\Controllers\Admin\AdminBansos::class, 'mabac']);
-                Route::get('/saw/{id}', [\App\Http\Controllers\Admin\AdminBansos::class, 'saw']);
+                Route::get('/', [\App\Http\Controllers\BansosController::class, 'index']);
+                Route::get('/create', [\App\Http\Controllers\BansosController::class, 'create']);
+                Route::post('/', [\App\Http\Controllers\BansosController::class, 'store']);
+                Route::get('/{id}', [\App\Http\Controllers\BansosController::class, 'detail']);
+                Route::put('/update/{id}', [\App\Http\Controllers\BansosController::class, 'update']);
+                Route::delete('/delete/{id}', [\App\Http\Controllers\BansosController::class, 'destroy']);
+                Route::get('/mabac/{id}/{number?}', [\App\Http\Controllers\BansosController::class, 'mabac']);
+                Route::get('/saw/{id}/{number?}', [\App\Http\Controllers\BansosController::class, 'saw']);
             });
+        });
+    });
+});
+
+Route::middleware('auth')->group(function () {
+    Route::group(['middleware' => 'level:Ketua RW'], function() {
+        Route::prefix('rw')->group(function () {
+
+        });
+    });
+});
+
+Route::middleware('auth')->group(function () {
+    Route::group(['middleware' => 'level:Ketua RT'], function() {
+        Route::prefix('rt')->group(function () {
+
+        });
+    });
+});
+
+Route::middleware('auth')->group(function () {
+    Route::group(['middleware' => 'level:Warga'], function() {
+        Route::prefix('warga')->group(function () {
+
         });
     });
 });

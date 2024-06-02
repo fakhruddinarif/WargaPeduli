@@ -18,7 +18,7 @@
                     @endforeach
                 </select>
                 <button class="create-penduduk w-fit px-4 py-3 bg-blue-500 rounded-lg">
-                    <span class="text-sm font-medium text-white">Tambah Penduduk</span>
+                    <span class="text-sm font-medium text-white">Tambah</span>
                 </button>
             </div>
         </form>
@@ -70,7 +70,9 @@
                 </select>
             </div>
         </div>
-        {{ $data->links() }}
+        @if(count($data))
+            {{ $data->links('vendor.livewire.tailwind') }}
+        @endif
     </div>
 </div>
 

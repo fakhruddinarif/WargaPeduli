@@ -29,23 +29,23 @@
             </div>
         </div>
         <div class="w-full flex flex-col justify-center items-center gap-4 px-4 py-4">
-            <form method="POST" enctype="multipart/form-data" action="{{ url('/admin/akun/update/' . $user->id) }}" class="w-full flex flex-col justify-end items-end gap-4">
+            <form method="POST" enctype="multipart/form-data" action="{{ url('/admin/akun/update/' . $data->id) }}" class="w-full flex flex-col justify-end items-end gap-4">
                 @csrf
                 {!! method_field('PUT') !!}
                 <div class="w-full gap-1 flex flex-col justify-start items-start">
                     <label for="username" class="block font-medium text-sm text-neutral-900">Username<span class="font-medium text-sm text-red-600">*</span></label>
-                    <input type="text" id="username" name="username" class="px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Username" value="{{ $user->username }}">
+                    <input type="text" id="username" name="username" class="px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Username" value="{{ $data->username }}">
                 </div>
                 <div class="w-full gap-1 flex flex-col justify-start items-start">
                     <label for="password" class="block font-medium text-sm text-neutral-900">Password<span class="font-medium text-sm text-red-600">*</span></label>
-                    <input type="password" id="password" name="password" class="px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Password" value="{{ $user->password }}">
+                    <input type="password" id="password" name="password" class="px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Password" value="{{ $data->password }}">
                 </div>
                 <div class="w-full gap-1 flex flex-col justify-start items-start">
                     <label for="level_id" class="block font-medium text-sm text-neutral-900">Level<span class="font-medium text-sm text-red-600">*</span></label>
                     <select id="level_id" name="level_id" class="px-2 py-3 font normal text-sm text-black rounded-lg w-full border-2">
                         <option class="font normal text-sm text-black" value="">Pilih Level</option>
                         @foreach($level as $value)
-                            <option class="font normal text-sm text-black" value="{{ $value->id }}" {{ $value->id === $user->level_id ? 'selected' : '' }}>{{ $value->nama }}</option>
+                            <option class="font normal text-sm text-black" value="{{ $value->id }}" {{ $value->id === $data->level_id ? 'selected' : '' }}>{{ $value->nama }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -54,14 +54,20 @@
                     <select id="keluarga_id" name="keluarga_id" class="px-2 py-3 font normal text-sm text-black rounded-lg w-full border-2">
                         <option class="font normal text-sm text-black" value="">Pilih NKK</option>
                         @foreach($keluarga as $value)
-                            <option class="font normal text-sm text-black" value="{{ $value->id }}" {{ $value->id === $user->keluarga_id ? 'selected' : '' }}>{{ $value->nkk }}</option>
+                            <option class="font normal text-sm text-black" value="{{ $value->id }}" {{ $value->id === $data->keluarga_id ? 'selected' : '' }}>{{ $value->nkk }}</option>
                         @endforeach
                     </select>
                 </div>
-                <button type="submit" class="px-4 py-3 bg-blue-500 rounded-md">
-                    <span class="font-medium text-sm text-white">Simpan</span>
-                </button>
+                <div class="w-full flex flex-row justify-between">
+                    <button id="delete-button" type="button" class="px-4 py-3 bg-red-500 rounded-md">
+                        <span class="font-medium text-sm text-white">Hapus</span>
+                    </button>
+                    <button type="submit" class="px-4 py-3 bg-blue-500 rounded-md">
+                        <span class="font-medium text-sm text-white">Simpan</span>
+                    </button>
+                </div>
             </form>
         </div>
     </div>
+    @include('components.modals.modal_delete')
 @endsection

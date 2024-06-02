@@ -24,7 +24,7 @@
             <form method="POST" enctype="multipart/form-data" action="{{ url('/admin/penduduk/keluarga') }}" class="w-full flex flex-col justify-end items-end gap-4">
                 @csrf
                 <div class="col-span-full w-full">
-                    <label for="dokumen" class="block text-sm font-medium leading-6 text-neutral-900">Dokumen Kartu Kelaurga</label>
+                    <label for="dokumen" class="block text-sm font-medium leading-6 text-neutral-900">Dokumen Kartu Keluarga</label>
                     <div id="dropzone" class="mt-2 flex justify-center rounded-lg border border-dashed border-neutral-900/25 px-6 py-10">
                         <img id="preview" class="hidden w-[80%] md:w-[30%] h-[50%] rounded-lg">
                         <div id="area-upload" class="text-center">
@@ -48,48 +48,23 @@
                 </div>
                 <div class="w-full gap-1 flex flex-col justify-start items-start">
                     <label for="pendapatan" class="block font-medium text-sm text-neutral-900">Pendapatan</label>
-                    <select id="pendapatan" name="pendapatan" class="px-2 py-3 font normal text-sm text-black rounded-lg w-full border-2">
-                        <option class="font normal text-sm text-black" value="">Pilih Pendapatan</option>
-                        @foreach($pendapatan as $key => $value)
-                            <option class="font normal text-sm text-black" value="{{ $key }}">{{ $value }}</option>
-                        @endforeach
-                    </select>
+                    <input type="text" id="pendapatan" name="pendapatan" class="input-number px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Pendapatan">
                 </div>
                 <div class="w-full gap-1 flex flex-col justify-start items-start">
                     <label for="luas_bangunan" class="block font-medium text-sm text-neutral-900">Luas Bangunan</label>
-                    <select id="luas_bangunan" name="luas_bangunan" class="px-2 py-3 font normal text-sm text-black rounded-lg w-full border-2">
-                        <option class="font normal text-sm text-black" value="">Pilih Luas Bangunan</option>
-                        @foreach($luas_bangunan as $key => $value)
-                            <option class="font normal text-sm text-black" value="{{ $key }}">{{ $value }}</option>
-                        @endforeach
-                    </select>
+                    <input type="text" id="luas_bangunan" name="luas_bangunan" class="input-number px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Luas Bangunan">
                 </div>
                 <div class="w-full gap-1 flex flex-col justify-start items-start">
                     <label for="jumlah_tanggungan" class="block font-medium text-sm text-neutral-900">Jumlah Tanggungan</label>
-                    <select id="jumlah_tanggungan" name="jumlah_tanggungan" class="px-2 py-3 font normal text-sm text-black rounded-lg w-full border-2">
-                        <option class="font normal text-sm text-black" value="">Pilih Jumlah Tanggungan</option>
-                        @foreach($jumlah_tanggungan as $key => $value)
-                            <option class="font normal text-sm text-black" value="{{ $key }}">{{ $value }}</option>
-                        @endforeach
-                    </select>
+                    <input type="text" id="jumlah_tanggungan" name="jumlah_tanggungan" class="input-number px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Jumlah Tanggungan">
                 </div>
                 <div class="w-full gap-1 flex flex-col justify-start items-start">
                     <label for="pajak_bumi" class="block font-medium text-sm text-neutral-900">Pajak Bumi</label>
-                    <select id="pajak_bumi" name="pajak_bumi" class="px-2 py-3 font normal text-sm text-black rounded-lg w-full border-2">
-                        <option class="font normal text-sm text-black" value="">Pilih Pajak Bumi</option>
-                        @foreach($pajak_bumi as $key => $value)
-                            <option class="font normal text-sm text-black" value="{{ $key }}">{{ $value }}</option>
-                        @endforeach
-                    </select>
+                    <input type="text" id="pajak_bumi" name="pajak_bumi" class="input-number px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Pajak Bumi">
                 </div>
                 <div class="w-full gap-1 flex flex-col justify-start items-start">
                     <label for="tagihan_listrik" class="block font-medium text-sm text-neutral-900">Tagihan Listrik</label>
-                    <select id="tagihan_listrik" name="tagihan_listrik" class="px-2 py-3 font normal text-sm text-black rounded-lg w-full border-2">
-                        <option class="font normal text-sm text-black" value="">Pilih Tagihan Listrik</option>
-                        @foreach($tagihan_listrik as $key => $value)
-                            <option class="font normal text-sm text-black" value="{{ $key }}">{{ $value }}</option>
-                        @endforeach
-                    </select>
+                    <input type="text" id="tagihan_listrik" name="tagihan_listrik" class="input-number px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Tagihan Listrik">
                 </div>
                 <button type="submit" class="px-4 py-3 bg-blue-500 rounded-md">
                     <span class="font-medium text-sm text-white">Selanjutnya</span>

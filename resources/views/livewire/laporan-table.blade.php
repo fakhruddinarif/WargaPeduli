@@ -78,7 +78,7 @@
                 </select>
             </div>
         </div>
-        {{ $data->links() }}
+        {{ $data->links('vendor.livewire.tailwind') }}
     </div>
 </div>
 
