@@ -1,65 +1,56 @@
 @extends('layouts.app')
 @section('template')
-@include('layouts.navigation')
-<div class="font-[sans-serif] text-[#333] h-screen w-screen">
-    <div class="min-w-screen min-h-screen flex fle-col items-center justify-center py-6 px-4">
-        @if(Session::has('failed'))
-            <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
-                <span class="font-medium">{{ Session::get('failed')}}</span>
-            </div>
-        @endif
-        <div class="grid md:grid-cols-2 items-center gap-4 max-w-7xl w-full">
-            <div class="lg:h-[400px] md:h-[300px] max-md:mt-10 ml-20">
-                <img src="https://readymadeui.com/login-image.webp" class="w-full h-full object-cover" alt="Dining Experience" />
-            </div>
-            <form method="post" action="{{ url('/') }}" class="max-w-md border border-gray-300 rounded-md p-6 shadow-[0_2px_22px_-4px_rgba(93,96,127,0.2)] max-md:mx-auto ml-20">
-                @csrf
-                <div class="mb-5">
-                    <h3 class="text-3xl font-extrabold">Sign in</h3>
-                    <p class="text-sm mt-5 font-bold">Login Bro</p>
+    <section class="w-full bg-neutral-50">
+        <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+            @if (Session::has('error'))
+                <div class="w-fit p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
+                    <ul>
+                        <li class="font-medium">{{ Session::get('error') }}</li>
+                    </ul>
                 </div>
-                <div>
-                    <label class="text-sm mb-2 block">Nomor KK mu piro</label>
-                    <div class="relative flex items-center">
-                        <input name="username" type="text" required class="w-full text-sm border border-gray-300 px-4 py-3 rounded-md outline-[#333]" placeholder="Enter user name" />
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="#bbb" stroke="#bbb" class="w-[18px] h-[18px] absolute right-4" viewBox="0 0 24 24">
-                            <circle cx="10" cy="7" r="6" data-original="#000000"></circle>
-                            <path d="M14 15H6a5 5 0 0 0-5 5 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 5 5 0 0 0-5-5zm8-4h-2.59l.3-.29a1 1 0 0 0-1.42-1.42l-2 2a1 1 0 0 0 0 1.42l2 2a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42l-.3-.29H22a1 1 0 0 0 0-2z" data-original="#000000"></path>
-                        </svg>
-                    </div>
-                </div>
-                <div>
-                    <label class="text-sm mb-2 mt-2 block">Passwordmu Opo</label>
-                    <div class="relative flex items-center">
-                        <input name="password" type="password" required class="w-full text-sm border border-gray-300 px-4 py-3 rounded-md outline-[#333]" placeholder="Enter password" />
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="#bbb" stroke="#bbb" class="w-[18px] h-[18px] absolute right-4 cursor-pointer" viewBox="0 0 128 128">
-                            <path d="M64 104C22.127 104 1.367 67.496.504 65.943a4 4 0 0 1 0-3.887C1.367 60.504 22.127 24 64 24s62.633 36.504 63.496 38.057a4 4 0 0 1 0 3.887C126.633 67.496 105.873 104 64 104zM8.707 63.994C13.465 71.205 32.146 96 64 96c31.955 0 50.553-24.775 55.293-31.994C114.535 56.795 95.854 32 64 32 32.045 32 13.447 56.775 8.707 63.994zM64 88c-13.234 0-24-10.766-24-24s10.766-24 24-24 24 10.766 24 24-10.766 24-24 24zm0-40c-8.822 0-16 7.178-16 16s7.178 16 16 16 16-7.178 16-16-7.178-16-16-16z" data-original="#000000"></path>
-                        </svg>
-                    </div>
-                </div>
-                <div class="flex items-center justify-between gap-2">
-                    <div class="flex items-center">
-                        <input id="remember-me" name="remember-me" type="checkbox" class="h-4 w-4 shrink-0 text-blue-600 focus:ring-blue-500 border-gray-300 rounded mt-3" />
-                        <label for="remember-me" class="ml-3 block text-sm mt-3">
-                            Remember me
-                        </label>
-                    </div>
-                    <div class="text-sm mt-3">
-                        <a href="#" class="text-blue-600 hover:underline">
-                            Forgot your password?
+            @endif
+            <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900">
+                <img class="w-8 h-8 mr-2" src="{{ asset('logo-polinema.png') }}" alt="logo">
+                Warga Peduli
+            </a>
+            <div class="w-full bg-white rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0">
+                <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+                    <div class="flex flex-row justify-start items-center gap-2">
+                        <a href="{{ url('/') }}" class="w-fit p-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#000000" viewBox="0 0 256 256"><path d="M228,128a12,12,0,0,1-12,12H69l51.52,51.51a12,12,0,0,1-17,17l-72-72a12,12,0,0,1,0-17l72-72a12,12,0,0,1,17,17L69,116H216A12,12,0,0,1,228,128Z"></path></svg>
                         </a>
+                        <h1 class="text-xl font-bold leading-tight tracking-tight text-neutral-900 md:text-2xl">
+                            Login
+                        </h1>
                     </div>
+                    <form class="space-y-4 md:space-y-6" method="post" action="{{ url('/') }}">
+                        @csrf
+                        <div>
+                            <label for="username" class="block mb-2 text-sm font-medium text-neutral-900">Username</label>
+                            <input type="text" name="username" id="username" class="bg-neutral-50 border border-neutral-300 text-neutral-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-3" placeholder="Masukkan username" required="">
+                        </div>
+                        <div>
+                            <label for="password" class="block mb-2 text-sm font-medium text-neutral-900">Password</label>
+                            <input type="password" name="password" id="password" placeholder="••••••••" class="bg-neutral-50 border border-neutral-300 text-neutral-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-3" required="">
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-start">
+                                <div class="flex items-center h-5">
+                                    <input id="remember" aria-describedby="remember" type="checkbox" class="w-4 h-4 border border-neutral-300 rounded bg-neutral-50 focus:ring-3 focus:ring-blue-300">
+                                </div>
+                                <div class="ml-3 text-sm">
+                                    <label for="remember" class="text-neutral-500">Ingat Saya</label>
+                                </div>
+                            </div>
+                            <a href="#" class="text-sm font-medium text-blue-500 hover:underline">Lupa Password?</a>
+                        </div>
+                        <button type="submit" class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Login</button>
+                        <p class="text-sm font-light text-gray-500 dark:text-gray-400">
+                            Tidak punya akun? <a href="{{ url('/pengajuan') }}" class="font-medium text-blue-600 hover:underline">Pengajuan</a>
+                        </p>
+                    </form>
                 </div>
-                <div class="mt-10">
-                    <button type="submit" class="w-full shadow-xl py-2.5 px-4 text-sm font-semibold rounded text-white bg-[#0EA5E9] hover:bg-[#006bff] focus:outline-none">
-                        Log in
-                    </button>
-                </div>
-                <p class="text-sm mt-10 text-center">Don't have an account
-                    <a href="#" class="text-blue-600 hover:underline ml-1 whitespace-nowrap">Register here</a>
-                </p>
-            </form>
+            </div>
         </div>
-    </div>
-</div>
+    </section>
 @endsection

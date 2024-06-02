@@ -41,6 +41,11 @@ class User extends Authenticatable
         return $this->hasMany(Laporan::class, 'user_id', 'id');
     }
 
+    public function detailBantuanSosial() : HasMany
+    {
+        return $this->hasMany(DetailBantuanSosial::class, 'user_id', 'id');
+    }
+
     public function scopeSearch($query, $value)
     {
         $query->where('username', 'like', "%{$value}%");

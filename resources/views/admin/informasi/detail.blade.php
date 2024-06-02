@@ -58,10 +58,16 @@
                         </div>
                     @endif
                 </div>
-                <button type="submit" class="px-4 py-3 bg-blue-500 rounded-md">
-                    <span class="font-medium text-sm text-white">Simpan</span>
-                </button>
+                <div class="w-full flex flex-row justify-between">
+                    <button id="delete-button" type="button" class="px-4 py-3 bg-red-500 rounded-md">
+                        <span class="font-medium text-sm text-white">Hapus</span>
+                    </button>
+                    <button type="submit" class="px-4 py-3 bg-blue-500 rounded-md">
+                        <span class="font-medium text-sm text-white">Simpan</span>
+                    </button>
+                </div>
             </form>
         </div>
     </div>
+    @include('components.modals.modal_delete')
 @endsection

@@ -3,11 +3,11 @@
         <form class="w-full flex flex-wrap sm:flex-row justify-between items-center gap-3">
             <div class="w-full flex flex-row justify-between items-center gap-2">
                 <div class="flex flex-row justify-start items-center">
-                    <a href="#" wire:click.prevent="setJenisFilter('')" class="{{ $jenisFilter == '' ? 'bg-white' : 'bg-blue-50' }} px-4 py-2 gap-1 bg-white border text-sm font-medium text-neutral-900">
+                    <a href="#" wire:click.prevent="setJenisFilter('')" class="{{ $jenisFilter == '' ? 'bg-white' : 'bg-blue-100/75' }} px-4 py-2 gap-1 bg-white border text-sm font-medium text-neutral-900">
                         Semua
                     </a>
                     @foreach($jenis as $value)
-                        <a href="#" wire:click.prevent="setJenisFilter('{{ $value }}')" class="{{ $jenisFilter == $value ? 'bg-white' : 'bg-blue-50' }} px-4 py-2 gap-1 bg-white border text-sm font-medium text-neutral-900">
+                        <a href="#" wire:click.prevent="setJenisFilter('{{ $value }}')" class="{{ $jenisFilter == $value ? 'bg-white' : 'bg-blue-100/75' }} px-4 py-2 gap-1 bg-white border text-sm font-medium text-neutral-900">
                             {{ $value }}
                         </a>
                     @endforeach
@@ -37,7 +37,7 @@
                             <td class="px-6 py-4">{{ date('d/m/Y', strtotime($value->tanggal_selesai)) }}</td>
                             <td class="px-6 py-4">{{ $value->jenis }}</td>
                             <td class="px-6 py-4">{{ $value->kapasitas }}</td>
-                            <td class="px-6 py-4">
+                            <td class="px-6 py-4 flex flex-wrap gap-4">
                                 <a href="{{ url('/admin/bansos/' . $value->id) }}" class="mr-2 w-fit h-fit px-6 py-2 bg-blue-500 rounded-md">
                                     <span class="font-semibold text-white">Detail</span>
                                 </a>
@@ -68,40 +68,9 @@
                 </select>
             </div>
         </div>
-        {{ $data->links() }}
+        {{ $data->links('vendor.livewire.tailwind') }}
     </div>
     @foreach($data as $key => $value)
     @include('components.modals.modal_prioritas_bansos')
     @endforeach
 </div>
-<script>
-    var prioritasButtons = document.querySelectorAll('.prioritas');
-
-    prioritasButtons.forEach((btn) => {
-        btn.onclick = function() {
-            var id = this.id.replace("btn-", "");
-            var modal = document.getElementById("popup-prioritas-" + id);
-            if (modal) {
-                modal.classList.remove('hidden');
-                modal.classList.add('flex');
-            } else {
-                console.log("Modal with id 'popup-prioritas-" + id + "' not found");
-            }
-        }
-    });
-
-    var closeButtons = document.querySelectorAll('.close');
-
-    closeButtons.forEach((btn) => {
-        btn.onclick = function() {
-            var id = this.id.replace("close-", "");
-            var modal = document.getElementById("popup-prioritas-" + id);
-            if (modal) {
-                modal.classList.add('hidden');
-                modal.classList.remove('flex');
-            } else {
-                console.log("Modal with id 'popup-prioritas-" + id + "' not found");
-            }
-        }
-    });
-</script>

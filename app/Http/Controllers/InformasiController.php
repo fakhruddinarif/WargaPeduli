@@ -1,17 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\Informasi;
 use Carbon\Carbon;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 
-class AdminInformasi extends Controller
+class InformasiController extends Controller
 {
     protected $rules = [
         'judul' => 'required|string|max:100',
@@ -99,6 +97,23 @@ class AdminInformasi extends Controller
         } catch (QueryException $e) {
             Session::flash('errors', 'Informasi gagal diubah');
             return redirect('/admin/informasi/' . $id)->withInput();
+        }
+    }
+
+    public function destroy($id)
+    {
+        $informasi = Informasi::find($id);
+        if (!$informasi) {
+            Session::flash('error', 'Informasi tidak ditemukan');
+            return redirect('/admin/informasi');
+        }
+        try {
+            Informasi::destroy($id);
+            Session::flash('success', 'Informasi berhasil dihapus');
+            return redirect('/admin/informasi');
+        } catch (QueryException $e) {
+            Session::flash('errors', 'Informasi gagal dihapus');
+            return redirect('/admin/informasi/' . $id);
         }
     }
 }

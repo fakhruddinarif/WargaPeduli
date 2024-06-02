@@ -18,7 +18,7 @@
                     @endforeach
                 </select>
                 <a href="{{ url('admin/informasi/create') }}" class="w-fit px-4 py-3 bg-blue-500 rounded-lg">
-                    <span class="text-sm font-medium text-white">Tambah Informasi</span>
+                    <span class="text-sm font-medium text-white">Tambah</span>
                 </a>
             </div>
         </form>
@@ -70,7 +70,7 @@
                 </select>
             </div>
         </div>
-        {{ $data->links() }}
+        {{ $data->links('vendor.livewire.tailwind') }}
     </div>
 </div>
 

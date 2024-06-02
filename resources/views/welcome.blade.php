@@ -1,8 +1,6 @@
 @extends('layouts.app')
-
 @section('template')
     @include('layouts.navigation')
-
     <nav class="fixed z-20 w-full bg-white mt-[60px] border-b-2">
         <div class="flex flex-row justify-between items-center w-full border-2 border-b-neutral-50 gap-8 md:gap-12 lg:gap-10 px-2 sm:px-4">
             <div class="flex justify-start items-center rtl:justify-end w-fit">
@@ -12,16 +10,16 @@
                 </a>
             </div>
             <div class="flex flex-row justify-end items-center px-2 py-3 w-full sm:px-4 gap-2">
-                <a href="{{ url('/pengajuan') }}" class="px-3 sm:px-5 py-2 w-fit bg-white border-blue-500 border-2 rounded-md">
+                <button type="button" id="pengajuan" class="px-3 sm:px-5 py-2 w-fit bg-white border-blue-500 border-2 rounded-md">
                     <span class="font-medium text-base text-blue-500">Pengajuan</span>
-                </a>
+                </button>
                 <a href="{{ url('/login') }}" class="px-3 sm:px-5 py-2 w-fit bg-blue-500 border-2 rounded-md">
                     <span class="font-medium text-base text-white">Login</span>
                 </a>
             </div>
         </div>
     </nav>
-
+    @include('components.modals.modal_pengajuan')
     <div class="w-full h-screen overflow-y-scroll">
         <img src="{{ asset('laia-nunez.jpg') }}" class="w-full h-[35rem]">
         {{-- <div class="fixed top-[48%] left-1/2 -translate-x-1/2 -translate-y-1/2 bg-neutral-950/70 px-4 py-2">
@@ -112,4 +110,38 @@
             </div>
         </div>
     </div>
+    <script>
+        const pengajuan = document.getElementById('pengajuan');
+        const close = document.querySelectorAll('.close');
+
+        pengajuan.addEventListener('click', () => {
+            let popup = document.getElementById('modal-pengajuan');
+            popup.classList.remove('hidden');
+            popup.classList.add('flex');
+            setTimeout(() => {
+                popup.style.transform = 'translateY(0)';
+                popup.style.opacity = '1';
+            }, 50);
+        });
+        close.forEach((btn) => {
+            btn.addEventListener('click', () => {
+                let popup = document.getElementById('modal-pengajuan');
+                setTimeout(() => {
+                    popup.classList.add('hidden');
+                    popup.classList.remove('flex');
+                }, 150)
+                popup.style.transform = '';
+                popup.style.opacity = '';
+            });
+        });
+
+        document.getElementById('cekPengajuan').addEventListener('click', function() {
+            var modalPengajuan = document.getElementById('modal-pengajuan');
+            var modalFormCek = document.getElementById('modal-form-cek');
+
+            modalPengajuan.classList.add('hidden');
+            modalFormCek.classList.remove('hidden');
+            modalFormCek.classList.add('flex');
+        });
+    </script>
 @endsection

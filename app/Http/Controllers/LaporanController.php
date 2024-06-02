@@ -1,15 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\Laporan;
-use Carbon\Carbon;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
-class AdminLaporan extends Controller
+class LaporanController extends Controller
 {
     public function index()
     {
@@ -18,7 +16,7 @@ class AdminLaporan extends Controller
 
         return view('admin.laporan.index', ['page' => $page, 'activeMenu' => $activeMenu]);
     }
-     public function detail($id)
+    public function detail($id)
     {
         $laporan = Laporan::find($id);
         $page = "Laporan";
@@ -40,6 +38,19 @@ class AdminLaporan extends Controller
             return redirect('/admin/laporan');
         } catch (QueryException $e) {
             Session::flash('errors', 'Laporan gagal diubah');
+            return redirect('/admin/laporan');
+        }
+    }
+
+    public function destroy($id)
+    {
+        try {
+            $laporan = Laporan::find($id);
+            $laporan->delete();
+            Session::flash('success', 'Laporan berhasil dihapus');
+            return redirect('/admin/laporan');
+        } catch (QueryException $e) {
+            Session::flash('error', 'Laporan gagal dihapus');
             return redirect('/admin/laporan');
         }
     }

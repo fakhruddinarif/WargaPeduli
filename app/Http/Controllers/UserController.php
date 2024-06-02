@@ -83,7 +83,7 @@ class UserController extends Controller
         $keluarga = Keluarga::all();
         $level = Level::all();
 
-        return view('admin.akun.detail', ['page' => $page, 'activeMenu' => $activeMenu, 'user' => $user, 'keluarga' => $keluarga, 'level' => $level]);
+        return view('admin.akun.detail', ['page' => $page, 'activeMenu' => $activeMenu, 'data' => $user, 'keluarga' => $keluarga, 'level' => $level]);
     }
 
     public function update(Request $request, $id)
@@ -105,6 +105,19 @@ class UserController extends Controller
         } catch (QueryException $err) {
             Session::flash('errors', 'Terjadi kesalahan saat menyimpan akun: ' . $err->getMessage());
             return redirect('/admin/akun/' . $id)->withInput();
+        }
+    }
+
+    public function destroy($id)
+    {
+        try {
+            $user = User::find($id);
+            $user->delete();
+            Session::flash('success', 'Akun berhasil dihapus');
+            return redirect('/admin/akun');
+        } catch (QueryException $e) {
+            Session::flash('error', 'Akun gagal dihapus' . $e->getMessage());
+            return redirect('/admin/akun');
         }
     }
 }

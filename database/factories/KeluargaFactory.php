@@ -20,11 +20,11 @@ class KeluargaFactory extends Factory
         $number = mt_rand(1111111111, 9999999999);
         return [
             'nkk' => '35755665' . strval($number),
-            'pendapatan' => mt_rand(1, 5),
-            'luas_bangunan' => mt_rand(1, 5),
+            'pendapatan' => mt_rand(900000, 5000000),
+            'luas_bangunan' => mt_rand(10, 100),
             'jumlah_tanggungan' => mt_rand(1, 5),
-            'pajak_bumi' => mt_rand(1, 5),
-            'tagihan_listrik' => mt_rand(1, 5)
+            'pajak_bumi' => mt_rand(25000, 150000),
+            'tagihan_listrik' => mt_rand(70000, 150000)
         ];
     }
 }
