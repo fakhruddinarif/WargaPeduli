@@ -34,7 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::group(['middleware' => 'level:Admin'], function () {
         Route::prefix('admin')->group(function () {
             // Dashboard
-            Route::get('/', [\App\Http\Controllers\Admin\AdminDashboard::class, 'index']);
+            Route::get('/', [\App\Http\Controllers\DashboardController::class, 'index']);
             // Penduduk
             Route::prefix('/penduduk')->group(function () {
                 Route::get('/', [\App\Http\Controllers\PendudukController::class, 'index']);
