@@ -25,6 +25,11 @@ Route::get('user/index', function () {
 Route::get('rt/index', function () {
     return view('rt.index');
 });
+Route::get('/modal', function () {
+    return view('components.modals.modal_pengajuan_akun');
+});
+
+
 
 Route::get('/login', [\App\Http\Controllers\AuthController::class, 'index'])->name('login');
 Route::post('/', [\App\Http\Controllers\AuthController::class, 'storelogin']);
