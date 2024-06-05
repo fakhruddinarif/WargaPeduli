@@ -15,7 +15,7 @@ class DetailBantuanSosial extends Model
     public $timestamps = true;
     public $incrementing = true;
 
-    protected $fillable = ['pendapatan', 'luas_bangunan', 'jumlah_tanggungan', 'pajak_bumi', 'tagihan_listrik', 'bansos_id', 'user_id'];
+    protected $fillable = ['pendapatan', 'luas_bangunan', 'jumlah_tanggungan', 'pajak_bumi', 'tagihan_listrik', 'bansos_id', 'user_id', 'status'];
 
     public function bantuanSosial()
     {

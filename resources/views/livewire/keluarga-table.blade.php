@@ -17,8 +17,8 @@
                         <option class="text-sm font-medium text-neutral-900" value="{{ $value->id }}">RT 0{{ $value->nomor }}</option>
                     @endforeach
                 </select>
-                <button class="create-penduduk w-fit px-4 py-3 bg-blue-500 rounded-lg">
-                    <span class="text-sm font-medium text-white">Tambah</span>
+                <button type="button" class="{{ ($url == 'admin') ? 'create-penduduk' : 'download-penduduk'}} w-fit px-4 py-3 bg-blue-500 rounded-lg">
+                    <span class="text-sm font-medium text-white">{{ ($url == 'admin') ? 'Tambah' : 'Download' }}</span>
                 </button>
             </div>
         </form>
@@ -43,7 +43,7 @@
                             <td class="px-6 py-4">{{ $value->jumlah_anggota }}</td>
                             <td class="px-6 py-4">{{ $value->alamat }}</td>
                             <td class="px-6 py-4">
-                                <a href="{{ url('/admin/penduduk/keluarga/' . $value->id) }}" class=" w-fit h-fit px-6 py-2 bg-blue-500 rounded-md">
+                                <a href="{{ url('/' . $url . '/penduduk/keluarga/' . $value->id) }}" class=" w-fit h-fit px-6 py-2 bg-blue-500 rounded-md">
                                     <span class="font-semibold text-white">Detail</span>
                                 </a>
                             </td>

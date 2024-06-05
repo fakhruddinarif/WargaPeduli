@@ -12,9 +12,11 @@
                         </a>
                     @endforeach
                 </div>
-                <a href="{{ url('admin/bansos/create') }}" class="w-fit px-4 py-3 bg-blue-500 rounded-lg">
-                    <span class="text-sm font-medium text-white">Tambah</span>
-                </a>
+                @if($url == 'admin')
+                    <a href="{{ url('admin/bansos/create') }}" class="w-fit px-4 py-3 bg-blue-500 rounded-md">
+                        <span class="text-sm font-medium text-white">Tambah</span>
+                    </a>
+                @endif
             </div>
         </form>
     </div>
@@ -38,12 +40,17 @@
                             <td class="px-6 py-4">{{ $value->jenis }}</td>
                             <td class="px-6 py-4">{{ $value->kapasitas }}</td>
                             <td class="px-6 py-4 flex flex-wrap gap-4">
-                                <a href="{{ url('/admin/bansos/' . $value->id) }}" class="mr-2 w-fit h-fit px-6 py-2 bg-blue-500 rounded-md">
+                                <a href="{{ url('/' . $url .'/bansos/' . $value->id) }}" class="mr-2 w-fit h-fit px-6 py-2 bg-blue-500 rounded-md">
                                     <span class="font-semibold text-white">Detail</span>
                                 </a>
                                 <button type="button" id="btn-{{ $value->id }}" class="prioritas w-fit h-fit px-4 py-2 bg-indigo-600 rounded-md">
                                     <span class="font-semibold text-white">Prioritas</span>
                                 </button>
+                                @if($url == 'rw')
+                                    <a href="{{ url('/' . $url .'/bansos/pengajuan/' . $value->id) }}" class="mr-2 w-fit h-fit px-6 py-2 bg-amber-500 rounded-md">
+                                        <span class="font-semibold text-white">Validasi</span>
+                                    </a>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

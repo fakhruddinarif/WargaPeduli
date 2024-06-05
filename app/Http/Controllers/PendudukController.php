@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Keluarga;
 use App\Models\RukunTetangga;
 use App\Models\Warga;
+use Barryvdh\DomPDF\PDF;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 
@@ -22,10 +25,33 @@ class PendudukController extends Controller
         'tagihan_listrik' => 'numeric|nullable'
     ];
 
+    private function url()
+    {
+        $url = '';
+        $user = Auth::user();
+        if ($user->level->nama == 'Admin') {
+            $url = 'admin';
+        } elseif ($user->level->nama == 'Ketua RW') {
+            $url = 'rw';
+        } elseif ($user->level->nama == 'Ketua RT') {
+            $url = 'rt';
+        } elseif ($user->level->nama == 'Warga') {
+            $url = 'warga';
+        }
+
+        return $url;
+    }
+
+    public function test(Request $request)
+    {
+        dd($request->all());
+    }
     public function index(Request $request)
     {
         $page = "Penduduk";
         $activeMenu = "penduduk";
+        $url = $this->url();
+        $rt = RukunTetangga::all();
 
         $keluarga = $request->has('data')&& $request->get('data') === 'keluarga';
         $warga = $request->has('data')&& $request->get('data') === 'warga';
@@ -34,15 +60,16 @@ class PendudukController extends Controller
             $keluarga = true;
         }
 
-        return view('admin.penduduk.index', ['page' => $page, 'activeMenu' => $activeMenu, 'keluarga' => $keluarga, 'warga' => $warga]);
+        return view('admin.penduduk.index', ['url' => $url, 'page' => $page, 'activeMenu' => $activeMenu, 'keluarga' => $keluarga, 'warga' => $warga, 'rt' => $rt]);
     }
 
     public function createKeluarga()
     {
         $page = "Penduduk";
         $activeMenu = "penduduk";
+        $url = $this->url();
 
-        return view('admin.penduduk.create_keluarga', ['page' => $page, 'activeMenu' => $activeMenu]);
+        return view('admin.penduduk.create_keluarga', ['url' => $url, 'page' => $page, 'activeMenu' => $activeMenu]);
     }
 
     public function storeKeluarga(Request $request)
@@ -70,6 +97,7 @@ class PendudukController extends Controller
     {
         $page = "Penduduk";
         $activeMenu = "penduduk";
+        $url = $this->url();
 
         $isCreateKeluarga = $request->has('create') && $request->get('create') === 'keluarga';
         if (!$request->has('create')) {
@@ -82,7 +110,7 @@ class PendudukController extends Controller
         $statusWarga = ['Menetap', 'Pendatang', 'Merantau'];
         $statusKeluarga = ['Kepala Keluarga', 'Istri', 'Anak', 'Cucu', 'Menantu', 'Lainnya'];
 
-        return view('admin.penduduk.create_warga', ['page' => $page, 'activeMenu' => $activeMenu, 'rt' => $rt, 'keluarga' => $keluarga, 'jenis_kelamin' => $jenisKelamin, 'status_warga' => $statusWarga, 'status_keluarga' => $statusKeluarga, 'isCreateKeluarga' => $isCreateKeluarga]);
+        return view('admin.penduduk.create_warga', ['url' => $url, 'page' => $page, 'activeMenu' => $activeMenu, 'rt' => $rt, 'keluarga' => $keluarga, 'jenis_kelamin' => $jenisKelamin, 'status_warga' => $statusWarga, 'status_keluarga' => $statusKeluarga, 'isCreateKeluarga' => $isCreateKeluarga]);
     }
 
     public function storeWarga(Request $request)
@@ -160,16 +188,18 @@ class PendudukController extends Controller
     {
         $page = "Penduduk";
         $activeMenu = "penduduk";
+        $url = $this->url();
 
         $keluarga = Keluarga::with(['warga', 'user'])->find($id);
 
-        return view('admin.penduduk.detail_keluarga', ['page' => $page, 'activeMenu' => $activeMenu, 'data' => $keluarga]);
+        return view('admin.penduduk.detail_keluarga', ['url' => $url, 'page' => $page, 'activeMenu' => $activeMenu, 'data' => $keluarga]);
     }
 
     public function detailWarga($id)
     {
         $page = "Penduduk";
         $activeMenu = "penduduk";
+        $url = $this->url();
 
         $rt = RukunTetangga::all();
         $keluarga = Keluarga::all();
@@ -179,7 +209,7 @@ class PendudukController extends Controller
         $statusKeluarga = ['Kepala Keluarga', 'Istri', 'Anak', 'Cucu', 'Menantu', 'Lainnya'];
 
 
-        return view('admin.penduduk.detail_warga', ['page' => $page, 'activeMenu' => $activeMenu, 'data' => $warga, 'jenis_kelamin' => $jenisKelamin, 'status_warga' => $statusWarga, 'status_keluarga' => $statusKeluarga, 'rt' => $rt, 'keluarga' => $keluarga]);
+        return view('admin.penduduk.detail_warga', ['url' => $url, 'page' => $page, 'activeMenu' => $activeMenu, 'data' => $warga, 'jenis_kelamin' => $jenisKelamin, 'status_warga' => $statusWarga, 'status_keluarga' => $statusKeluarga, 'rt' => $rt, 'keluarga' => $keluarga]);
     }
 
     public function updateKeluarga(Request $request ,$id)
@@ -241,5 +271,27 @@ class PendudukController extends Controller
             Session::flash('error', 'Terjadi kesalahan saat memperbarui data keluarga: ' . $err->getMessage());
             return redirect('/admin/penduduk/warga/' . $id)->withInput();
         }
+    }
+
+    public function download(Request $request) {
+        $rt = $request->input('rt_id');
+        $columns = ['nkk', 'nik', 'nama', 'jenis_kelamin', 'tempat_lahir', 'tanggal_lahir', 'alamat', 'ibu_kandung', 'status_keluarga'];
+        $selected_columns = [];
+        foreach ($columns as $column) {
+            if ($request->has($column)) {
+                $selected_columns[] = $column;
+            }
+        }
+        $query = DB::table('warga')
+            ->join('keluarga', 'warga.keluarga_id', '=', 'keluarga.id')
+            ->select($selected_columns);
+        if ($rt != "") {
+            $query->where('warga.rt_id', $rt);
+        }
+        $data = $query->get();
+
+        $pdf = app('dompdf.wrapper')->loadView('components.penduduk_pdf', ['data' => $data, 'selected_columns' => $selected_columns]);
+
+        return $pdf->download('penduduk.pdf');
     }
 }

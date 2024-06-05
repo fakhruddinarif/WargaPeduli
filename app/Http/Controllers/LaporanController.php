@@ -5,24 +5,43 @@ namespace App\Http\Controllers;
 use App\Models\Laporan;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class LaporanController extends Controller
 {
+    private function url()
+    {
+        $url = '';
+        $user = Auth::user();
+        if ($user->level->nama == 'Admin') {
+            $url = 'admin';
+        } elseif ($user->level->nama == 'Ketua RW') {
+            $url = 'rw';
+        } elseif ($user->level->nama == 'Ketua RT') {
+            $url = 'rt';
+        } elseif ($user->level->nama == 'Warga') {
+            $url = 'warga';
+        }
+
+        return $url;
+    }
     public function index()
     {
+        $url = $this->url();
         $page = "Laporan";
         $activeMenu = "laporan";
 
-        return view('admin.laporan.index', ['page' => $page, 'activeMenu' => $activeMenu]);
+        return view('admin.laporan.index', ['url' => $url, 'page' => $page, 'activeMenu' => $activeMenu]);
     }
     public function detail($id)
     {
+        $url = $this->url();
         $laporan = Laporan::find($id);
         $page = "Laporan";
         $activeMenu = "laporan";
         $status = ['Menunggu Konfirmasi', 'Diterima', 'Ditolak', 'Diproses', 'Selesai'];
-        return view('admin.laporan.detail', ['page' => $page, 'activeMenu' => $activeMenu, 'data' => $laporan, 'status' => $status]);
+        return view('admin.laporan.detail', ['url' => $url, 'page' => $page, 'activeMenu' => $activeMenu, 'data' => $laporan, 'status' => $status]);
     }
     public function update(Request $request, $id)
     {

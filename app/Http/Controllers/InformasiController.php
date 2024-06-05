@@ -6,6 +6,7 @@ use App\Models\Informasi;
 use Carbon\Carbon;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 
@@ -17,20 +18,39 @@ class InformasiController extends Controller
         'keterangan' => 'required|string',
         'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
     ];
+
+    private function url()
+    {
+        $url = '';
+        $user = Auth::user();
+        if ($user->level->nama == 'Admin') {
+            $url = 'admin';
+        } elseif ($user->level->nama == 'Ketua RW') {
+            $url = 'rw';
+        } elseif ($user->level->nama == 'Ketua RT') {
+            $url = 'rt';
+        } elseif ($user->level->nama == 'Warga') {
+            $url = 'warga';
+        }
+
+        return $url;
+    }
     public function index()
     {
+        $url = $this->url();
         $page = "Informasi";
         $activeMenu = "informasi";
 
-        return view('admin.informasi.index', ['page' => $page, 'activeMenu' => $activeMenu]);
+        return view('admin.informasi.index', ['url' => $url, 'page' => $page, 'activeMenu' => $activeMenu]);
     }
 
     public function create()
     {
+        $url = $this->url();
         $page = "Informasi";
         $activeMenu = "informasi";
         $jenis = ['Pengumuman', 'Berita', 'Kegiatan'];
-        return view('admin.informasi.create', ['page' => $page, 'activeMenu' => $activeMenu, 'jenis' => $jenis]);
+        return view('admin.informasi.create', ['url' => $url, 'page' => $page, 'activeMenu' => $activeMenu, 'jenis' => $jenis]);
     }
 
     public function store(Request $request)
@@ -61,11 +81,12 @@ class InformasiController extends Controller
     }
     public function detail($id)
     {
+        $url = $this->url();
         $informasi = Informasi::find($id);
         $page = "Informasi";
         $activeMenu = "informasi";
         $jenis = ['Pengumuman', 'Berita', 'Kegiatan'];
-        return view('admin.informasi.detail', ['page' => $page, 'activeMenu' => $activeMenu, 'jenis' => $jenis, 'data' => $informasi]);
+        return view('admin.informasi.detail', ['url' => $url, 'page' => $page, 'activeMenu' => $activeMenu, 'jenis' => $jenis, 'data' => $informasi]);
     }
 
     public function update(Request $request, $id)

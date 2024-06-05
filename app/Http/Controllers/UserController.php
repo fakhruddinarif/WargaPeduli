@@ -10,6 +10,7 @@ use App\Service\UserService;
 use Carbon\Carbon;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
@@ -22,6 +23,22 @@ class UserController extends Controller
         'level_id' => 'required|integer',
         'keluarga_id' => 'required|string'
     ];
+    private function url()
+    {
+        $url = '';
+        $user = Auth::user();
+        if ($user->level->nama == 'Admin') {
+            $url = 'admin';
+        } elseif ($user->level->nama == 'Ketua RW') {
+            $url = 'rw';
+        } elseif ($user->level->nama == 'Ketua RT') {
+            $url = 'rt';
+        } elseif ($user->level->nama == 'Warga') {
+            $url = 'warga';
+        }
+
+        return $url;
+    }
     private UserService $userService;
     public function __construct(UserService $userService)
     {
@@ -30,21 +47,23 @@ class UserController extends Controller
 
     public function index()
     {
+        $url = $this->url();
         $page = "Akun";
         $activeMenu = "akun";
 
-        return view('admin.akun.index', ['page' => $page, 'activeMenu' => $activeMenu]);
+        return view('admin.akun.index', ['url' => $url, 'page' => $page, 'activeMenu' => $activeMenu]);
     }
 
     public function create()
     {
+        $url = $this->url();
         $page = "Akun";
         $activeMenu = "akun";
 
         $keluarga = Keluarga::all();
         $level = Level::all();
 
-        return view('admin.akun.create', ['page' => $page, 'activeMenu' => $activeMenu, 'keluarga' => $keluarga, 'level' => $level]);
+        return view('admin.akun.create', ['url' => $url, 'page' => $page, 'activeMenu' => $activeMenu, 'keluarga' => $keluarga, 'level' => $level]);
     }
 
     public function store(Request $request)
@@ -78,12 +97,13 @@ class UserController extends Controller
     public function detail($id) {
         $page = "Akun";
         $activeMenu = "akun";
+        $url = $this->url();
 
         $user = User::find($id);
         $keluarga = Keluarga::all();
         $level = Level::all();
 
-        return view('admin.akun.detail', ['page' => $page, 'activeMenu' => $activeMenu, 'data' => $user, 'keluarga' => $keluarga, 'level' => $level]);
+        return view('admin.akun.detail', ['url' => $url, 'page' => $page, 'activeMenu' => $activeMenu, 'data' => $user, 'keluarga' => $keluarga, 'level' => $level]);
     }
 
     public function update(Request $request, $id)

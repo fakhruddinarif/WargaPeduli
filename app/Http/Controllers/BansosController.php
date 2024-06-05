@@ -9,10 +9,28 @@ use App\Service\SawService;
 use Carbon\Carbon;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 
 class BansosController extends Controller
 {
+    private function url()
+    {
+        $url = '';
+        $user = Auth::user();
+        if ($user->level->nama == 'Admin') {
+            $url = 'admin';
+        } elseif ($user->level->nama == 'Ketua RW') {
+            $url = 'rw';
+        } elseif ($user->level->nama == 'Ketua RT') {
+            $url = 'rt';
+        } elseif ($user->level->nama == 'Warga') {
+            $url = 'warga';
+        }
+
+        return $url;
+    }
     private MabacService $mabacService;
     private SawService $sawService;
 
@@ -34,19 +52,21 @@ class BansosController extends Controller
 
     public function index()
     {
+        $url = $this->url();
         $page = "Bantuan Sosial";
         $activeMenu = "bansos";
 
-        return view('admin.bansos.index', ['page' => $page, 'activeMenu' => $activeMenu]);
+        return view('admin.bansos.index', ['url' => $url, 'page' => $page, 'activeMenu' => $activeMenu]);
     }
 
     public function create()
     {
+        $url = $this->url();
         $page = "Bantuan Sosial";
         $activeMenu = "bansos";
         $jenis = ['PKH', 'Pemakanan', 'KIP', 'BPNT', 'PBIJKN'];
 
-        return view('admin.bansos.create', ['page' => $page, 'activeMenu' => $activeMenu, 'jenis' => $jenis]);
+        return view('admin.bansos.create', ['url' => $url, 'page' => $page, 'activeMenu' => $activeMenu, 'jenis' => $jenis]);
     }
 
     public function store(Request $request)
@@ -75,12 +95,13 @@ class BansosController extends Controller
 
     public function detail($id)
     {
+        $url = $this->url();
         $page = "Bantuan Sosial";
         $activeMenu = "bansos";
 
         $bansos = BantuanSosial::find($id);
         $jenis = ['PKH', 'Pemakanan', 'KIP', 'BPNT', 'PBIJKN'];
-        return view('admin.bansos.detail', ['page' => $page, 'activeMenu' => $activeMenu, 'data' => $bansos, 'jenis' => $jenis]);
+        return view('admin.bansos.detail', ['url' => $url, 'page' => $page, 'activeMenu' => $activeMenu, 'data' => $bansos, 'jenis' => $jenis]);
     }
 
     public function update(Request $request, $id)
@@ -110,6 +131,7 @@ class BansosController extends Controller
 
     public function mabac($id, $number = 1)
     {
+        $url = $this->url();
         $page = "Bantuan Sosial";
         $activeMenu = "bansos";
 
@@ -144,15 +166,18 @@ class BansosController extends Controller
             $rank = $this->mabacService->rank($distance);
             arsort($rank);
 
-            return view('admin.bansos.mabac', ['page' => $page, 'activeMenu' => $activeMenu, 'number' => $number, 'bansos' => $bansos, 'keluarga' => $keluarga, 'values' => $values, 'data' => $data, 'weight' => $weight, 'criteria' => $criteria, 'column' => $column, 'max' => $max, 'min' => $min, 'normalization' => $normalization, 'weightedNormalization' => $weightedNormalization, 'limit' => $limit, 'distance' => $distance, 'rank' => $rank]);
+            Session::put(['rank' => $rank, 'keluarga' => $keluarga]);
+
+            return view('admin.bansos.mabac', ['url' => $url, 'page' => $page, 'activeMenu' => $activeMenu, 'number' => $number, 'bansos' => $bansos, 'keluarga' => $keluarga, 'values' => $values, 'data' => $data, 'weight' => $weight, 'criteria' => $criteria, 'column' => $column, 'max' => $max, 'min' => $min, 'normalization' => $normalization, 'weightedNormalization' => $weightedNormalization, 'limit' => $limit, 'distance' => $distance, 'rank' => $rank]);
         }
         else {
-            return view('admin.bansos.mabac', ['page' => $page, 'activeMenu' => $activeMenu, 'number' => $number, 'bansos' => $bansos, 'keluarga' => $keluarga, 'values' => $values]);
+            return view('admin.bansos.mabac', ['url' => $url, 'page' => $page, 'activeMenu' => $activeMenu, 'number' => $number, 'bansos' => $bansos, 'keluarga' => $keluarga, 'values' => $values]);
         }
     }
 
     public function saw($id, $number = 1)
     {
+        $url = $this->url();
         $page = "Bantuan Sosial";
         $activeMenu = "bansos";
         $bansos = BantuanSosial::find($id);
@@ -182,23 +207,132 @@ class BansosController extends Controller
             $rank = $this->sawService->rank($normalization);
             arsort($rank);
 
-            return view('admin.bansos.saw', ['page' => $page, 'activeMenu' => $activeMenu, 'number' => $number, 'keluarga' => $keluarga, 'values' => $values, 'data' => $data, 'weight' => $weight, 'criteria' => $criteria, 'column' => $column, 'max' => $max, 'min' => $min, 'normalization' => $normalization, 'rank' => $rank, 'bansos' => $bansos]);
+            Session::put(['rank' => $rank, 'keluarga' => $keluarga]);
+
+            return view('admin.bansos.saw', ['url' => $url, 'page' => $page, 'activeMenu' => $activeMenu, 'number' => $number, 'keluarga' => $keluarga, 'values' => $values, 'data' => $data, 'weight' => $weight, 'criteria' => $criteria, 'column' => $column, 'max' => $max, 'min' => $min, 'normalization' => $normalization, 'rank' => $rank, 'bansos' => $bansos]);
         }
         else {
-            return view('admin.bansos.saw', ['page' => $page, 'activeMenu' => $activeMenu, 'number' => $number, 'keluarga' => $keluarga, 'values' => $values, 'bansos' => $bansos]);
+            return view('admin.bansos.saw', ['url' => $url, 'page' => $page, 'activeMenu' => $activeMenu, 'number' => $number, 'keluarga' => $keluarga, 'values' => $values, 'bansos' => $bansos]);
         }
+    }
+
+    public function downloadMabac($id) {
+        $rank = Session::get('rank');
+        $keluarga = Session::get('keluarga');
+        $bansos = BantuanSosial::find($id);
+        $data = [];
+        $number = 0;
+        foreach ($rank as $key => $value) {
+            $data[] = [
+                'no' => $number + 1,
+                'nkk' => $keluarga[$key]->nkk,
+                'nama' => $keluarga[$key]->nama,
+                'alamat' => $keluarga[$key]->alamat,
+                'rt' => $keluarga[$key]->nomor,
+                'nilai' => $value,
+                'bansos' => $bansos->jenis,
+            ];
+            $number++;
+        }
+        $selected_columns = ['no', 'nkk', 'nama', 'alamat', 'rt', 'nilai', 'bansos'];
+
+        $pdf = app('dompdf.wrapper')->loadView('components.bansos_pdf', ['data' => $data, 'selected_columns' => $selected_columns]);
+
+        return $pdf->download('ranking_mabac.pdf');
+    }
+
+    public function downloadSaw($id)
+    {
+        $rank = Session::get('rank');
+        $keluarga = Session::get('keluarga');
+        $bansos = BantuanSosial::find($id);
+        $data = [];
+        $number = 0;
+        foreach ($rank as $key => $value) {
+            $data[] = [
+                'no' => $number + 1,
+                'nkk' => $keluarga[$key]->nkk,
+                'nama' => $keluarga[$key]->nama,
+                'alamat' => $keluarga[$key]->alamat,
+                'rt' => $keluarga[$key]->nomor,
+                'nilai' => $value,
+                'bansos' => $bansos->jenis,
+            ];
+            $number++;
+        }
+        $selected_columns = ['no', 'nkk', 'nama', 'alamat', 'rt', 'nilai', 'bansos'];
+
+        $pdf = app('dompdf.wrapper')->loadView('components.bansos_pdf', ['data' => $data, 'selected_columns' => $selected_columns]);
+
+        return $pdf->download('ranking_saw.pdf');
     }
 
     public function destroy($id)
     {
         try {
             $bansos = BantuanSosial::find($id);
+            DetailBantuanSosial::where('bansos_id', $id)->delete();
             $bansos->delete();
             Session::flash('success', 'Berhasil menghapus data bantuan sosial');
             return redirect('/admin/bansos');
         } catch (QueryException $err) {
             Session::flash('error', 'Gagal menghapus data bantuan sosial');
             return redirect('/admin/bansos');
+        }
+    }
+
+    public function pengajuan($id)
+    {
+        $url = $this->url();
+        $page = "Bantuan Sosial";
+        $activeMenu = "bansos";
+        $perPage = 5;
+        $currentPage = request('page', 1);
+        $totalItems = DetailBantuanSosial::where('status', 'Menunggu Konfirmasi')->where('bansos_id', $id)->count();
+        $totalPages = ceil($totalItems / $perPage);
+
+        $data = DetailBantuanSosial::select('nkk', 'alamat', 'nama', 'rukun_tetangga.nomor', 'detail_bantuan_sosial.id')
+            ->join('user', 'detail_bantuan_sosial.user_id', '=', 'user.id')
+            ->join('keluarga', 'user.keluarga_id', '=', 'keluarga.id')
+            ->join('warga', 'keluarga.id', '=', 'warga.keluarga_id')
+            ->join('rukun_tetangga', 'warga.rt_id', '=', 'rukun_tetangga.id')
+            ->where('detail_bantuan_sosial.status', 'Menunggu Konfirmasi')
+            ->where('detail_bantuan_sosial.bansos_id', $id)
+            ->where('warga.status_keluarga', 'Kepala Keluarga')
+            ->get();
+
+        return view('admin.bansos.pengajuan', ['url' => $url, 'page' => $page, 'activeMenu' => $activeMenu, 'data' => $data, 'totalPages' => $totalPages, 'currentPage' => $currentPage]);
+    }
+
+    public function terima($id)
+    {
+        try {
+            $user = DetailBantuanSosial::find($id);
+            $user->update([
+                'status' => 'Diterima'
+            ]);
+            Session::flash('success', "Sukses menerima bansos");
+            return redirect('/rw/bansos/pengajuan/' . $user->bansos_id);
+        } catch (QueryException $err) {
+            Session::flash('error', "Tidak dapat menerima bansos");
+            Log::error($err);
+            return redirect('/rw/bansos/pengajuan/' . $user->bansos_id);
+        }
+    }
+
+    public function tolak($id)
+    {
+        try {
+            $user = DetailBantuanSosial::find($id);
+            $user->update([
+                'status' => 'Ditolak'
+            ]);
+            Session::flash('success', "Sukses menolak bansos");
+            return redirect('/rw/bansos/pengajuan/' . $user->bansos_id);
+        } catch (QueryException $err) {
+            Session::flash('error', "Tidak dapat menerima bansos");
+            Log::error($err);
+            return redirect('/rw/bansos/pengajuan/' . $user->bansos_id);
         }
     }
 }
