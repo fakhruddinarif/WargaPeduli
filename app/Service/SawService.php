@@ -4,7 +4,7 @@ namespace App\Service;
 
 class SawService {
     private $weight = [0.20, 0.25, 0.30, 0.15, 0.10];
-    private $criteriaType = ['Cost', 'Cost', 'Cost', 'Cost', 'Cost'];
+    private $criteriaType = ['Benefit', 'Benefit', 'Cost', 'Cost', 'Cost'];
     private $column = ['pendapatan', 'luas_bangunan', 'jumlah_tanggungan', 'pajak_bumi', 'tagihan_listrik'];
 
     public function getWeight(): array

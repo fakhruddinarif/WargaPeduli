@@ -9,8 +9,8 @@
             </button>
             <div class="p-4 md:p-5 text-center">
                 <h3 class="mb-5 text-base font-normal text-neutral-500">Apa yang metode anda gunakan?</h3>
-                <a href="{{ url('/admin/bansos/mabac/' . $value->id) }}" data-modal-hide="popup-modal" class="mr-2 border text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">MABAC</a>
-                <a href="{{ url('/admin/bansos/saw/' . $value->id) }}" data-modal-hide="popup-modal" class="border border-indigo-600 text-indigo-600 bg-white hover:bg-neutral-100 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">SAW</a>
+                <a href="{{ url('/' . $url .'/bansos/mabac/' . $value->id) }}" data-modal-hide="popup-modal" class="mr-2 border text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">MABAC</a>
+                <a href="{{ url('/' . $url .'/bansos/saw/' . $value->id) }}" data-modal-hide="popup-modal" class="border border-indigo-600 text-indigo-600 bg-white hover:bg-neutral-100 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">SAW</a>
             </div>
         </div>
     </div>

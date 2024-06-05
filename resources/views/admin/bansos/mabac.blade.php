@@ -5,7 +5,7 @@
             <span class="font-normal text-sm text-white">Detail Data Bantuan Sosial</span>
         </div>
         <div class="w-fit h-fit">
-            <a href="{{url('/admin/bansos/')}}">
+            <a href="{{url('/' . $url .'/bansos/')}}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#ffffff" viewBox="0 0 256 256"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"></path></svg>
             </a>
         </div>
@@ -455,8 +455,15 @@
         </div>
     @elseif($number == 8)
         <div class="w-full flex flex-col gap-4 mb- mt-4">
-            <span class="font-semibold text-neutral-900 text-sm">Perangkingan</span>
-            <img class="w-64 h-32" src="{{ asset('mabac-rank.png') }}">
+            @if($url == 'admin')
+                <span class="font-semibold text-neutral-900 text-sm">Perangkingan</span>
+                <img class="w-64 h-32" src="{{ asset('mabac-rank.png') }}">
+            @endif
+            @if($url == 'rw')
+                <div class="w-full flex flex-row justify-end items-end">
+                    <a href="{{ url('/' . $url .'/bansos/mabac/download/' . $bansos->id) }}" class="w-fit px-4 py-2 bg-blue-500 border-blue-500 border-2 rounded-md"><span class="font-medium text-white text-sm">Download</span></a>
+                </div>
+            @endif
             <div class="w-full relative overflow-x-scroll mb-4">
                 <table class="w-full text-sm text-left rtl:text-right text-neutral-500">
                     <thead class="text-xs text-neutral-700 uppercase bg-neutral-100">
@@ -496,11 +503,18 @@
     @else
         justify-between
     @endif w-full items-end">
-        @if($number > 1)
+        @if($number > 1 && $url == 'admin' && !$values->isEmpty())
             <a href="{{ url('/admin/bansos/mabac/' . $bansos->id . '/' . ($number - 1)) }}" class="w-fit px-4 py-2 bg-white border-blue-500 border-2 rounded-md"><span class="font-medium text-blue-500 text-sm">Sebelumnya</span></a>
         @endif
-        @if($number < 8 && !$values->isEmpty())
+        @if($number < 8 && !$values->isEmpty() && $url == 'admin')
                 <a href="{{ url('/admin/bansos/mabac/' . $bansos->id . '/' . ($number + 1)) }}" class="w-fit px-4 py-2 bg-blue-500 rounded-md"><span class="font-medium text-white text-sm">Berikutnya</span></a>
         @endif
+            @if($url ==  'rw')
+                @if($number == 1 && !$values->isEmpty())
+                    <a href="{{ url('/' . $url .'/bansos/mabac/' . $bansos->id . '/' . 8) }}" class="w-fit px-4 py-2 bg-green-500 rounded-md"><span class="font-medium text-white text-sm">Rangking</span></a>
+                @elseif($number == 8)
+                    <a href="{{ url('/' . $url .'/bansos/mabac/' . $bansos->id . '/' . 1) }}" class="w-fit px-4 py-2 bg-white border-blue-500 border-2 rounded-md"><span class="font-medium text-blue-500 text-sm">Kembali</span></a>
+                @endif
+            @endif
     </div>
 @endsection

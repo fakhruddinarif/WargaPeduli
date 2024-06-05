@@ -23,6 +23,11 @@ Route::get('rt/index', function () {
     return view('rt.index');
 });
 
+Route::get('/test', function () {
+    return view('components.penduduk_pdf');
+});
+Route::post('/test', [\App\Http\Controllers\PendudukController::class, 'test']);
+
 Route::get('/login', [\App\Http\Controllers\AuthController::class, 'index'])->name('login');
 Route::post('/', [\App\Http\Controllers\AuthController::class, 'storelogin']);
 Route::get('/logout', [\App\Http\Controllers\AuthController::class, 'logout']);
@@ -90,7 +95,35 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::group(['middleware' => 'level:Ketua RW'], function() {
         Route::prefix('rw')->group(function () {
-
+            // Dashboard
+            Route::get('/', [\App\Http\Controllers\DashboardController::class, 'index']);
+            // Penduduk
+            Route::prefix('/penduduk')->group(function () {
+                Route::get('/', [\App\Http\Controllers\PendudukController::class, 'index']);
+                Route::post('/download', [\App\Http\Controllers\PendudukController::class, 'download']);
+                Route::get('/keluarga/{id}', [\App\Http\Controllers\PendudukController::class, 'detailKeluarga']);
+                Route::get('/warga/{id}', [\App\Http\Controllers\PendudukController::class, 'detailWarga']);
+            });
+            // Informasi
+            Route::prefix('informasi')->group(function () {
+                Route::get('/', [\App\Http\Controllers\InformasiController::class, 'index']);
+            });
+            // Laporan
+            Route::prefix('/laporan')->group(function () {
+                Route::get('/', [\App\Http\Controllers\LaporanController::class, 'index']);
+            });
+            // Bansos
+            Route::prefix('/bansos')->group(function () {
+                Route::get('/', [\App\Http\Controllers\BansosController::class, 'index']);
+                Route::get('/{id}', [\App\Http\Controllers\BansosController::class, 'detail']);
+                Route::get('/mabac/download/{id}/', [\App\Http\Controllers\BansosController::class, 'downloadMabac']);
+                Route::get('/saw/download/{id}/', [\App\Http\Controllers\BansosController::class, 'downloadSaw']);
+                Route::get('/mabac/{id}/{number?}', [\App\Http\Controllers\BansosController::class, 'mabac']);
+                Route::get('/saw/{id}/{number?}', [\App\Http\Controllers\BansosController::class, 'saw']);
+                Route::get('/pengajuan/{id}', [\App\Http\Controllers\BansosController::class, 'pengajuan']);
+                Route::put('/{id}/terima' , [\App\Http\Controllers\BansosController::class, 'terima']);
+                Route::put('/{id}/tolak', [\App\Http\Controllers\BansosController::class, 'tolak']);
+            });
         });
     });
 });
@@ -98,7 +131,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::group(['middleware' => 'level:Ketua RT'], function() {
         Route::prefix('rt')->group(function () {
-
+            Route::get('/', [\App\Http\Controllers\DashboardController::class, 'index']);
         });
     });
 });

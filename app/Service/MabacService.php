@@ -6,7 +6,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class MabacService {
     private $weight = [0.20, 0.25, 0.30, 0.15, 0.10];
-    private $criteriaType = ['Cost', 'Cost', 'Cost', 'Cost', 'Cost'];
+    private $criteriaType = ['Benefit', 'Benefit', 'Cost', 'Cost', 'Cost'];
     private $column = ['pendapatan', 'luas_bangunan', 'jumlah_tanggungan', 'pajak_bumi', 'tagihan_listrik'];
 
     public function getWeight(): array
@@ -119,13 +119,16 @@ class MabacService {
 
     public function normalization($data, $min, $max) {
         $result = [];
+//        dd($data);
         foreach ($data as $idx => $item) {
             $result[$idx] = [];
             foreach ($this->column as $columnIdx => $column) {
                 if ($this->criteriaType[$columnIdx] === 'Benefit') {
-                    $result[$idx][$column] = number_format(($item[$column] - $min[$columnIdx]) / ($max[$columnIdx] - $min[$columnIdx]), 3);
+                    $denominator = ($max[$columnIdx] - $min[$columnIdx]);
+                    $result[$idx][$column] = $denominator != 0 ? number_format(($item[$column] - $min[$columnIdx]) / $denominator, 3) : 0;
                 } else {
-                    $result[$idx][$column] = number_format(($item[$column] - $max[$columnIdx]) / ($min[$columnIdx] - $max[$columnIdx]), 3);
+                    $denominator = ($min[$columnIdx] - $max[$columnIdx]);
+                    $result[$idx][$column] = $denominator != 0 ? number_format(($item[$column] - $max[$columnIdx]) / $denominator, 3) : 0;
                 }
             }
         }
