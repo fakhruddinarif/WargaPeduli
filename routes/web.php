@@ -17,7 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('user/index', function () {
-    return view('user.index');
+    return view('warga.index');
 });
 Route::get('rt/index', function () {
     return view('rt.index');
