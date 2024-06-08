@@ -23,11 +23,8 @@ Route::get('rt/index', function () {
     return view('rt.index');
 });
 
-Route::get('/test', function () {
-    return view('components.penduduk_pdf');
-});
-Route::post('/test', [\App\Http\Controllers\PendudukController::class, 'test']);
 
+// Guest
 Route::get('/login', [\App\Http\Controllers\AuthController::class, 'index'])->name('login');
 Route::post('/', [\App\Http\Controllers\AuthController::class, 'storelogin']);
 Route::get('/logout', [\App\Http\Controllers\AuthController::class, 'logout']);
@@ -104,13 +101,13 @@ Route::middleware('auth')->group(function () {
                 Route::get('/keluarga/{id}', [\App\Http\Controllers\PendudukController::class, 'detailKeluarga']);
                 Route::get('/warga/{id}', [\App\Http\Controllers\PendudukController::class, 'detailWarga']);
             });
-            // Informasi
-            Route::prefix('informasi')->group(function () {
-                Route::get('/', [\App\Http\Controllers\InformasiController::class, 'index']);
-            });
             // Laporan
             Route::prefix('/laporan')->group(function () {
                 Route::get('/', [\App\Http\Controllers\LaporanController::class, 'index']);
+                Route::get('/', [\App\Http\Controllers\LaporanController::class, 'index']);
+                Route::get('/{id}', [\App\Http\Controllers\LaporanController::class, 'detail']);
+                Route::put('/update/{id}', [\App\Http\Controllers\LaporanController::class, 'update']);
+                Route::delete('/delete/{id}', [\App\Http\Controllers\LaporanController::class, 'destroy']);
             });
             // Bansos
             Route::prefix('/bansos')->group(function () {
@@ -121,6 +118,7 @@ Route::middleware('auth')->group(function () {
                 Route::get('/mabac/{id}/{number?}', [\App\Http\Controllers\BansosController::class, 'mabac']);
                 Route::get('/saw/{id}/{number?}', [\App\Http\Controllers\BansosController::class, 'saw']);
                 Route::get('/pengajuan/{id}', [\App\Http\Controllers\BansosController::class, 'pengajuan']);
+                Route::get('/pengajuan/{bansosId}/detail/{id}', [\App\Http\Controllers\BansosController::class, 'detailPengajuan']);
                 Route::put('/{id}/terima' , [\App\Http\Controllers\BansosController::class, 'terima']);
                 Route::put('/{id}/tolak', [\App\Http\Controllers\BansosController::class, 'tolak']);
             });

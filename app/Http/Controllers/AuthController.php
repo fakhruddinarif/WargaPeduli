@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Pengajuan;
 use App\Models\RukunTetangga;
-use App\Service\PendudukService;
-use App\Service\UserService;
+use App\Services\ChartService;
+use App\Services\PendudukService;
+use App\Services\UserService;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

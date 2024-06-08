@@ -54,10 +54,10 @@ class LaporanController extends Controller
                 'status' => $request->status
             ]);
             Session::flash('success', 'Laporan berhasil diubah');
-            return redirect('/admin/laporan');
+            return redirect('/' . $this->url() .'/laporan');
         } catch (QueryException $e) {
             Session::flash('errors', 'Laporan gagal diubah');
-            return redirect('/admin/laporan');
+            return redirect('/' . $this->url() .'/laporan');
         }
     }
 
@@ -67,10 +67,10 @@ class LaporanController extends Controller
             $laporan = Laporan::find($id);
             $laporan->delete();
             Session::flash('success', 'Laporan berhasil dihapus');
-            return redirect('/admin/laporan');
+            return redirect('/' . $this->url() .'/laporan');
         } catch (QueryException $e) {
             Session::flash('error', 'Laporan gagal dihapus');
-            return redirect('/admin/laporan');
+            return redirect('/' . $this->url() .'/laporan');
         }
     }
 }

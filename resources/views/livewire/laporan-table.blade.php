@@ -51,7 +51,7 @@
                     bg-purple-500 text-white
                     @endif">{{ $value->status }}</span></td>
                             <td class="px-6 py-4">
-                                <a href="{{ url('/admin/laporan/' . $value->id) }}" class=" w-fit h-fit px-6 py-2 bg-blue-500 rounded-md">
+                                <a href="{{ url('/' . $url . '/laporan/' . $value->id) }}" class=" w-fit h-fit px-6 py-2 bg-blue-500 rounded-md">
                                     <span class="font-semibold text-white">Detail</span>
                                 </a>
                             </td>

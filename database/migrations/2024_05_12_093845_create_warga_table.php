@@ -27,6 +27,7 @@ return new class extends Migration
             $table->unsignedBigInteger('rt_id')->nullable(false)->index();
             $table->string('dokumen', 255)->nullable();
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign("keluarga_id")->on("keluarga")->references("id");
             $table->foreign("rt_id")->on("rukun_tetangga")->references("id");
