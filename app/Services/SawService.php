@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service;
+namespace App\Services;
 
 class SawService {
     private $weight = [0.20, 0.25, 0.30, 0.15, 0.10];

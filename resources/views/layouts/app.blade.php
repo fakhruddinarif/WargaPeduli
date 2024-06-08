@@ -8,12 +8,13 @@
     <title>{{ str_replace('_', ' ', config('app.name', 'Warga Peduli')) }}</title>
     <!-- Stylesheet -->
     @vite ('resources/css/app.css')
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 </head>
 <body class="w-dvw h-dvh overflow-hidden flex">
     @yield('template')
 </body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
 <script>
     $(document).ready(function(){
         // Validate input on keypress for nkk and nik

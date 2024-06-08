@@ -21,6 +21,7 @@ return new class extends Migration
             $table->double('pajak_bumi')->nullable();
             $table->double('tagihan_listrik')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

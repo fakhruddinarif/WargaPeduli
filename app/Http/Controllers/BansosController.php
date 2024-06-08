@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\BantuanSosial;
 use App\Models\DetailBantuanSosial;
-use App\Service\MabacService;
-use App\Service\SawService;
+use App\Services\MabacService;
+use App\Services\SawService;
 use Carbon\Carbon;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -286,12 +286,8 @@ class BansosController extends Controller
         $url = $this->url();
         $page = "Bantuan Sosial";
         $activeMenu = "bansos";
-        $perPage = 5;
-        $currentPage = request('page', 1);
-        $totalItems = DetailBantuanSosial::where('status', 'Menunggu Konfirmasi')->where('bansos_id', $id)->count();
-        $totalPages = ceil($totalItems / $perPage);
 
-        $data = DetailBantuanSosial::select('nkk', 'alamat', 'nama', 'rukun_tetangga.nomor', 'detail_bantuan_sosial.id')
+        $data = DetailBantuanSosial::select('nkk', 'alamat', 'nama', 'rukun_tetangga.nomor', 'detail_bantuan_sosial.id', 'detail_bantuan_sosial.bansos_id')
             ->join('user', 'detail_bantuan_sosial.user_id', '=', 'user.id')
             ->join('keluarga', 'user.keluarga_id', '=', 'keluarga.id')
             ->join('warga', 'keluarga.id', '=', 'warga.keluarga_id')
@@ -301,7 +297,13 @@ class BansosController extends Controller
             ->where('warga.status_keluarga', 'Kepala Keluarga')
             ->get();
 
-        return view('admin.bansos.pengajuan', ['url' => $url, 'page' => $page, 'activeMenu' => $activeMenu, 'data' => $data, 'totalPages' => $totalPages, 'currentPage' => $currentPage]);
+        return view('admin.bansos.pengajuan', ['url' => $url, 'page' => $page, 'activeMenu' => $activeMenu, 'data' => $data]);
+    }
+
+    public function detailPengajuan($bansosId, $id)
+    {
+        $detail = DetailBantuanSosial::where('bansos_id', $bansosId)->where('id', $id)->get();
+        return response()->json($detail);
     }
 
     public function terima($id)

@@ -23,13 +23,13 @@
                 <span class="font-normal text-sm text-white">Detail Data Laporan</span>
             </div>
             <div class="w-fit h-fit">
-                <a href="{{url('/admin/laporan/')}}">
+                <a href="{{url('/' . $url . '/laporan/')}}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#ffffff" viewBox="0 0 256 256"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"></path></svg>
                 </a>
             </div>
         </div>
         <div class="w-full flex flex-col justify-center items-center gap-4 px-4 py-4">
-            <form method="POST" enctype="multipart/form-data" action="{{ url('/admin/laporan/update/' . $data->id) }}" class="w-full flex flex-col justify-end items-end gap-4">
+            <form method="POST" enctype="multipart/form-data" action="{{ url('/' . $url .'/laporan/update/' . $data->id) }}" class="w-full flex flex-col justify-end items-end gap-4">
                 @csrf
                 {!! method_field('PUT') !!}
                 <div class="w-full gap-1 flex flex-col justify-start items-start">
