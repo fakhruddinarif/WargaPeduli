@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
 
 class Keluarga extends Model
 {
-    use HasFactory, HasUuids;
+    use HasFactory, HasUuids, SoftDeletes;
 
     protected $table = "keluarga";
     protected $primaryKey = "id";
@@ -29,6 +29,11 @@ class Keluarga extends Model
     public function user() : HasMany
     {
         return $this->hasMany(User::class, 'keluarga_id', 'id');
+    }
+
+    public function riwayatKeluarga()
+    {
+        return $this->hasMany(RiwayatKeluarga::class, 'keluarga_id', 'id');
     }
 
 

@@ -28,7 +28,6 @@
             <thead class="text-sm font-normal text-black">
             <tr>
                 <th scope="col" class="px-6 py-3">Judul</th>
-                <th scope="col" class="px-6 py-3">Konten</th>
                 <th scope="col" class="px-6 py-3">Jenis</th>
                 <th scope="col" class="px-6 py-3">Tanggal</th>
                 <th scope="col" class="px-6 py-3">Aksi</th>
@@ -39,7 +38,6 @@
                     @foreach($data as $key => $value)
                         <tr class="bg-white border-b">
                             <th scope="row" class="px-6 py-4 font-normal text-neutral-900 whitespace-nowrap">{{ $value->judul }}</th>
-                            <td class="px-6 py-4">{{ $value->keterangan }}</td>
                             <td class="px-6 py-4">{{ $value->jenis }}</td>
                             <td class="px-6 py-4">{{ $value->tanggal }}</td>
                             <td class="px-6 py-4">

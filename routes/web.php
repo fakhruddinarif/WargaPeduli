@@ -16,13 +16,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('user/index', function () {
-    return view('warga.index');
-});
-Route::get('rt/index', function () {
-    return view('rt.index');
-});
-
 
 // Guest
 Route::get('/login', [\App\Http\Controllers\AuthController::class, 'index'])->name('login');
@@ -48,6 +41,12 @@ Route::middleware('auth')->group(function () {
                 Route::post('/warga', [\App\Http\Controllers\PendudukController::class,'storeWarga']);
                 Route::get('/warga/{id}', [\App\Http\Controllers\PendudukController::class, 'detailWarga']);
                 Route::put('/update/warga/{id}', [\App\Http\Controllers\PendudukController::class, 'updateWarga']);
+                Route::post('/arsip/keluarga/{id}', [\App\Http\Controllers\PendudukController::class, 'arsipKeluarga']);
+                Route::post('/arsip/warga/{id}', [\App\Http\Controllers\PendudukController::class, 'arsipWarga']);
+                Route::get('/riwayat/keluarga', [\App\Http\Controllers\RiwayatPendudukController::class, 'riwayatKeluarga']);
+                Route::get('/riwayat/warga', [\App\Http\Controllers\RiwayatPendudukController::class, 'riwayatWarga']);
+                Route::get('/riwayat/keluarga/download/{id}', [\App\Http\Controllers\RiwayatPendudukController::class, 'downloadRiwayatKeluarga']);
+                Route::get('/riwayat/warga/download/{id}', [\App\Http\Controllers\RiwayatPendudukController::class, 'downloadRiwayatWarga']);
             });
             // Akun
             Route::prefix('/akun')->group(function () {
@@ -92,6 +91,10 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::group(['middleware' => 'level:Ketua RW'], function() {
         Route::prefix('rw')->group(function () {
+            // Profil
+            Route::get('/profil', [\App\Http\Controllers\UserController::class, 'profil']);
+            Route::put('/profil_update', [\App\Http\Controllers\UserController::class, 'profilUpdate']);
+            Route::put('/change_profile', [\App\Http\Controllers\UserController::class, 'changeProfile']);
             // Dashboard
             Route::get('/', [\App\Http\Controllers\DashboardController::class, 'index']);
             // Penduduk
@@ -100,6 +103,10 @@ Route::middleware('auth')->group(function () {
                 Route::post('/download', [\App\Http\Controllers\PendudukController::class, 'download']);
                 Route::get('/keluarga/{id}', [\App\Http\Controllers\PendudukController::class, 'detailKeluarga']);
                 Route::get('/warga/{id}', [\App\Http\Controllers\PendudukController::class, 'detailWarga']);
+                Route::get('/riwayat/keluarga', [\App\Http\Controllers\RiwayatPendudukController::class, 'riwayatKeluarga']);
+                Route::get('/riwayat/warga', [\App\Http\Controllers\RiwayatPendudukController::class, 'riwayatWarga']);
+                Route::get('/riwayat/keluarga/download/{id}', [\App\Http\Controllers\RiwayatPendudukController::class, 'downloadRiwayatKeluarga']);
+                Route::get('/riwayat/warga/download/{id}', [\App\Http\Controllers\RiwayatPendudukController::class, 'downloadRiwayatWarga']);
             });
             // Laporan
             Route::prefix('/laporan')->group(function () {
@@ -129,7 +136,14 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::group(['middleware' => 'level:Ketua RT'], function() {
         Route::prefix('rt')->group(function () {
+            // Profil
+            Route::get('/profil', [\App\Http\Controllers\UserController::class, 'profil']);
             Route::get('/', [\App\Http\Controllers\DashboardController::class, 'index']);
+            Route::get('/pengajuan', [\App\Http\Controllers\UserController::class, 'pengajuan']);
+            Route::prefix('/penduduk')->group(function () {
+                Route::get('/keluarga/{id}', [\App\Http\Controllers\PendudukController::class, 'detailKeluarga']);
+                Route::get('/warga/{id}', [\App\Http\Controllers\PendudukController::class, 'detailWarga']);
+            });
         });
     });
 });
@@ -137,7 +151,9 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::group(['middleware' => 'level:Warga'], function() {
         Route::prefix('warga')->group(function () {
-
+            // Profil
+            Route::get('/profil', [\App\Http\Controllers\UserController::class, 'profil']);
+            Route::get('/', [\App\Http\Controllers\DashboardController::class, 'index']);
         });
     });
 });

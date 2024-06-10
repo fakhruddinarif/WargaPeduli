@@ -16,7 +16,7 @@ class Informasi extends Model
     public $timestamps = true;
     public $incrementing = true;
 
-    protected $fillable = ['tanggal', 'judul', 'keterangan', 'gambar', 'jenis'];
+    protected $fillable = ['tanggal', 'judul', 'konten', 'gambar', 'jenis'];
 
     public function scopeSearch($query, $value)
     {

@@ -14,7 +14,7 @@ class InformasiTable extends Component
     public $filterJenis = '';
     public function render()
     {
-        $informasi = Informasi::select('id', 'judul', 'jenis', 'keterangan', 'tanggal')
+        $informasi = Informasi::select('id', 'judul', 'jenis', 'tanggal')
             ->search($this->search)
             ->when($this->filterJenis, function ($query, $jenis) {
                 return $query->where('jenis', $jenis);

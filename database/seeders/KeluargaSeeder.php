@@ -14,14 +14,15 @@ class KeluargaSeeder extends Seeder
      */
     public function run(): void
     {
-        for ($i = 0; $i < 40; $i++) {
-            $number = mt_rand(1111111111, 9999999999);
+        for ($i = 0; $i < 96; $i++) {
+            $number = mt_rand(111111, 999999);
             Keluarga::create([
-                'nkk' => '35755665' . strval($number),
-                'pendapatan' => mt_rand(1000000, 10000000),
+                'nkk' => '3092831047' . strval($number),
+                'pendapatan' => mt_rand(1_000_000, 10_000_000),
                 'luas_bangunan' => mt_rand(20, 200),
-                'jumlah_tanggungan' => fake()->randomDigit(),
-                'pajak_bumi' => mt_rand(10000, 100000)
+                'jumlah_tanggungan' => mt_rand(1, 10),
+                'pajak_bumi' => mt_rand(10_000, 100_000),
+                'tagihan_listrik' => mt_rand(20_000, 200_000),
             ]);
         }
     }

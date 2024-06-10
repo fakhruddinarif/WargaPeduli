@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\RukunTetangga;
+use App\Models\User;
 use App\Models\Warga;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -39,10 +40,22 @@ class WargaTable extends Component
         $rt = RukunTetangga::all();
         $url = $this->url();
         try {
-            $warga = Warga::search($this->search)
-                ->when($this->rtFilter, function ($query, $rt) {
-                    return $query->where('rt_id', $this->rtFilter);
-                })->paginate($this->perPage);
+            if ($url == 'rt') {
+                $user = Auth::user();
+                $rtId = User::select('rt_id')
+                    ->distinct()
+                    ->join('keluarga', 'user.keluarga_id', '=', 'keluarga.id')
+                    ->join('warga', 'keluarga.id', '=', 'warga.keluarga_id')
+                    ->where('keluarga.id', $user->keluarga_id)
+                    ->get();
+                $warga = Warga::search($this->search)
+                    ->whereIn('rt_id', $rtId)->paginate($this->perPage);
+            } else {
+                $warga = Warga::search($this->search)
+                    ->when($this->rtFilter, function ($query, $rt) {
+                        return $query->where('rt_id', $this->rtFilter);
+                    })->paginate($this->perPage);
+            }
             return view('livewire.warga-table', ['data' => $warga, 'rt' => $rt, 'url' => $url]);
         } catch (\Exception $err) {
             Log::error('Error fetching data: ' . $err->getMessage());

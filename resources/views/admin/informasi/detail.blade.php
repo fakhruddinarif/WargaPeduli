@@ -37,8 +37,8 @@
                     <input type="text" id="judul" name="judul" class="px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Judul" value="{{ $data->judul }}">
                 </div>
                 <div class="w-full gap-1 flex flex-col justify-start items-start">
-                    <label for="keterangan" class="block font-medium text-sm text-neutral-900">Keterangan<span class="font-medium text-sm text-red-600">*</span></label>
-                    <textarea id="keterangan" name="keterangan" class="px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Keterangan">{{ $data->keterangan }}</textarea>
+                    <label for="konten" class="block font-medium text-sm text-neutral-900">Konten<span class="font-medium text-sm text-red-600">*</span></label>
+                    <textarea id="konten" name="konten" rows="10" cols="50" class="px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Konten">{{ $data->konten }}</textarea>
                 </div>
                 <div class="w-full gap-1 flex flex-col justify-start items-start">
                     <label for="jenis" class="block font-medium text-sm text-neutral-900">Jenis Informasi<span class="font-medium text-sm text-red-600">*</span></label>

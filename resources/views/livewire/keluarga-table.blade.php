@@ -10,17 +10,22 @@
                     <span class="sr-only">Search</span>
                 </button>
             </div>
-            <div class="flex flex-row gap-2">
-                <select wire:model.live="rtFilter" name="rt" id="rt" class="w-24 px-2 py-3 border-2 rounded-lg text-sm font-medium text-neutral-900">
-                    <option class="text-sm font-medium text-neutral-900" value="">Semua</option>
-                    @foreach($rt as $value)
-                        <option class="text-sm font-medium text-neutral-900" value="{{ $value->id }}">RT 0{{ $value->nomor }}</option>
-                    @endforeach
-                </select>
-                <button type="button" class="{{ ($url == 'admin') ? 'create-penduduk' : 'download-penduduk'}} w-fit px-4 py-3 bg-blue-500 rounded-lg">
-                    <span class="text-sm font-medium text-white">{{ ($url == 'admin') ? 'Tambah' : 'Download' }}</span>
-                </button>
-            </div>
+            @if($url == 'admin' || $url == 'rw')
+                <div class="flex flex-row gap-2">
+                    <a href="{{ url($url . '/penduduk/riwayat/keluarga') }}" class="w-fit px-4 py-3 bg-indigo-600 rounded-md">
+                        <span class="text-sm font-medium text-white">Riwayat</span>
+                    </a>
+                    <select wire:model.live="rtFilter" name="rt" id="rt" class="w-24 px-2 py-3 border-2 rounded-lg text-sm font-medium text-neutral-900">
+                        <option class="text-sm font-medium text-neutral-900" value="">Semua</option>
+                        @foreach($rt as $value)
+                            <option class="text-sm font-medium text-neutral-900" value="{{ $value->id }}">RT 0{{ $value->nomor }}</option>
+                        @endforeach
+                    </select>
+                    <button type="button" class="{{ ($url == 'admin') ? 'create-penduduk' : 'download-penduduk'}} w-fit px-4 py-3 bg-blue-500 rounded-lg">
+                        <span class="text-sm font-medium text-white">{{ ($url == 'admin') ? 'Tambah' : 'Download' }}</span>
+                    </button>
+                </div>
+            @endif
         </form>
     </div>
     <div class="relative w-full overflow-x-auto shadow-md mt-4">
@@ -43,8 +48,13 @@
                             <td class="px-6 py-4">{{ $value->jumlah_anggota }}</td>
                             <td class="px-6 py-4">{{ $value->alamat }}</td>
                             <td class="px-6 py-4">
-                                <a href="{{ url('/' . $url . '/penduduk/keluarga/' . $value->id) }}" class=" w-fit h-fit px-6 py-2 bg-blue-500 rounded-md">
-                                    <span class="font-semibold text-white">Detail</span>
+                                @if($url == 'rt')
+                                    <button type="button" class="px-4 py-3 w-fit bg-indigo-600 rounded-md">
+                                        <span class="font-semibold text-white text-sm">Rekomendasi</span>
+                                    </button>
+                                @endif
+                                <a href="{{ url('/' . $url . '/penduduk/keluarga/' . $value->id) }}" class=" w-fit px-6 py-3 bg-blue-500 rounded-md">
+                                    <span class="font-semibold text-white text-sm">Detail</span>
                                 </a>
                             </td>
                         </tr>

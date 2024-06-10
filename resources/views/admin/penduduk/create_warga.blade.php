@@ -8,6 +8,12 @@
                 @endforeach
             </ul>
         </div>
+        @elseif (Session::has('error'))
+        <div class="w-full p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
+            <ul>
+                <li class="font-medium">{{ Session::get('error') }}</li>
+            </ul>
+        </div>
     @endif
     <div class="w-full flex flex-col justify-center items-center rounded-lg border-2">
         <div class="w-full flex flex-row justify-between items-center bg-blue-500 rounded-tr-lg rounded-tl-lg px-4 py-2">
@@ -98,6 +104,17 @@
         form.insertAdjacentHTML('beforeend', `
         <div id="field-form`+i+`" class="w-full flex flex-col justify-end items-end gap-4">
             <button onclick="removeData(`+i+`)" class="w-fit bg-red-500 px-4 py-3 font-medium text-white text-sm rounded-lg">Hapus</button>
+            @if(!$isCreateKeluarga)
+            <div class="w-full gap-1 flex flex-col justify-start items-start">
+                <label class="block font-medium text-sm text-neutral-900">Nomor Kartu Keluarga</label>
+                 <select id="keluarga_id`+i+`" name="keluarga_id[]" class="px-2 py-3 font normal text-sm text-black rounded-lg w-full border-2">
+                    <option class="font normal text-sm text-black" value="">Pilih Nomor Kartu Keluarga</option>
+                    @foreach($keluarga as $value)
+                        <option class="font normal text-sm text-black" value="{{ $value->id }}">{{ $value->nkk }} - {{ $value->nama }}</option>
+                    @endforeach
+                </select>
+            </div>
+            @endif
             <div class="col-span-full w-full">
                 <label class="block text-sm font-medium leading-6 text-neutral-900">Dokumen Kartu Tanda Penduduk</label>
                 <div id="dropzone`+i+`" class="mt-2 flex justify-center rounded-lg border border-dashed border-neutral-900/25 px-6 py-10">
@@ -142,14 +159,17 @@
             <label class="block font-medium text-sm text-neutral-900">Tanggal Lahir<span class="font-medium text-sm text-red-600">*</span></label>
             <input type="date" id="tanggal_lahir`+i+`" name="tanggal_lahir[]" class="px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Tanggal Lahir">
         </div>
+         @if(!$isCreateKeluarga)
         <div class="w-full gap-1 flex flex-col justify-start items-start">
             <label class="block font-medium text-sm text-neutral-900">Alamat<span class="font-medium text-sm text-red-600">*</span></label>
             <input type="text" id="alamat`+i+`" name="alamat[]" class="px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Alamat">
         </div>
+        @endif
         <div class="w-full gap-1 flex flex-col justify-start items-start">
             <label class="block font-medium text-sm text-neutral-900">Nama Ibu Kandung<span class="font-medium text-sm text-red-600">*</span></label>
             <input type="text" id="ibu_kandung`+i+`" name="ibu_kandung[]" class="px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Alamat">
         </div>
+         @if(!$isCreateKeluarga)
         <div class="w-full gap-1 flex flex-col justify-start items-start">
             <label class="block font-medium text-sm text-neutral-900">Rukun Tetangga<span class="font-medium text-sm text-red-600">*</span></label>
             <select id="rt_id`+i+`" name="rt_id[]" class="px-2 py-3 font normal text-sm text-black rounded-lg w-full border-2">
@@ -159,6 +179,7 @@
                 @endforeach
             </select>
         </div>
+      @endif
         <div class="w-full gap-1 flex flex-col justify-start items-start">
             <label class="block font-medium text-sm text-neutral-900">Status Keluarga<span class="font-medium text-sm text-red-600">*</span></label>
             <select id="status_keluarga`+i+`" name="status_keluarga[]" class="px-2 py-3 font normal text-sm text-black rounded-lg w-full border-2">
@@ -177,22 +198,63 @@
                 @endforeach
             </select>
         </div>
-        @if(!$isCreateKeluarga)
-            <div class="w-full gap-1 flex flex-col justify-start items-start">
-                <label class="block font-medium text-sm text-neutral-900">Nomor Kartu Keluarga</label>
-                <select id="keluarga_id`+i+`" name="keluarga_id[]" class="px-2 py-3 font normal text-sm text-black rounded-lg w-full border-2">
-                    <option class="font normal text-sm text-black" value="">Pilih Nomor Kartu Keluarga</option>
-                    @foreach($keluarga as $value)
-                        <option class="font normal text-sm text-black" value="{{ $value->id }}">{{ $value->nkk }}</option>
-                    @endforeach
-                </select>
-            </div>
-        @endif
         <div class="w-full gap-1 flex flex-col justify-start items-start">
             <label class="block font-medium text-sm text-neutral-900">Nomor Telepon</label>
             <input type="tel" id="telepon`+i+`" name="telepon[]" class="px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Nomor Telepon">
         </div>
     </div>`);
+
+        var dokumen = document.getElementById('dokumen' + i);
+        var preview = document.getElementById('preview' + i);
+        var areaUpload = document.getElementById('area-upload' + i);
+
+        dokumen.addEventListener('change', function() {
+            var file = this.files[0];
+            if (file) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.classList.remove('hidden');
+                    areaUpload.classList.add('hidden');
+                };
+                reader.readAsDataURL(file);
+            } else {
+                preview.src = '';
+                preview.classList.add('hidden');
+                areaUpload.classList.remove('hidden');
+            }
+        });
+
+        var dropzone = document.getElementById('dropzone' + i);
+
+        dropzone.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            this.classList.add('bg-blue-100');
+        });
+
+        dropzone.addEventListener('dragleave', function() {
+            this.classList.remove('bg-blue-100');
+        });
+
+        dropzone.addEventListener('drop', function(e) {
+            e.preventDefault();
+            this.classList.remove('bg-blue-100');
+            var file = e.dataTransfer.files[0];
+            dokumen.files = e.dataTransfer.files;
+            if (file) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.classList.remove('hidden');
+                    areaUpload.classList.add('hidden');
+                };
+                reader.readAsDataURL(file);
+            } else {
+                preview.src = '';
+                preview.classList.add('hidden');
+                areaUpload.classList.remove('hidden');
+            }
+        });
 
         if (now === 0) {
             now = i;

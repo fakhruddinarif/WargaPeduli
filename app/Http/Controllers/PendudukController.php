@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Keluarga;
+use App\Models\RiwayatKeluarga;
+use App\Models\RiwayatWarga;
 use App\Models\RukunTetangga;
 use App\Models\Warga;
 use Barryvdh\DomPDF\PDF;
@@ -18,6 +20,8 @@ class PendudukController extends Controller
     protected $rulesKeluarga = [
         'dokumen' => 'image|max:2048|nullable|mimes:jpg,png,jpeg,gif,svg',
         'nkk' => 'required|string|unique:keluarga,nkk',
+        'alamat' => 'required|string|max:255',
+        'rt_id' => 'required|integer',
         'pendapatan' => 'numeric|nullable',
         'luas_bangunan' => 'numeric|nullable',
         'jumlah_tanggungan' => 'numeric|nullable',
@@ -41,11 +45,6 @@ class PendudukController extends Controller
 
         return $url;
     }
-
-    public function test(Request $request)
-    {
-        dd($request->all());
-    }
     public function index(Request $request)
     {
         $page = "Penduduk";
@@ -68,8 +67,9 @@ class PendudukController extends Controller
         $page = "Penduduk";
         $activeMenu = "penduduk";
         $url = $this->url();
+        $rt = RukunTetangga::all();
 
-        return view('admin.penduduk.create_keluarga', ['url' => $url, 'page' => $page, 'activeMenu' => $activeMenu]);
+        return view('admin.penduduk.create_keluarga', ['url' => $url, 'page' => $page, 'activeMenu' => $activeMenu, 'rt' => $rt]);
     }
 
     public function storeKeluarga(Request $request)
@@ -85,6 +85,7 @@ class PendudukController extends Controller
                 $data['dokumen'] = $url;
             }
             $request->session()->put('keluarga', $data);
+
         } catch(QueryException $err) {
             Session::flash('error', 'Terjadi kesalahan saat menyimpan data keluarga: ' . $err->getMessage());
             return redirect('/admin/penduduk/create/keluarga')->withInput();
@@ -105,7 +106,10 @@ class PendudukController extends Controller
         }
 
         $rt = RukunTetangga::all();
-        $keluarga = Keluarga::all();
+        $keluarga = Keluarga::join('warga', 'keluarga.id', '=', 'warga.keluarga_id')
+            ->where('warga.status_keluarga', 'Kepala Keluarga')
+            ->select('keluarga.nkk', 'warga.nama', 'keluarga.id')
+            ->get();
         $jenisKelamin = ['Laki-Laki', 'Perempuan'];
         $statusWarga = ['Menetap', 'Pendatang', 'Merantau'];
         $statusKeluarga = ['Kepala Keluarga', 'Istri', 'Anak', 'Cucu', 'Menantu', 'Lainnya'];
@@ -127,21 +131,38 @@ class PendudukController extends Controller
             'status_warga.*' => 'required|string',
             'status_keluarga.*' => 'required|string',
             'telepon.*' => 'nullable|string',
-            'keluarga_id.*' => 'nullable|string',
+            'keluarga_id.*' => 'required|string',
             'rt_id.*' => 'required|integer'
         ];
         $isCreateKeluarga = $request->has('create') && $request->get('create') === 'keluarga';
+        if ($isCreateKeluarga) {
+            unset($rules['alamat.*']);
+            unset($rules['keluarga_id.*']);
+            unset($rules['rt_id.*']);
+        }
 
         try {
             $request->validate($rules);
+
+            DB::beginTransaction();
 
             // Get session keluarga
             $keluarga = Session::get('keluarga');
 
             // Create keluarga
             if ($isCreateKeluarga) {
-                $keluarga = Keluarga::create($keluarga);
+                Keluarga::create([
+                    'nkk' => $keluarga['nkk'],
+                    'pendapatan' => $keluarga['pendapatan'],
+                    'luas_bangunan' => $keluarga['luas_bangunan'],
+                    'jumlah_tanggungan' => $keluarga['jumlah_tanggungan'],
+                    'pajak_bumi' => $keluarga['pajak_bumi'],
+                    'tagihan_listrik' => $keluarga['tagihan_listrik'],
+                    'dokumen' => isset($keluarga['dokumen']) ? $keluarga['dokumen'] : null,
+                ]);
             }
+
+            $dataKeluarga = Keluarga::latest()->first();
 
             // Create warga
             for ($i = 0; $i < count($request->nik); $i++) {
@@ -151,13 +172,13 @@ class PendudukController extends Controller
                     'jenis_kelamin' => $request->jenis_kelamin[$i],
                     'tempat_lahir' => $request->tempat_lahir[$i],
                     'tanggal_lahir' => $request->tanggal_lahir[$i],
-                    'alamat' => $request->alamat[$i],
+                    'alamat' => $isCreateKeluarga ? $keluarga['alamat'] : $request->alamat[$i],
                     'ibu_kandung' => $request->ibu_kandung[$i],
                     'status_warga' => $request->status_warga[$i],
                     'status_keluarga' => $request->status_keluarga[$i],
                     'telepon' => $request->telepon[$i],
-                    'rt_id' => $request->rt_id[$i],
-                    'keluarga_id' => null
+                    'rt_id' => $isCreateKeluarga ? $keluarga['rt_id'] : $request->rt_id[$i],
+                    'keluarga_id' => $isCreateKeluarga ? $dataKeluarga['id'] : $request->keluarga_id[$i]
                 ];
                 if ($request->hasFile('dokumen')) {
                     $nik = $request->input('nik')[$i];
@@ -166,21 +187,28 @@ class PendudukController extends Controller
                     $url = Storage::url($dokumen);
                     $data['dokumen'] = $url;
                 }
-                if ($isCreateKeluarga) {
-                    $data['keluarga_id'] = $keluarga->id;
-                } else {
-                    $data['keluarga_id'] = $request->keluarga_id[$i];
-                }
                 Warga::create($data);
+                $kepalaKeluargaExists = Warga::where('keluarga_id', $dataKeluarga->id)
+                    ->where('status_keluarga', 'Kepala Keluarga')
+                    ->exists();
+
+                if (!$kepalaKeluargaExists) {
+                    Session::flash('error', 'Setiap keluarga harus memiliki Kepala Keluarga. Silakan tambahkan Kepala Keluarga terlebih dahulu.');
+                    DB::rollBack();
+                    return redirect('/admin/penduduk');
+                }
             }
+
+            DB::commit();
 
             // Clear session keluarga and flash success
             $request->session()->forget('keluarga');
             Session::flash('success', 'Data Penduduk Berhasil Ditambah');
             return redirect('/admin/penduduk');
         } catch (QueryException $err) {
-            Session::flash('errors', 'Terjadi kesalahan saat menyimpan data penduduk: ' . $err->getMessage());
-            return redirect('/admin/penduduk/create/warga')->withInput();
+            DB::rollBack();
+            Session::flash('error', 'Terjadi kesalahan saat menyimpan data penduduk: ' . $err->getMessage());
+            return redirect('/admin/penduduk/')->withInput();
         }
     }
 
@@ -202,7 +230,10 @@ class PendudukController extends Controller
         $url = $this->url();
 
         $rt = RukunTetangga::all();
-        $keluarga = Keluarga::all();
+        $keluarga = Keluarga::join('warga', 'keluarga.id', '=', 'warga.keluarga_id')
+            ->where('warga.status_keluarga', 'Kepala Keluarga')
+            ->select('keluarga.nkk', 'warga.nama', 'keluarga.id')
+            ->get();
         $warga = Warga::find($id);
         $jenisKelamin = ['Laki-Laki', 'Perempuan'];
         $statusWarga = ['Menetap', 'Pendatang', 'Merantau'];
@@ -293,5 +324,101 @@ class PendudukController extends Controller
         $pdf = app('dompdf.wrapper')->loadView('components.penduduk_pdf', ['data' => $data, 'selected_columns' => $selected_columns]);
 
         return $pdf->download('penduduk.pdf');
+    }
+
+    public function arsipKeluarga($id, Request $request)
+    {
+        $request->validate([
+            'status' => 'required|string',
+            'surat' => 'file|mimes:pdf|max:2048|nullable'
+        ]);
+
+        DB::beginTransaction(); // Mulai transaksi
+
+        try {
+            $data = $request->all();
+            $keluarga = Keluarga::find($id);
+            $keluarga->delete();
+            foreach ($keluarga->warga as $warga) {
+                $warga->delete();
+            }
+
+            if ($request->hasFile('surat')) {
+                $surat = $request->file('surat')->storeAs('surat/keluarga', "{$keluarga->nkk}.pdf", 'public');
+                $url = Storage::url($surat);
+                $data['surat'] = $url;
+            }
+
+            RiwayatKeluarga::create([
+                'keluarga_id' => $keluarga->id,
+                'tanggal' => now(),
+                'status' => $data['status'],
+                'surat' => $data['surat']
+            ]);
+
+            foreach ($keluarga->warga as $warga) {
+                RiwayatWarga::create([
+                    'warga_id' => $warga->id,
+                    'tanggal' => now(),
+                    'status' => $data['status'],
+                ]);
+            }
+
+            DB::commit(); // Jika semua query berhasil, commit transaksi
+
+            Session::flash('success', 'Data Keluarga Berhasil Diarsipkan');
+            return redirect('/admin/penduduk');
+        } catch (QueryException $err) {
+            DB::rollBack(); // Jika ada kesalahan, rollback transaksi
+
+            Session::flash('error', 'Terjadi kesalahan saat mengarsipkan data keluarga: ' . $err->getMessage());
+            return redirect('/admin/penduduk/keluarga/' . $id);
+        }
+    }
+
+    public function arsipWarga($id, Request $request)
+    {
+        $request->validate([
+            'status' => 'required|string',
+            'surat' => 'file|mimes:pdf|max:2048|nullable'
+        ]);
+
+        DB::beginTransaction();
+        try {
+            $data = $request->all();
+            $warga = Warga::find($id);
+            $warga->delete();
+            if ($request->hasFile('surat')) {
+                $surat = $request->file('surat')->storeAs('surat/warga', "{$warga->nik}.pdf", 'public');
+                $url = Storage::url($surat);
+                $data['surat'] = $url;
+            }
+            if ($warga->status_keluarga == 'Kepala Keluarga') {
+                $keluarga = Keluarga::find($warga->keluarga_id);
+                $anggotaLain = Warga::where('keluarga_id', $keluarga->id)
+                    ->where('status_keluarga', '!=', 'Kepala Keluarga')
+                    ->first();
+                if ($anggotaLain) {
+                    $anggotaLain->status_keluarga = 'Kepala Keluarga';
+                    $anggotaLain->save();
+                } else {
+                    $keluarga->delete();
+                }
+                RiwayatWarga::create([
+                    'warga_id' => $warga->id,
+                    'tanggal' => now(),
+                    'status' => $data['status'],
+                    'surat' => $data['surat']
+                ]);
+                DB::commit();
+                Session::flash('success', 'Data Warga Berhasil Diarsipkan');
+                return redirect('/admin/penduduk');
+            }
+        } catch (QueryException $e) {
+            DB::rollBack(); // Jika ada kesalahan, rollback transaksi
+
+            Session::flash('error', 'Terjadi kesalahan saat mengarsipkan data warga: ' . $e->getMessage());
+            return redirect('/admin/penduduk/warga/' . $id);
+        }
     }
 }
