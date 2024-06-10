@@ -25,71 +25,72 @@ class AuthController extends Controller
         $this->userService = $userService;
     }
 
-    public function checkPengajuan(Request $request) {
-        $pengajuan = Pengajuan::find($request->id);
-        $rt = $pengajuan->rukunTetangga;
-
-        return view('detail', ['data' => $pengajuan, 'rt' => $rt]);
-    }
-    public function pengajuan()
+    public function landingPage()
     {
         $rt = RukunTetangga::all();
-        return view('pengajuan', ['rt' => $rt]);
+        return view('welcome', ['rt' => $rt]);
+    }
+
+    public function checkPengajuan(Request $request) {
+        $pengajuan = Pengajuan::find($request->id);
+        Session::flash('pengajuan', $pengajuan);
+        return redirect('/');
     }
     public function storePengajuan(Request $request)
     {
-        try {
+        $request->validate([
+            'status_warga' => 'required|string',
+            'dokumen_kk' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'nkk' => 'nullable|string',
+            'dokumen_ktp' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'nik' => 'required|string',
+            'nama' => 'required|string',
+            'jenis_kelamin' => 'required|string',
+            'tempat_lahir' => 'required|string',
+            'tanggal_lahir' => 'required|date',
+            'alamat' => 'required|string',
+            'rt_id' => 'required|integer',
+            'ibu_kandung' => 'required|string',
+            'telepon' => 'nullable|string',
+        ]);
+        if ($request->status_warga == 'Menetap') {
             $request->validate([
-                'dokumen' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                'nik' => 'string|nullable|max:20',
-                'nkk' => 'string|nullable|max:20',
-                'nama' => 'string|required|max:100',
-                'jenis_kelamin' => 'string|nullable',
-                'tempat_lahir' => 'string|nullable|max:50',
-                'tanggal_lahir' => 'date|nullable',
-                'alamat' => 'string|nullable|max:255',
-                'ibu_kandung' => 'string|nullable|max:100',
-                'status_warga' => 'string|required',
-                'telepon' => 'string|nullable|max:16',
-                'username' => 'string|nullable|unique:user,username',
-                'password' => 'string|nullable',
-                'rt_id' => 'required|integer'
+                'dokumen_kk' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'nkk' => 'required |string',
             ]);
-            $data = $request->all();
+        }
 
-            if ($request->hasFile('dokumen')) {
-                $extension = $request->file('dokumen')->extension();
-                if ($request->status_warga == 'Menetap') {
-                    if ($this->userService->checkUsernameExist($request->username)) {
-                        Session::flash('error', 'Username sudah terdaftar');
-                        return redirect('/pengajuan');
-                    }
-                    if ($this->pendudukService->checkFamilyExist($request->nkk)) {
-                        Session::flash('error', 'NKK sudah terdaftar');
-                        return redirect('/pengajuan');
-                    }
-                    $nkk = $request->nkk;
-                    $dokumen = $request->file('dokumen')->storeAs('pengajuan', $nkk . '.' . $extension, 'public');
-                    $url = Storage::url($dokumen);
-                    $data['dokumen'] = $url;
-                } else {
-                     if ($this->pendudukService->checkResidentExist($request->nik)) {
-                          Session::flash('error', 'NIK sudah terdaftar');
-                          return redirect('/pengajuan');
-                     }
-                   $nik = $request->nik;
-                   $dokumen = $request->file('dokumen')->storeAs('pengajuan', $nik . '.' . $extension, 'public');
-                   $url = Storage::url($dokumen);
-                   $data['dokumen'] = $url;
+        try {
+            $data = $request->all();
+            if ($request->status_warga == 'Menetap') {
+                if ($request->hasFile('dokumen_kk')) {
+                    $nkk = $request->input('nkk');
+                    $extension = $request->file('dokumen_kk')->extension();
+                    $dokumenKK = $request->file('dokumen_kk')->storeAs('pengajuan/kk', "{$nkk}.{$extension}", 'public');
+                    $urlKK = Storage::url($dokumenKK);
+                    $data['dokumen_kk'] = $urlKK;
                 }
-                Pengajuan::create($data);
-                Session::flash('success', 'Data berhasil disimpan');
-                return redirect('/pengajuan');
             }
+            if ($request->hasFile('dokumen_ktp')) {
+                $nik = $request->input('nik');
+                $extension = $request->file('dokumen_ktp')->extension();
+                $dokumenKTP = $request->file('dokumen_ktp')->storeAs('pengajuan/ktp', "{$nik}.{$extension}", 'public');
+                $urlKTP = Storage::url($dokumenKTP);
+                $data['dokumen_ktp'] = $urlKTP;
+            }
+            $data['status'] = 'Menunggu Konfirmasi';
+            $data['status_pengajuan'] = $request->status_warga == 'Menetap' ? 'Keluarga' : 'Warga';
+            $data['status_keluarga'] = $request->status_warga == 'Menetap' ? 'Kepala Keluarga' : 'Lainnya';
+
+            Pengajuan::create($data);
+
+            $result = Pengajuan::latest()->first();
+            Session::flash('success', $result->id);
+            return redirect('/');
         } catch (QueryException $error) {
             Session::flash('error', 'Data gagal disimpan atau data sudah ada');
             Log::error($error->getMessage());
-            return redirect('/pengajuan');
+            return redirect('/');
         }
     }
     public function index()
