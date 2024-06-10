@@ -22,6 +22,9 @@ Route::get('user/index', function () {
 Route::get('rt/index', function () {
     return view('rt.index');
 });
+Route::get('/berita', function () {
+    return view('detailberita');
+});
 
 Route::get('/test', function () {
     return view('components.penduduk_pdf');
