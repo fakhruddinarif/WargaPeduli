@@ -1,5 +1,7 @@
 @extends('layouts.app')
 @section('template')
+@include('rt.pengajuan')
+@include('rt.keluarga')
 @include('layouts.navigation')
 @include('layouts.navbar')
 <section id="content" class="bg-white flex flex-wrap justify-start items-start mt-[164px] w-full gap-4 py-8 px-5 overflow-y-scroll">
@@ -57,46 +59,14 @@
         </div>
     </div>
 
-    <div id="pengajuan-penduduk" class="hidden fixed inset-0 bg-neutral-600 bg-opacity-50 flex justify-center items-center w-full mt-40">
-        <div class="bg-white rounded-xl shadow-lg w-full max-w-6xl mt-10">
-            <div class="flex justify-between items-center p-4 bg-blue-500 rounded-sm">
-                <h3 class="text-lg font-medium text-white">Data Pengajuan Penduduk</h3>
-                <button id="close-button-pengajuan" class="text-white">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" class="w-6 h-6">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
-            <div class="p-1 overflow-y-auto max-h-full">
-                <div class="w-full transition-transform">
-                    <div id="data-pengajuan" class="relative w-full overflow-x-auto shadow-md mt-4">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Modal -->
-    <div id="myModal" class="hidden fixed inset-0 bg-neutral-600 bg-opacity-50 flex justify-center items-center w-full mt-40">
-        <div class="bg-white rounded-xl shadow-lg w-full max-w-6xl mt-10">
-            <div class="flex justify-between items-center p-4 bg-blue-500 rounded-sm">
-                <h3 class="text-lg font-medium text-white">Data Keluarga</h3>
-                <button id="close-button" class="text-white">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" class="w-6 h-6">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
-            <div class="p-1 overflow-y-auto max-h-96">
-                <livewire:keluarga-table />
-            </div>
-        </div>
-    </div>
+  
     <div id="modal-penduduk" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center w-full mt-40">
         <div class="bg-white rounded-xl shadow-lg w-full max-w-6xl fixed mt-10">
             <div class="flex justify-between items-center p-4 bg-blue-500 rounded-sm">
                 <h3 class="text-lg font-medium text-white">Data Penduduk</h3>
-                <button id="close-button1" class="text-white">
+                <button id="close-button2" class="text-white">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" class="w-6 h-6">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                     </svg>
@@ -109,9 +79,22 @@
     </div>
 
     <script>
-        document.getElementById('btn-pengajuan').addEventListener('click', function() {
-            document.getElementById('pengajuan-penduduk').classList.remove('hidden');
+         document.getElementById('btn-pengajuan').addEventListener('click', function() {
+            var pengajuan = document.getElementById('pengajuan-penduduk');
+            pengajuan.classList.remove('hidden');
+            pengajuan.classList.add('center');
         });
+
+        document.getElementById('close-button-pengajuan').addEventListener('click', function() {
+            var pengajuan = document.getElementById('pengajuan-penduduk');
+            pengajuan.classList.add('hidden');
+            pengajuan.classList.remove('center');
+        });
+
+        document.getElementById('btn-pengajuan').addEventListener('click', function() {
+            document.getElementById('pengajuan-penduduk').style.display = 'block';
+        });
+
         document.getElementById('data-button-keluarga').addEventListener('click', function() {
             document.getElementById('myModal').classList.remove('hidden');
         });
@@ -119,13 +102,10 @@
             document.getElementById('modal-penduduk').classList.remove('hidden');
         });
 
-        document.getElementById('close-button-pengajuan').addEventListener('click', function() {
-            document.getElementById('pengajuan-penduduk').classList.add('hidden');
-        });
         document.getElementById('close-button').addEventListener('click', function() {
             document.getElementById('myModal').classList.add('hidden');
         });
-        document.getElementById('close-button1').addEventListener('click', function() {
+        document.getElementById('close-button2').addEventListener('click', function() {
             document.getElementById('modal-penduduk').classList.add('hidden');
         });
 
@@ -143,6 +123,7 @@
             .catch(error => {
                 console.log('Fetch error: ', error);
             });
+
     </script>
 </section>
 @endsection
