@@ -27,6 +27,7 @@ class AkunTable extends Component
                 return $query->where('w.rt_id', $rt);
             })
             ->groupBy('user.id', 'username', 'l.nama', 'k.id')
+            ->orderBy('user.id')
             ->paginate($this->perPage);
         $rt = RukunTetangga::all();
         return view('livewire.akun-table', ['data' => $users, 'rt' => $rt]);

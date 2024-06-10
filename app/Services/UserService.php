@@ -22,4 +22,24 @@ class UserService {
         }
         return false;
     }
+
+    public function checkLevelRT($level, $rt)
+    {
+        $data = User::join('keluarga', 'user.keluarga_id', '=', 'keluarga.id')
+            ->join('warga', 'keluarga.id', '=', 'warga.keluarga_id')
+            ->where('user.level_id', $level)
+            ->where('warga.rt_id', $rt)
+            ->select('user.id')
+            ->distinct()
+            ->get();
+
+        return $data->isEmpty() ? false : true;
+    }
+
+    public function checkLevelRW($level)
+    {
+        $data = User::where('level_id', $level)->get();
+
+        return $data->isEmpty() ? false : true;
+    }
 }

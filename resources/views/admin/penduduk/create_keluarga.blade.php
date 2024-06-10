@@ -47,6 +47,19 @@
                     <input type="text" id="nkk" name="nkk" class="px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Nomor Kartu Keluarga">
                 </div>
                 <div class="w-full gap-1 flex flex-col justify-start items-start">
+                    <label for="alamat" class="block font-medium text-sm text-neutral-900">Alamat<span class="font-medium text-sm text-red-600">*</span></label>
+                    <input type="text" id="alamat" name="alamat" class="px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Alamat">
+                </div>
+                <div class="w-full gap-1 flex flex-col justify-start items-start">
+                    <label for="rt_id" class="block font-medium text-sm text-neutral-900">Rukun Tetangga<span class="font-medium text-sm text-red-600">*</span></label>
+                    <select id="rt_id" name="rt_id" class="px-2 py-3 font normal text-sm text-black rounded-lg w-full border-2" {{ $url == 'admin' ? '' : 'disabled' }}>
+                        <option class="font normal text-sm text-black" value="">Pilih Rukun Tetangga</option>
+                        @foreach($rt as $value)
+                            <option class="font normal text-sm text-black" value="{{ $value->id }}">RT 0{{ $value->nomor }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="w-full gap-1 flex flex-col justify-start items-start">
                     <label for="pendapatan" class="block font-medium text-sm text-neutral-900">Pendapatan</label>
                     <input type="text" id="pendapatan" name="pendapatan" class="input-number px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Pendapatan">
                 </div>

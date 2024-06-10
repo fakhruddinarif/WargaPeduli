@@ -15,7 +15,7 @@ class InformasiController extends Controller
     protected $rules = [
         'judul' => 'required|string|max:100',
         'jenis' => 'required|string',
-        'keterangan' => 'required|string',
+        'konten' => 'required|string',
         'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
     ];
 
@@ -68,7 +68,7 @@ class InformasiController extends Controller
             Informasi::create([
                 'judul' => $request->judul,
                 'jenis' => $request->jenis,
-                'keterangan' => $request->keterangan,
+                'konten' => $request->konten ?? '',
                 'gambar' => $request->gambar,
                 'tanggal' => Carbon::now()
             ]);
@@ -94,7 +94,7 @@ class InformasiController extends Controller
         $request->validate([
             'judul' => 'required|string|max:100',
             'jenis' => 'required|string',
-            'keterangan' => 'required|string',
+            'konten' => 'required|string',
             'gambar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
         $informasi = Informasi::find($id);
@@ -110,7 +110,7 @@ class InformasiController extends Controller
             $informasi->update([
                 'judul' => $request->judul,
                 'jenis' => $request->jenis,
-                'keterangan' => $request->keterangan,
+                'konten' => $request->konten,
                 'gambar' => $request->gambar,
             ]);
             Session::flash('success', 'Informasi berhasil diubah');

@@ -39,21 +39,37 @@ class DashboardController extends Controller
         $url = $this->url();
         $page = "Dashboard";
         $activeMenu = "dashboard";
+        $user = Auth::user();
 
-        $countResident = Warga::count();
-        $countFamily = Keluarga::count();
-        $residentsAge = Warga::select('nama', DB::raw('YEAR(CURRENT_DATE) - YEAR(tanggal_lahir) as usia'))->get();
+        if ($url == 'admin' || $url == 'rw') {
+            $countResident = Warga::count();
+            $countFamily = Keluarga::count();
+            $residentsAge = Warga::select('nama', DB::raw('YEAR(CURRENT_DATE) - YEAR(tanggal_lahir) as usia'))->get();
 
-        $amount = Warga::rightJoin('rukun_tetangga as rt', 'warga.rt_id', '=', 'rt.id')
-            ->select(DB::raw('COUNT(warga.nik) as jumlah_warga'))
-            ->groupBy('rt.nomor')
-            ->pluck('jumlah_warga');
-        $age = $this->chartService->categoryResidentByAge($residentsAge); //Pie Chart
-        $rt = RukunTetangga::all();
-        $rtNumbers = array_map(function($number) {
-            return 'RT 0' . $number;
-        }, $rt->pluck('nomor')->toArray());
+            $amount = Warga::rightJoin('rukun_tetangga as rt', 'warga.rt_id', '=', 'rt.id')
+                ->select(DB::raw('COUNT(warga.nik) as jumlah_warga'))
+                ->groupBy('rt.nomor')
+                ->pluck('jumlah_warga');
+            $age = $this->chartService->categoryResidentByAge($residentsAge); //Pie Chart
+            $rt = RukunTetangga::all();
+            $rtNumbers = array_map(function($number) {
+                return 'RT 0' . $number;
+            }, $rt->pluck('nomor')->toArray());
 
-        return view('admin.index', ['url' => $url, 'page' => $page, 'activeMenu' => $activeMenu, 'countResident' => $countResident, 'countFamily' => $countFamily, 'amount' => $amount, 'age' => $age, 'rt' => $rtNumbers]);
+            return view('admin.index', ['url' => $url, 'page' => $page, 'activeMenu' => $activeMenu, 'countResident' => $countResident, 'countFamily' => $countFamily, 'amount' => $amount, 'age' => $age, 'rt' => $rtNumbers]);
+        }
+        else if ($url == 'rt') {
+            $nomor = DB::table('user')
+                ->join('keluarga', 'user.keluarga_id', '=', 'keluarga.id')
+                ->join('warga', 'keluarga.id', '=', 'warga.keluarga_id')
+                ->join('rukun_tetangga', 'warga.rt_id', '=', 'rukun_tetangga.id')
+                ->where('keluarga.id', $user->keluarga_id)
+                ->distinct()
+                ->pluck('rukun_tetangga.nomor');
+            return view('rt.index', ['url' => $url, 'page' => $page, 'activeMenu' => $activeMenu, 'nomor' => $nomor[0]]);
+        }
+        else {
+            return view('warga.index', ['url' => $url, 'page' => $page, 'activeMenu' => $activeMenu]);
+        }
     }
 }

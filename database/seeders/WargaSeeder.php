@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Keluarga;
+use App\Models\RukunTetangga;
 use App\Models\Warga;
 use Faker\Factory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -17,30 +18,35 @@ class WargaSeeder extends Seeder
     public function run(): void
     {
         $faker = Factory::create('id_ID');
-        $id = Keluarga::select('id')->get();
-        $count = Keluarga::count();
-        $status_keluarga = ['Kepala Keluarga', 'Istri', 'Anak', 'Cucu', 'Menantu'];
+        $alamat = 'Jalan Kalpataru Gg.';
+        $status_keluarga = ['Kepala Keluarga', 'Istri', 'Anak', 'Menantu', 'Cucu'];
+        $keluarga = Keluarga::all();
         $rt = 0;
+        $gender = ['male', 'female'];
 
-        for ($i = 0; $i < $count; $i++) {
-            if ($i % 5 == 0) {
+
+        foreach ($keluarga as $key => $value) {
+            if ($key % 12 == 0) {
                 $rt++;
             }
-            $alamat = $faker->address();
-            foreach ($status_keluarga as $sk) {
-                $number = mt_rand(1111111111, 9999999999);
+            foreach ($status_keluarga as $str => $item) {
+                $number = mt_rand(111111, 999999);
+                $phoneNumber = $faker->phoneNumber;
+                $phoneNumber = str_replace(['(+62)', ' '], ['08', ''], $phoneNumber);
+                $genderByIndonesia = $gender[$str % 2] == 'male' ? 'Laki-laki' : 'Perempuan';
                 Warga::create([
-                    'nik' => '35755625' . strval($number),
-                    'nama' => $faker->name(),
-                    'jenis_kelamin' => $faker->randomElement(['Laki-Laki', 'Perempuan']),
-                    'tempat_lahir' => $faker->randomElement(['Kota Malang', 'Kota Batu', 'Kab. Malang']),
-                    'tanggal_lahir' => $faker->date,
-                    'alamat' => $alamat,
+                    'nik' => '3093827485' . strval($number),
+                    'nama' => $faker->name($gender[$str % 2]),
+                    'jenis_kelamin' => $genderByIndonesia,
+                    'tempat_lahir' => $faker->city,
+                    'tanggal_lahir' => $faker->date(),
+                    'alamat' => $alamat . strval($rt) . ' No. ' . strval($key % 12 + 1),
+                    'ibu_kandung' => $faker->name('female'),
                     'status_warga' => 'Menetap',
-                    'ibu_kandung' => $faker->name(),
-                    'status_keluarga' => $sk,
-                    'keluarga_id' => $id[$i]->id,
-                    'rt_id' => $rt,
+                    'status_keluarga' => $item,
+                    'telepon' => $phoneNumber,
+                    'keluarga_id' => $value->id,
+                    'rt_id' => $rt
                 ]);
             }
         }

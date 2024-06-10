@@ -10,17 +10,22 @@
                     <span class="sr-only">Search</span>
                 </button>
             </div>
-            <div class="flex flex-row gap-2">
-                <select wire:model.live="rtFilter" name="rt" id="rt" class="w-24 px-2 py-3 border-2 rounded-lg text-sm font-medium text-neutral-900">
-                    <option class="text-sm font-medium text-neutral-900" value="">Semua</option>
-                    @foreach($rt as $value)
-                        <option class="text-sm font-medium text-neutral-900" value="{{ $value->id }}">RT 0{{ $value->nomor }}</option>
-                    @endforeach
-                </select>
-                <button class="{{ ($url == 'admin') ? 'create-penduduk' : 'download-penduduk'}} w-fit px-4 py-3 bg-blue-500 rounded-lg">
-                    <span class="text-sm font-medium text-white">{{ ($url == 'admin') ? 'Tambah' : 'Download' }}</span>
-                </button>
-            </div>
+            @if($url == 'admin' || $url == 'rw')
+                <div class="flex flex-row gap-2">
+                    <a href="{{ url($url . '/penduduk/riwayat/warga') }}" class="w-fit px-4 py-3 bg-indigo-600 rounded-md">
+                        <span class="text-sm font-medium text-white">Riwayat</span>
+                    </a>
+                    <select wire:model.live="rtFilter" name="rt" id="rt" class="w-24 px-2 py-3 border-2 rounded-lg text-sm font-medium text-neutral-900">
+                        <option class="text-sm font-medium text-neutral-900" value="">Semua</option>
+                        @foreach($rt as $value)
+                            <option class="text-sm font-medium text-neutral-900" value="{{ $value->id }}">RT 0{{ $value->nomor }}</option>
+                        @endforeach
+                    </select>
+                    <button class="{{ ($url == 'admin') ? 'create-penduduk' : 'download-penduduk'}} w-fit px-4 py-3 bg-blue-500 rounded-lg">
+                        <span class="text-sm font-medium text-white">{{ ($url == 'admin') ? 'Tambah' : 'Download' }}</span>
+                    </button>
+                </div>
+            @endif
         </form>
     </div>
     <div class="relative w-full overflow-x-auto shadow-md mt-4">

@@ -50,7 +50,7 @@
                     <select id="keluarga_id" name="keluarga_id" class="px-2 py-3 font normal text-sm text-black rounded-lg w-full border-2">
                         <option class="font normal text-sm text-black" value="">Pilih NKK</option>
                         @foreach($keluarga as $value)
-                            <option class="font normal text-sm text-black" value="{{ $value->id }}">{{ $value->nkk }}</option>
+                            <option class="font normal text-sm text-black" value="{{ $value->id }}">{{ $value->nkk }} - {{ $value->nama }}</option>
                         @endforeach
                     </select>
                 </div>

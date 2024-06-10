@@ -15,7 +15,7 @@ WargaPeduli adalah sebuah sistem `e-gevorment` yang berfokus pada tingkat rukun 
 - Git : https://git-scm.com/downloads
 - Composer 2.6.6 : https://getcomposer.org/download/
 - NodeJS 20 : https://nodejs.org/en/download/current
--  PHP 8.1 or Laragon with bundling PHP 8.1 : https://www.php.net/downloads.php or https://laragon.org/download/index.html
+- PHP 8.1 or Laragon with bundling PHP 8.1 : https://www.php.net/downloads.php or https://laragon.org/download/index.html
 - Postman or Apidog : https://www.postman.com/downloads/ or https://apidog.com/
 
 ## Team
@@ -79,13 +79,17 @@ php artisan migrate
 ### Run Data Untuk Database
 
 ```shell
-php artisan db:seed --class=LevelSeeder
+php artisan db:seed LevelSeeder
 
-php artisan db:seed --class=RukunTetanggaSeeder
+php artisan db:seed RukunTetanggaSeeder
 
-Keluarga::factory()->count(40)->create()
+php artisan db:seed BantuanSosialSeeder
 
-php artisan db:seed --class=WargaSeeder
+php artisan db:seed KeluargaSeeder
+
+php artisan db:seed WargaSeeder
+
+php artisan db:seed UserSeeder
 ```
 
 ## Run Application & Testing

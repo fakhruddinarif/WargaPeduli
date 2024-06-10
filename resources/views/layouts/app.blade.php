@@ -8,7 +8,7 @@
     <title>{{ str_replace('_', ' ', config('app.name', 'Warga Peduli')) }}</title>
     <!-- Stylesheet -->
     @vite ('resources/css/app.css')
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 </head>
@@ -100,7 +100,7 @@
 
         dropzone.on('dragover', function(event) {
             event.preventDefault();
-            $(this).css('backgroundColor', 'rgba(0, 0, 0, 0.7)');
+            $(this).addClass('bg-blue-100');
         });
 
         dropzone.on('dragleave', function(event) {
@@ -179,7 +179,6 @@
             });
         });
     });
-
 </script>
 </html>
 

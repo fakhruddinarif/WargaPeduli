@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Warga extends Model
 {
-    use HasFactory, HasUuids;
+    use HasFactory, HasUuids, SoftDeletes;
 
     protected $table = "warga";
     protected $primaryKey = "id";
@@ -27,6 +27,11 @@ class Warga extends Model
     public function keluarga() : BelongsTo
     {
         return $this->belongsTo(Warga::class, 'keluarga_id', 'id');
+    }
+
+    public function riwayatWarga()
+    {
+        return $this->hasMany(RiwayatWarga::class, 'warga_id', 'id');
     }
 
     public function scopeSearch($query, $value)
