@@ -1,8 +1,8 @@
-<div id="myModal1" class="hidden fixed z-40 inset-0 bg-neutral-600 bg-opacity-50 flex justify-center items-center w-full mt-40">
+<div id="btn-rekomendasi" class="hidden fixed z-40 inset-0 bg-neutral-600 bg-opacity-50 flex justify-center items-center w-full mt-40">
     <div class="bg-white rounded-xl shadow-lg w-full max-w-6xl mt-10">
         <div class="flex justify-between items-center p-4 bg-blue-500 rounded-sm">
             <h3 class="text-lg font-medium text-white">Form Rekomendasi</h3>
-            <button id="close-button1" class="text-white">
+            <button id="close-button-rekomendasi" class="text-white">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" class="w-6 h-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                 </svg>

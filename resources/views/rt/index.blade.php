@@ -96,14 +96,14 @@
         });
 
         document.getElementById('data-button-keluarga').addEventListener('click', function() {
-            document.getElementById('myModal').classList.remove('hidden');
+            document.getElementById('btn-keluarga').classList.remove('hidden');
         });
         document.getElementById('data-button-warga').addEventListener('click', function() {
             document.getElementById('modal-penduduk').classList.remove('hidden');
         });
 
         document.getElementById('close-button').addEventListener('click', function() {
-            document.getElementById('myModal').classList.add('hidden');
+            document.getElementById('btn-keluarga').classList.add('hidden');
         });
         document.getElementById('close-button2').addEventListener('click', function() {
             document.getElementById('modal-penduduk').classList.add('hidden');
