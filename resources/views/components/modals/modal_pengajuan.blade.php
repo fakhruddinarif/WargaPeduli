@@ -9,7 +9,7 @@
             </button>
             <div class="p-4 md:p-5 text-center flex flex-col gap-2 w-full justify-center items-center">
                 <button id="cekPengajuan" type="button" data-modal-hide="popup-modal" class="w-full border text-white bg-indigo-600 hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center justify-center">Cek Pengajuan</button>
-                <a href="/pengajuan" data-modal-hide="popup-modal" class="w-full border border-indigo-600 text-indigo-600 bg-white hover:bg-neutral-100 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center justify-center">Daftar Pengajuan</a>
+                <button id="daftar-pengajuan" data-modal-hide="popup-modal" class="w-full border border-indigo-600 text-indigo-600 bg-white hover:bg-neutral-100 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center justify-center">Daftar Pengajuan</button>
             </div>
         </div>
     </div>

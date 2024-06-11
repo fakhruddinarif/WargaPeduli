@@ -44,7 +44,6 @@
         </div>
     </div>
 </div>
-
 <script>
     document.getElementById('jenis_bansos').addEventListener('change', function() {
         if (this.value) {

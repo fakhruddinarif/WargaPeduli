@@ -7,6 +7,17 @@
 @include('layouts.navigation')
 @include('layouts.navbar')
 <section id="content" class="bg-white flex flex-wrap justify-start items-start mt-[164px] w-full gap-4 py-8 px-5 overflow-y-scroll">
+    <div class="w-full flex justify-center items-center">
+        @if(Session::has('success'))
+            <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50" role="alert">
+                <span class="font-medium">{{ Session::get('success')}}</span>
+            </div>
+        @elseif(Session::has('error'))
+            <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
+                <span class="font-medium">{{ Session::get('error')}}</span>
+            </div>
+        @endif
+    </div>
     <div class="flex flex-col justify-between items-center w-full gap-8">
         <div class="h-fit w-full lg:w-2/3 flex flex-col gap-4 bg-neutral-200/50 px-8 py-6 rounded-lg">
             <h1 class="text-neutral-900 text-4xl font-bold text-center">Selamat Datang Bapak RT 0{{ $nomor }} Pada Halaman</h1>
@@ -76,7 +87,6 @@
                         <button type="button" id="btn-riwayat-bansos" class="text-white bg-blue-500 hover:bg-blue-800 focus:outline-none px-4 py-3 rounded-md text-base w-fit">Selengkapnya</button>
                     </div>
                 </div>
-
                 <div class="flex flex-row w-fit px-4 py-3 md:px-8 md:py-6 gap-4 justify-center items-center transform transition-all hover:-translate-y-2 duration-300 shadow-lg hover:shadow-2xl rounded-lg border">
                     <div class="w-full">
                     <svg class="bg-white rounded-lg sm:mt-0 w-32 h-32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -97,14 +107,13 @@
     </div>
 </section>
 
-
     <!-- Modal -->
-  
-    <div id="modal-penduduk" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center w-full">
-        <div class="bg-white rounded-xl shadow-lg w-full max-w-6xl fixed mb-40 mt-28">
+
+    <div id="modal-penduduk" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center w-full mt-40">
+        <div class="bg-white rounded-xl shadow-lg w-full max-w-6xl fixed mt-10">
             <div class="flex justify-between items-center p-4 bg-blue-500 rounded-sm">
                 <h3 class="text-lg font-medium text-white">Data Penduduk</h3>
-                <button id="close-button2" class="text-white gray-900">
+                <button id="close-button2" class="text-white">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" class="w-6 h-6">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                     </svg>
@@ -117,7 +126,7 @@
     </div>
 
     <script>
-        document.getElementById('btn-pengajuan').addEventListener('click', function() {
+         document.getElementById('btn-pengajuan').addEventListener('click', function() {
             var pengajuan = document.getElementById('pengajuan-penduduk');
             pengajuan.classList.remove('hidden');
             pengajuan.classList.add('center');
@@ -130,6 +139,23 @@
         });
 
         document.getElementById('btn-pengajuan').addEventListener('click', function() {
+            var pengajuan = document.getElementById('pengajuan-penduduk');
+            pengajuan.classList.remove('hidden');
+            pengajuan.classList.add('center');
+        });
+
+        document.getElementById('close-button-pengajuan').addEventListener('click', function() {
+            var pengajuan = document.getElementById('pengajuan-penduduk');
+            pengajuan.classList.add('hidden');
+            pengajuan.classList.remove('center');
+            document.getElementById('pengajuan-penduduk').style.display = 'block';
+        });
+
+        document.getElementById('data-button-keluarga').addEventListener('click', function() {
+            document.getElementById('btn-keluarga').classList.remove('hidden');
+        });
+
+        document.getElementById('btn-pengajuan').addEventListener('click', function() {
             document.getElementById('pengajuan-penduduk').style.display = 'block';
         });
          
@@ -139,7 +165,6 @@
             riwayat_bansos.classList.remove('hidden');
             riwayat_bansos.classList.add('center');
         });
-
         document.getElementById('close-button-riwayat-bansos').addEventListener('click', function() {
             var riwayat_bansos = document.getElementById('modal-riwayat-bansos');
             riwayat_bansos.classList.add('hidden');
@@ -163,27 +188,13 @@
         document.getElementById('data-button-warga').addEventListener('click', function() {
             document.getElementById('modal-penduduk').classList.remove('hidden');
         });
-
-       
+  
+        document.getElementById('close-button').addEventListener('click', function() {
+            document.getElementById('btn-keluarga').classList.add('hidden');
+        });
         document.getElementById('close-button2').addEventListener('click', function() {
             document.getElementById('modal-penduduk').classList.add('hidden');
         });
-
-        fetch('/rt/pengajuan')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log(data);
-                console.log(data.nkk);
-            })
-            .catch(error => {
-                console.log('Fetch error: ', error);
-            });
-
     </script>
 </section>
 @endsection
