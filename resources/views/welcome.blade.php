@@ -7,8 +7,8 @@
             class="flex flex-row justify-between items-center w-full border-2 border-b-neutral-50 gap-8 md:gap-12 lg:gap-10 px-2 sm:px-4">
             <div class="flex justify-start items-center rtl:justify-end w-fit">
                  <a href="{{ url('/') }}" class="flex ms-2 md:me-24">
-                    <img src="{{ asset('logo.png') }}" class="h-20 me-3 w-20" alt="Logo Polinema" />
-                    <span class="ml-[-23px] mt-[-2px] self-center text-base font-semibold sm:text-xl whitespace-nowrap">WargaPeduli</span>
+                    <img src="{{ asset('logo.png') }}" class="h-8 me-3" alt="Logo Polinema" />
+                    <span class=" self-center text-base font-semibold sm:text-xl whitespace-nowrap">WargaPeduli</span>
                 </a>
             </div>
             <div class="flex flex-row justify-end items-center px-2 py-3 w-full sm:px-4 gap-2">
@@ -333,8 +333,8 @@
         <div class="md:flex md:justify-between">
           <div class="mb-6 md:mb-0">
               <a href="" class="flex items-center">
-                  <img src="{{ asset('logo.png') }}" class="h-20 me-3" alt="FlowBite Logo" />
-                  <span class="ml-[-25px] self-center text-2xl font-semibold whitespace-nowrap dark:text-white">WargaPeduli</span>
+                  <img src="{{ asset('logo.png') }}" class="h-8 me-3" alt="FlowBite Logo" />
+                  <span class=" self-center text-2xl font-semibold whitespace-nowrap dark:text-white">WargaPeduli</span>
               </a>
           </div>
           <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">

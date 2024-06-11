@@ -11,12 +11,8 @@
                     </button>
                 @endif
                 <a href="{{ url('/') }}" class="flex ms-2 md:me-24">
-<<<<<<< Updated upstream
                     <img src="{{ asset('logo.png') }}" class="h-8 me-3" alt="Logo Polinema" />
-=======
-                    <img src="{{ asset('logo.png') }}" class="h-10 me-3 w-10" alt="Logo Polinema" />
->>>>>>> Stashed changes
-                    <span class="self-center text-base font-semibold sm:text-xl whitespace-nowrap">Warga Peduli</span>
+              <span class="self-center text-base font-semibold sm:text-xl whitespace-nowrap">Warga Peduli</span>
                 </a>
             </div>
             <div class="w-full flex flex-row justify-end {{ $url == 'admin' || $url == 'rw' ? 'sm:justify-between' : '' }} items-center px-2 py-3 sm:px-4">
