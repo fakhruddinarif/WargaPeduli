@@ -134,6 +134,7 @@
             var pengajuan = document.getElementById('pengajuan-penduduk');
             pengajuan.classList.add('hidden');
         });
+
         document.getElementById('btn-pengajuan').addEventListener('click', function() {
             document.getElementById('pengajuan-penduduk').style.display = 'block';
         });
