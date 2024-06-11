@@ -1,3 +1,12 @@
+@if(Session::has('success'))
+        <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50" role="alert">
+            <span class="font-medium">{{ Session::get('success')}}</span>
+        </div>
+    @elseif(Session::has('error'))
+        <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
+            <span class="font-medium">{{ Session::get('error')}}</span>
+        </div>
+    @endif
  <div id="pengajuan-penduduk" class="hidden fixed inset-0 z-40 bg-neutral-600 bg-opacity-50  justify-center items-center w-full mt-40">
         <div class="bg-white rounded-xl shadow-lg w-full max-w-6xl xl:mt-40 mt-20 mx-auto">
             <div class="flex items-center justify-between p-4 bg-blue-500 rounded-sm">
@@ -80,7 +89,6 @@
     document.getElementById('pengajuan-penduduk').addEventListener('click', function() {
         this.style.display = 'none';
     });
-
     $(document).ready(function() {
         // Mendapatkan referensi ke elemen modal
         var pengajuanPenduduk = $('#pengajuan-penduduk');
