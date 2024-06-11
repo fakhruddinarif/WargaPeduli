@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Keluarga;
+use App\Models\Pengajuan;
 use App\Models\RukunTetangga;
 use App\Models\Warga;
 use App\Services\ChartService;
@@ -66,7 +67,8 @@ class DashboardController extends Controller
                 ->where('keluarga.id', $user->keluarga_id)
                 ->distinct()
                 ->pluck('rukun_tetangga.nomor');
-            return view('rt.index', ['url' => $url, 'page' => $page, 'activeMenu' => $activeMenu, 'nomor' => $nomor[0]]);
+            $pengajuan = Pengajuan::where('status', 'Menunggu Konfirmasi')->get();
+            return view('rt.index', ['url' => $url, 'page' => $page, 'activeMenu' => $activeMenu, 'nomor' => $nomor[0], 'pengajuan' => $pengajuan]);
         }
         else {
             return view('warga.index', ['url' => $url, 'page' => $page, 'activeMenu' => $activeMenu]);

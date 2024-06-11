@@ -25,6 +25,8 @@ Route::middleware('auth')->group(function () {
     Route::group(['middleware' => 'level:Admin'], function () {
         Route::prefix('admin')->group(function () {
             // Dashboard
+            Route::get('/profil', [\App\Http\Controllers\UserController::class, 'profil']);
+            Route::put('/change_profile', [\App\Http\Controllers\UserController::class, 'changeProfile']);
             Route::get('/', [\App\Http\Controllers\DashboardController::class, 'index']);
             // Penduduk
             Route::prefix('/penduduk')->group(function () {
@@ -91,6 +93,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/profil', [\App\Http\Controllers\UserController::class, 'profil']);
             Route::put('/profil_update', [\App\Http\Controllers\UserController::class, 'profilUpdate']);
             Route::put('/change_profile', [\App\Http\Controllers\UserController::class, 'changeProfile']);
+            Route::post('/add_warga',[\App\Http\Controllers\PengajuanController::class, 'store']);
             // Dashboard
             Route::get('/', [\App\Http\Controllers\DashboardController::class, 'index']);
             // Penduduk
@@ -135,7 +138,8 @@ Route::middleware('auth')->group(function () {
             // Profil
             Route::get('/profil', [\App\Http\Controllers\UserController::class, 'profil']);
             Route::get('/', [\App\Http\Controllers\DashboardController::class, 'index']);
-            Route::get('/pengajuan', [\App\Http\Controllers\UserController::class, 'pengajuan']);
+            Route::put('/pengajuan/{id}/terima', [\App\Http\Controllers\PengajuanController::class, 'terima']);
+            Route::put('/pengajuan/{id}/tolak', [\App\Http\Controllers\PengajuanController::class, 'tolak']);
             Route::prefix('/penduduk')->group(function () {
                 Route::get('/keluarga/{id}', [\App\Http\Controllers\PendudukController::class, 'detailKeluarga']);
                 Route::get('/warga/{id}', [\App\Http\Controllers\PendudukController::class, 'detailWarga']);

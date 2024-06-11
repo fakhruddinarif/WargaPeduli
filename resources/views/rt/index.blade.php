@@ -5,6 +5,17 @@
 @include('layouts.navigation')
 @include('layouts.navbar')
 <section id="content" class="bg-white flex flex-wrap justify-start items-start mt-[164px] w-full gap-4 py-8 px-5 overflow-y-scroll">
+    <div class="w-full flex justify-center items-center">
+        @if(Session::has('success'))
+            <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50" role="alert">
+                <span class="font-medium">{{ Session::get('success')}}</span>
+            </div>
+        @elseif(Session::has('error'))
+            <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
+                <span class="font-medium">{{ Session::get('error')}}</span>
+            </div>
+        @endif
+    </div>
     <div class="flex flex-col justify-between items-center w-full gap-8">
         <div class="h-fit w-full lg:w-2/3 flex flex-col gap-4 bg-neutral-200/50 px-8 py-6 rounded-lg">
             <h1 class="text-neutral-900 text-4xl font-bold text-center">Selamat Datang Bapak RT 0{{ $nomor }} Pada Halaman</h1>
@@ -61,7 +72,7 @@
 
 
     <!-- Modal -->
-  
+
     <div id="modal-penduduk" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center w-full mt-40">
         <div class="bg-white rounded-xl shadow-lg w-full max-w-6xl fixed mt-10">
             <div class="flex justify-between items-center p-4 bg-blue-500 rounded-sm">
@@ -108,22 +119,6 @@
         document.getElementById('close-button2').addEventListener('click', function() {
             document.getElementById('modal-penduduk').classList.add('hidden');
         });
-
-        fetch('/rt/pengajuan')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log(data);
-                console.log(data.nkk);
-            })
-            .catch(error => {
-                console.log('Fetch error: ', error);
-            });
-
     </script>
 </section>
 @endsection

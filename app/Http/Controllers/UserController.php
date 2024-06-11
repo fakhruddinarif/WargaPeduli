@@ -60,6 +60,9 @@ class UserController extends Controller
         $url = $this->url();
         $page = "Profil";
         $user = Auth::user();
+        $pengajuan = Pengajuan::where('nkk', $user->keluarga->nkk)
+            ->where('status', '=', 'Menunggu Konfirmasi')
+            ->get();
         $data = User::join('keluarga', 'user.keluarga_id', '=', 'keluarga.id')
             ->join('warga', 'keluarga.id', '=', 'warga.keluarga_id')
             ->join('rukun_tetangga', 'warga.rt_id', '=', 'rukun_tetangga.id')
@@ -67,7 +70,7 @@ class UserController extends Controller
             ->select('keluarga.nkk', 'warga.nik', 'warga.nama', 'keluarga.dokumen as kk', 'warga.dokumen as ktp', 'warga.jenis_kelamin', 'warga.tempat_lahir', 'warga.tanggal_lahir', 'warga.alamat', 'warga.ibu_kandung', 'warga.status_keluarga', 'warga.telepon', 'nomor', 'pendapatan', 'luas_bangunan', 'jumlah_tanggungan', 'pajak_bumi', 'tagihan_listrik', 'keluarga.id')
             ->get();
 
-        return view('profil', ['url' => $url, 'page' => $page, 'data' => $data, 'user' => $user]);
+        return view('profil', ['url' => $url, 'page' => $page, 'data' => $data, 'user' => $user, 'pengajuan' => $pengajuan]);
     }
 
     public function create()
@@ -180,20 +183,6 @@ class UserController extends Controller
             Session::flash('error', 'Akun gagal dihapus' . $e->getMessage());
             return redirect('/admin/akun');
         }
-    }
-
-    public function pengajuan()
-    {
-        $user = Auth::user();
-        $number = User::select('rt_id')
-            ->distinct()
-            ->join('keluarga', 'user.keluarga_id', '=', 'keluarga.id')
-            ->join('warga', 'keluarga.id', '=', 'warga.keluarga_id')
-            ->where('keluarga.id', $user->keluarga_id)
-            ->pluck('rt_id')
-            ->first();
-        $pengajuan = Pengajuan::where('status', 'Menunggu Konfirmasi')->where('rt_id', $number)->first();
-        return response()->json($pengajuan);
     }
 
     public function changeProfile(Request $request)
