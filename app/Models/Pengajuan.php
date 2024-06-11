@@ -16,7 +16,7 @@ class Pengajuan extends Model
     protected $keyType = "string";
     public $timestamps = true;
 
-    protected $fillable = ['nkk', 'dokumen_kk', 'nik', 'dokumen_ktp', 'nama', 'jenis_kelamin', 'tempat_lahir', 'tanggal_lahir', 'alamat', 'ibu_kandung', 'status_warga', 'status_keluarga', 'telepon', 'rt_id', 'status'];
+    protected $fillable = ['nkk', 'dokumen_kk', 'nik', 'dokumen_ktp', 'nama', 'jenis_kelamin', 'tempat_lahir', 'tanggal_lahir', 'alamat', 'ibu_kandung', 'status_warga', 'status_keluarga', 'telepon', 'rt_id', 'status', 'username', 'password'];
 
     public function rukunTetangga() : BelongsTo
     {

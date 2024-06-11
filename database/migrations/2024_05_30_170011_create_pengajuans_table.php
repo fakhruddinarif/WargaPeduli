@@ -28,6 +28,9 @@ return new class extends Migration
             $table->string('telepon', 16)->nullable();
             $table->unsignedBigInteger('rt_id')->nullable(false)->index();
             $table->enum('status', ['Menunggu Konfirmasi', 'Diterima', 'Ditolak', 'Selesai'])->nullable(false);
+            $table->enum('status_pengajuan', ['Keluarga', 'Warga']);
+            $table->string('username', 100)->nullable();
+            $table->string('password', 100)->nullable();
             $table->timestamps();
 
             $table->foreign("rt_id")->on("rukun_tetangga")->references("id");
