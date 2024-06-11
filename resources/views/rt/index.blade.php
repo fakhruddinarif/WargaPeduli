@@ -108,7 +108,6 @@
 </section>
 
     <!-- Modal -->
-
     <div id="modal-penduduk" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center w-full mt-40">
         <div class="bg-white rounded-xl shadow-lg w-full max-w-6xl fixed mt-10">
             <div class="flex justify-between items-center p-4 bg-blue-500 rounded-sm">
@@ -136,27 +135,6 @@
             var pengajuan = document.getElementById('pengajuan-penduduk');
             pengajuan.classList.add('hidden');
             pengajuan.classList.remove('center');
-        });
-
-        document.getElementById('btn-pengajuan').addEventListener('click', function() {
-            var pengajuan = document.getElementById('pengajuan-penduduk');
-            pengajuan.classList.remove('hidden');
-            pengajuan.classList.add('center');
-        });
-
-        document.getElementById('close-button-pengajuan').addEventListener('click', function() {
-            var pengajuan = document.getElementById('pengajuan-penduduk');
-            pengajuan.classList.add('hidden');
-            pengajuan.classList.remove('center');
-            document.getElementById('pengajuan-penduduk').style.display = 'block';
-        });
-
-        document.getElementById('data-button-keluarga').addEventListener('click', function() {
-            document.getElementById('btn-keluarga').classList.remove('hidden');
-        });
-
-        document.getElementById('btn-pengajuan').addEventListener('click', function() {
-            document.getElementById('pengajuan-penduduk').style.display = 'block';
         });
          
         // riwayat bansos
@@ -189,9 +167,6 @@
             document.getElementById('modal-penduduk').classList.remove('hidden');
         });
   
-        document.getElementById('close-button').addEventListener('click', function() {
-            document.getElementById('btn-keluarga').classList.add('hidden');
-        });
         document.getElementById('close-button2').addEventListener('click', function() {
             document.getElementById('modal-penduduk').classList.add('hidden');
         });

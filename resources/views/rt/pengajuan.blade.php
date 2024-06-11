@@ -89,28 +89,28 @@
     document.getElementById('pengajuan-penduduk').addEventListener('click', function() {
         this.style.display = 'none';
     });
-    $(document).ready(function() {
-        // Mendapatkan referensi ke elemen modal
-        var pengajuanPenduduk = $('#pengajuan-penduduk');
-        var detailPengajuan = $('#detail-pengajuan');
+    // $(document).ready(function() {
+    //     // Mendapatkan referensi ke elemen modal
+    //     var pengajuanPenduduk = $('#pengajuan-penduduk-detail');
+    //     var detailPengajuan = $('#detail-pengajuan');
 
-        // Mendapatkan semua tombol detail
-        var detailButtons = $('[id^="btn-"]');
+    //     // Mendapatkan semua tombol detail
+    //     var detailButtons = $('[id^="btn-"]');
 
-        // Menambahkan event listener ke setiap tombol detail
-        detailButtons.each(function() {
-            $(this).click(function() {
-                // Menampilkan detail pengajuan dan menyembunyikan pengajuan penduduk
-                detailPengajuan.removeClass('hidden');
-                pengajuanPenduduk.addClass('hidden');
-            });
-        });
+    //     // Menambahkan event listener ke setiap tombol detail
+    //     detailButtons.each(function() {
+    //         $(this).click(function() {
+    //             // Menampilkan detail pengajuan dan menyembunyikan pengajuan penduduk
+    //             detailPengajuan.removeClass('hidden');
+    //             pengajuanPenduduk.addClass('hidden');
+    //         });
+    //     });
 
-        // Menambahkan event listener ke tombol close-detail-pengajuan
-        $('#close-detail-pengajuan').click(function() {
-            // Menyembunyikan detail pengajuan dan menampilkan pengajuan penduduk
-            detailPengajuan.addClass('hidden');
-            pengajuanPenduduk.removeClass('hidden');
-        });
-    });
+    //     // Menambahkan event listener ke tombol close-detail-pengajuan
+    //     $('#close-detail-pengajuan').click(function() {
+    //         // Menyembunyikan detail pengajuan dan menampilkan pengajuan penduduk
+    //         detailPengajuan.addClass('hidden');
+    //         pengajuanPenduduk.removeClass('hidden');
+    //     });
+    // });
 </script>
