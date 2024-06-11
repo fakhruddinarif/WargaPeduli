@@ -28,6 +28,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/profil', [\App\Http\Controllers\UserController::class, 'profil']);
             Route::put('/change_profile', [\App\Http\Controllers\UserController::class, 'changeProfile']);
             Route::get('/', [\App\Http\Controllers\DashboardController::class, 'index']);
+            Route::post('/pengajuan/penduduk/{id}', [\App\Http\Controllers\PengajuanController::class, 'proses']);
             // Penduduk
             Route::prefix('/penduduk')->group(function () {
                 Route::get('/', [\App\Http\Controllers\PendudukController::class, 'index']);

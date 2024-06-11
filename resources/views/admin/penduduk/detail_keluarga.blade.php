@@ -104,7 +104,7 @@
                             <tr class="bg-white border-b">
                                 <th scope="row" class="px-6 py-4 font-normal text-neutral-900 whitespace-nowrap">{{$value->nik }}</th>
                                 <td class="px-6 py-4">{{ $value->nama }}</td>
-                                <td class="px-6 py-4">{{ ($value->telepon != null) ? $value->telepon : "Belum diatur" }}</td>
+                                <td class="px-6 py-4">{{ ($value->telepon != null) ? $value->telepon : "N/A" }}</td>
                                 <td class="px-6 py-4"><span class="
                                 @if($value->status_keluarga == 'Kepala Keluarga')
                                 bg-blue-500 text-white

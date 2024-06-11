@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\BantuanSosial;
 use App\Models\Keluarga;
+use App\Models\Laporan;
 use App\Models\Pengajuan;
 use App\Models\RukunTetangga;
+use App\Models\User;
 use App\Models\Warga;
 use App\Services\ChartService;
 use Illuminate\Http\Request;
@@ -44,8 +46,13 @@ class DashboardController extends Controller
         $user = Auth::user();
 
         if ($url == 'admin' || $url == 'rw') {
+            if ($url == 'admin') {
+                $pengajuan = Pengajuan::where('status', 'Diterima')->get();
+            }
             $countResident = Warga::count();
             $countFamily = Keluarga::count();
+            $countReportWaiting = Laporan::where('status', 'Menunggu Konfirmasi')->count();
+            $countReportProcessing = Laporan::where('status', 'Diproses')->count();
             $residentsAge = Warga::select('nama', DB::raw('YEAR(CURRENT_DATE) - YEAR(tanggal_lahir) as usia'))->get();
 
             $amount = Warga::rightJoin('rukun_tetangga as rt', 'warga.rt_id', '=', 'rt.id')
@@ -58,18 +65,24 @@ class DashboardController extends Controller
                 return 'RT 0' . $number;
             }, $rt->pluck('nomor')->toArray());
 
-            return view('admin.index', ['url' => $url, 'page' => $page, 'activeMenu' => $activeMenu, 'countResident' => $countResident, 'countFamily' => $countFamily, 'amount' => $amount, 'age' => $age, 'rt' => $rtNumbers]);
+            if ($url == 'admin') {
+                return view('admin.index', ['url' => $url, 'page' => $page, 'activeMenu' => $activeMenu, 'countResident' => $countResident, 'countFamily' => $countFamily, 'countReportWaiting' => $countReportWaiting, 'countReportProcessing' => $countReportProcessing, 'amount' => $amount, 'age' => $age, 'rt' => $rtNumbers, 'pengajuan' => $pengajuan]);
+            }
+            return view('admin.index', ['url' => $url, 'page' => $page, 'activeMenu' => $activeMenu, 'countResident' => $countResident, 'countFamily' => $countFamily, 'countReportWaiting' => $countReportWaiting, 'countReportProcessing' => $countReportProcessing, 'amount' => $amount, 'age' => $age, 'rt' => $rtNumbers]);
         }
         else if ($url == 'rt') {
-            $nomor = DB::table('user')
-                ->join('keluarga', 'user.keluarga_id', '=', 'keluarga.id')
+            $nomor = User::join('keluarga', 'user.keluarga_id', '=', 'keluarga.id')
                 ->join('warga', 'keluarga.id', '=', 'warga.keluarga_id')
                 ->join('rukun_tetangga', 'warga.rt_id', '=', 'rukun_tetangga.id')
                 ->where('keluarga.id', $user->keluarga_id)
+                ->select('rukun_tetangga.nomor', 'rukun_tetangga.id')
                 ->distinct()
-                ->pluck('rukun_tetangga.nomor');
-            $pengajuan = Pengajuan::where('status', 'Menunggu Konfirmasi')->get();
-            return view('rt.index', ['url' => $url, 'page' => $page, 'activeMenu' => $activeMenu, 'nomor' => $nomor[0], 'pengajuan' => $pengajuan]);
+                ->get();
+            $pengajuan = Pengajuan::where('status', 'Menunggu Konfirmasi')
+                ->where('rt_id', $nomor[0]->id)
+                ->get();
+            $rt = RukunTetangga::all();
+            return view('rt.index', ['url' => $url, 'page' => $page, 'activeMenu' => $activeMenu, 'nomor' => $nomor, 'pengajuan' => $pengajuan, 'rt' => $rt]);
         }
         else {
             $bansos = BantuanSosial::where('tanggal_selesai', '>=', now())->get();

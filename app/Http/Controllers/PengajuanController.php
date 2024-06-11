@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Keluarga;
 use App\Models\Pengajuan;
+use App\Models\User;
+use App\Models\Warga;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 
@@ -103,6 +106,89 @@ class PengajuanController extends Controller
             return redirect($this->url() . '/');
         } catch (QueryException $err) {
             Session::flash('error', 'Gagal menolak pengajuan' . $err->getMessage());
+            return redirect()->back();
+        }
+    }
+
+    public function proses($id)
+    {
+        DB::beginTransaction();
+        try {
+            $data = Pengajuan::find($id);
+            $keluarga = Keluarga::where('nkk', $data->nkk)->first();
+            if ($data->status_pengajuan == 'Warga') {
+                $old = str_replace('/storage/', '', $data->dokumen_ktp);
+                $url = str_replace('/pengajuan/ktp/', '/dokumen/ktp/', $data->dokumen_ktp);
+                $path = str_replace('/storage/', '', $url);
+                Storage::disk('public')->copy($old, $path);
+                Warga::create([
+                    'nik' => $data->nik,
+                    'dokumen' => $url,
+                    'nama' => $data->nama,
+                    'jenis_kelamin' => $data->jenis_kelamin,
+                    'tempat_lahir' => $data->tempat_lahir,
+                    'tanggal_lahir' => $data->tanggal_lahir,
+                    'alamat' => $data->alamat,
+                    'ibu_kandung' => $data->ibu_kandung,
+                    'status_warga' => $data->status_warga,
+                    'status_keluarga' => $data->status_keluarga,
+                    'telepon' => $data->telepon,
+                    'rt_id' => $data->rt_id,
+                    'keluarga_id' => !$keluarga ? null : $keluarga->id,
+                ]);
+                $data->update(['status' => 'Selesai']);
+            }
+            else {
+                $oldKk = str_replace('/storage/', '', $data->dokumen_kk);
+                $kk = str_replace('/pengajuan/kk/', '/dokumen/kk/', $data->dokumen_kk);
+                $pathKk = str_replace('/storage/', '', $kk);
+                Storage::disk('public')->copy($data->dokumen_kk, $pathKk);
+                $oldKtp = str_replace('/storage/', '', $data->dokumen_ktp);
+                $ktp = str_replace('/pengajuan/ktp/', '/dokumen/ktp/', $data->dokumen_ktp);
+                $pathKtp = str_replace('/storage/', '', $ktp);
+                Storage::disk('public')->copy($oldKtp, $pathKtp);
+                Keluarga::create([
+                    'nkk' => $data->nkk,
+                    'dokumen' => $ktp,
+                ]);
+                $latest = Keluarga::latest()->first();
+                Warga::create([
+                    'nik' => $data->nik,
+                    'dokumen' => $ktp,
+                    'nama' => $data->nama,
+                    'jenis_kelamin' => $data->jenis_kelamin,
+                    'tempat_lahir' => $data->tempat_lahir,
+                    'tanggal_lahir' => $data->tanggal_lahir,
+                    'alamat' => $data->alamat,
+                    'ibu_kandung' => $data->ibu_kandung,
+                    'status_warga' => $data->status_warga,
+                    'status_keluarga' => $data->status_keluarga,
+                    'telepon' => $data->telepon,
+                    'rt_id' => $data->rt_id,
+                    'keluarga_id' => $latest->id,
+                ]);
+                $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()';
+                $shuffled = str_shuffle($characters);
+                $password = substr($shuffled, 0, 8);
+                User::create([
+                    'keluarga_id' => $latest->id,
+                    'level_id' => 4,
+                    'username' => $data->nkk,
+                    'password' => bcrypt($password),
+                ]);
+                $data->update([
+                    'status' => 'Selesai',
+                    'username' => $data->nkk,
+                    'password' => $password,
+                ]);
+            }
+
+            DB::commit();
+            Session::flash('success', 'Berhasil memproses pengajuan');
+            return redirect($this->url() . '/');
+        } catch (QueryException $err) {
+            DB::rollBack();
+            Session::flash('error', 'Gagal memproses pengajuan' . $err->getMessage());
             return redirect()->back();
         }
     }

@@ -41,7 +41,6 @@
             </div>
         </div>
     </div>
-   @include('rt.detail_riwayat_bansos')
 <script>
      document.getElementById('btn-detail-riwayat-bansos').addEventListener('click', function() {
             var detail_riwayat_bansos = document.getElementById('modal-detail-riwayat-bansos');

@@ -1,12 +1,3 @@
-@if(Session::has('success'))
-        <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50" role="alert">
-            <span class="font-medium">{{ Session::get('success')}}</span>
-        </div>
-    @elseif(Session::has('error'))
-        <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
-            <span class="font-medium">{{ Session::get('error')}}</span>
-        </div>
-    @endif
  <div id="pengajuan-penduduk" class="hidden fixed inset-0 z-40 bg-neutral-600 bg-opacity-50  justify-center items-center w-full mt-40">
         <div class="bg-white rounded-xl shadow-lg w-full max-w-6xl xl:mt-40 mt-20 mx-auto">
             <div class="flex items-center justify-between p-4 bg-blue-500 rounded-sm">
@@ -33,7 +24,7 @@
                         @if(count($pengajuan) > 0)
                             @foreach($pengajuan as $value)
                                 <tr class="bg-white border-b md:table-row">
-                                    <th scope="row" class="px-6 py-4 font-normal text-neutral-900 whitespace-nowrap">{{ $value->nkk != null ? $value->nkk : 'Tidak Ada' }}</th>
+                                    <th scope="row" class="px-6 py-4 font-normal text-neutral-900 whitespace-nowrap">{{ $value->nkk != null ? $value->nkk : 'N/A' }}</th>
                                     <td class="px-6 py-4">{{ $value->nik }}</td>
                                     <td class="px-6 py-4">{{ $value->nama }}</td>
                                     <td class="px-6 py-4">{{ $value->status_warga }}</td>
@@ -72,7 +63,7 @@
         </div>
     </div>
 
- <div id="detail-pengajuan" class="hidden flex fixed inset-0 z-40 bg-neutral-600 bg-opacity-50  justify-center items-center w-full mt-40">
+ <div id="detail-pengajuan" class="hidden flex fixed inset-0 z-40 bg-neutral-600 bg-opacity-50  justify-center items-center w-full">
      <div class="bg-white rounded-xl shadow-lg w-full max-w-6xl xl:mt-20 mt-10 mx-auto">
          <div class="flex items-center justify-between p-4 bg-blue-500 rounded-sm">
              <h3 class="text-lg font-medium text-white">Detail Pengajuan Penduduk</h3>
@@ -89,28 +80,42 @@
     document.getElementById('pengajuan-penduduk').addEventListener('click', function() {
         this.style.display = 'none';
     });
-    // $(document).ready(function() {
-    //     // Mendapatkan referensi ke elemen modal
-    //     var pengajuanPenduduk = $('#pengajuan-penduduk-detail');
-    //     var detailPengajuan = $('#detail-pengajuan');
+    $(document).ready(function() {
+        // Mendapatkan referensi ke elemen modal
+        var pengajuanPenduduk = $('#pengajuan-penduduk');
+        var detailPengajuan = $('#detail-pengajuan');
 
-    //     // Mendapatkan semua tombol detail
-    //     var detailButtons = $('[id^="btn-"]');
+        // Mendapatkan semua tombol detail
+        var detailButtons = $('[id^="btn-"]');
 
-    //     // Menambahkan event listener ke setiap tombol detail
-    //     detailButtons.each(function() {
-    //         $(this).click(function() {
-    //             // Menampilkan detail pengajuan dan menyembunyikan pengajuan penduduk
-    //             detailPengajuan.removeClass('hidden');
-    //             pengajuanPenduduk.addClass('hidden');
-    //         });
-    //     });
+        // Menambahkan event listener ke setiap tombol detail
+        detailButtons.each(function() {
+            $(this).click(function() {
+                // Menampilkan detail pengajuan dan menyembunyikan pengajuan penduduk
+                detailPengajuan.removeClass('hidden');
+                pengajuanPenduduk.addClass('hidden');
+                pengajuanPenduduk.css('display', '');
+            });
+        });
 
-    //     // Menambahkan event listener ke tombol close-detail-pengajuan
-    //     $('#close-detail-pengajuan').click(function() {
-    //         // Menyembunyikan detail pengajuan dan menampilkan pengajuan penduduk
-    //         detailPengajuan.addClass('hidden');
-    //         pengajuanPenduduk.removeClass('hidden');
-    //     });
-    // });
+        $('#close-button-pengajuan').click(function() {
+            // Menyembunyikan pengajuan penduduk
+            pengajuanPenduduk.addClass('hidden');
+            pengajuanPenduduk.css('display', '');
+        });
+
+        // Menambahkan event listener ke tombol close-detail-pengajuan
+        $('#close-detail-pengajuan').click(function() {
+            // Menyembunyikan detail pengajuan dan menampilkan pengajuan penduduk
+            detailPengajuan.addClass('hidden');
+        });
+
+        // Menambahkan event listener ke tombol btn-pengajuan
+        $('#btn-pengajuan').click(function(e) {
+            // Menampilkan pengajuan penduduk dan menyembunyikan detail pengajuan
+            pengajuanPenduduk.removeClass('hidden');
+            detailPengajuan.addClass('hidden');
+            console.log("btn-pengajuan clicked");
+        });
+    });
 </script>

@@ -139,7 +139,7 @@
                                     <div class="w-full gap-1 flex flex-col justify-center items-start">
                                         <span class="font-medium text-base text-neutral-900">Nomor Telepon</span>
                                         <div class="w-full px-4 py-2 border rounded">
-                                            <span class="font-normal text-sm text-neutral-900">{{ $value->telepon }}</span>
+                                            <span class="font-normal text-sm text-neutral-900">{{ $value->telepon ? $value->telepon : 'N/A' }}</span>
                                         </div>
                                     </div>
                                 </div>
