@@ -1,5 +1,5 @@
 <div id="modal-keluarga" class="hidden fixed z-40 inset-0 bg-neutral-600 bg-opacity-50 flex justify-center items-center w-full mt-40">
-        <div class="bg-white rounded-xl shadow-lg w-full max-w-6xl mb-80 mt-28" >
+        <div class="bg-white rounded-xl shadow-lg w-full max-w-6xl mb-36 mt-28" >
             <div class="flex justify-between items-center p-4 bg-blue-500 rounded-sm" >
                 <h3 class="text-lg font-medium text-white">Data Keluarga</h3>
                 <button id="close-button-keluarga" class="text-white">
@@ -9,7 +9,7 @@
                 </button>
             </div>
             <div class="p-1 overflow-y-auto max-h-96">
-                <livewire:keluarga-table />  
+                <livewire:keluarga-table />
             </div>
         </div>
     </div>
@@ -20,13 +20,13 @@
         const modal_keluarga = document.getElementById('modal-keluarga');
         const openButtonKeluarga = document.getElementById('data-button-keluarga');
         const openButtonRekomendasi = document.getElementById('recommendation-button');
-        const closeButtonKeluarga = document.getElementById('close-button-keluarga');                
+        const closeButtonKeluarga = document.getElementById('close-button-keluarga');
         const closeButtonRekomendasi = document.getElementById('close-button-rekomendasi');
 
         // Open the modal_keluarga and close modal_rekomendasi when the data-button-keluarga is clicked
         openButtonKeluarga.addEventListener('click', function() {
             console.log('Open button clicked');
-            modal_keluarga.classList.remove('hidden'); 
+            modal_keluarga.classList.remove('hidden');
             modal_rekomendasi.classList.add('hidden');
 
         });
@@ -35,7 +35,7 @@
         openButtonRekomendasi.addEventListener('click', function() {
             console.log('p');
             modal_rekomendasi.classList.remove('hidden');
-            modal_keluarga.classList.add('hidden'); 
+            modal_keluarga.classList.add('hidden');
 
         });
 

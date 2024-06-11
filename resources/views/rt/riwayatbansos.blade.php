@@ -29,7 +29,7 @@
                             <td class="px-6 py-4">19 Juni 2012</td>
                             <td class="px-6 py-4">
                                 <div class="flex justify-start gap-4">
-                                    <button type="button" class="w-fit h-fit px-4 py-2 bg-blue-500 rounded-md">
+                                    <button type="button" id="btn-detail-riwayat-bansos" class="w-fit h-fit px-4 py-2 bg-blue-500 rounded-md">
                                         <span class="font-semibold text-white">Detail</span>
                                     </button>
                                 </div>
@@ -41,4 +41,16 @@
             </div>
         </div>
     </div>
-   
+   @include('rt.detail_riwayat_bansos')
+<script>
+     document.getElementById('btn-detail-riwayat-bansos').addEventListener('click', function() {
+            var detail_riwayat_bansos = document.getElementById('modal-detail-riwayat-bansos');
+            detail_riwayat_bansos.classList.remove('hidden');
+            detail_riwayat_bansos.classList.add('center');
+        });
+        document.getElementById('close-button-detail-riwayat-bansos').addEventListener('click', function() {
+            var detail_riwayat_bansos = document.getElementById('modal-detail-riwayat-bansos');
+            detail_riwayat_bansos.classList.add('hidden');
+            detail_riwayat_bansos.classList.remove('center');
+        });
+</script>

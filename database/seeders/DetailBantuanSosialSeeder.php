@@ -15,7 +15,7 @@ class DetailBantuanSosialSeeder extends Seeder
      */
     public function run(): void
     {
-        $bantuanSosial = BantuanSosial::find(4);
+        $bantuanSosial = BantuanSosial::find(1);
         $user = User::select('user.id as id', 'pendapatan', 'jumlah_tanggungan', 'luas_bangunan', 'pajak_bumi', 'tagihan_listrik')
             ->join('keluarga', 'user.keluarga_id', '=', 'keluarga.id')
             ->get();

@@ -9,9 +9,9 @@
                     </ul>
                 </div>
             @endif
-            <a href="#" class="flex justify-center items-center mb-6 text-2xl font-bold  text-gray-900">
-                <img class="w-32 h-32" src="{{ asset('logo.png') }}" alt="logo">
-                <span class="ml-[-25px]">WargaPeduli</span>
+            <a href="#" class="flex items-center mb-6 text-2xl font-bold  text-gray-900">
+                <img class="w-8 h-8 mr-2" src="{{ asset('logo.png') }}" alt="logo">
+                WargaPeduli
             </a>
             <div class="w-full bg-white rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0">
                 <div class="p-6 space-y-4 md:space-y-6 sm:p-8">

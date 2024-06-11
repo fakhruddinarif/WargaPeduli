@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BantuanSosial;
 use App\Models\DetailBantuanSosial;
+use App\Services\BansosService;
 use App\Services\MabacService;
 use App\Services\SawService;
 use Carbon\Carbon;
@@ -33,6 +34,7 @@ class BansosController extends Controller
     }
     private MabacService $mabacService;
     private SawService $sawService;
+    private BansosService $bansosService;
 
     private $valueStatis = [
         ['pendapatan' => 1600000, 'luas_bangunan' => 16, 'jumlah_tanggungan' => 2, 'pajak_bumi' => 100000, 'tagihan_listrik' => 90000],
@@ -44,10 +46,11 @@ class BansosController extends Controller
 
     protected $column = ['Pendapatan', 'Luas Bangunan', 'Jumlah Tanggungan', 'Pajak Bumi', 'Tagihan Listrik'];
 
-    public function __construct(MabacService $mabacService, SawService $sawService)
+    public function __construct(MabacService $mabacService, SawService $sawService, BansosService $bansosService)
     {
         $this->mabacService = $mabacService;
         $this->sawService = $sawService;
+        $this->bansosService = $bansosService;
     }
 
     public function index()
@@ -298,6 +301,41 @@ class BansosController extends Controller
             ->get();
 
         return view('admin.bansos.pengajuan', ['url' => $url, 'page' => $page, 'activeMenu' => $activeMenu, 'data' => $data]);
+    }
+
+    public function storePengajuan(Request $request)
+    {
+        $request->validate([
+            'bansos_id' => 'required|integer',
+            'pendapatan' => 'numeric|required',
+            'luas_bangunan' => 'numeric|required',
+            'jumlah_tanggungan' => 'numeric|required',
+            'pajak_bumi' => 'numeric|required',
+            'tagihan_listrik' => 'numeric|required'
+        ]);
+
+        try {
+            $user = Auth::user();
+            if ($this->bansosService->pengajuanExist($request->bansos_id, $user->id)) {
+                Session::flash('error', 'Anda sudah mengajukan bantuan sosial ini');
+                return redirect($this->url());
+            }
+            DetailBantuanSosial::create([
+                'bansos_id' => $request->bansos_id,
+                'user_id' => $user->id,
+                'pendapatan' => $request->pendapatan,
+                'luas_bangunan' => $request->luas_bangunan,
+                'jumlah_tanggungan' => $request->jumlah_tanggungan,
+                'pajak_bumi' => $request->pajak_bumi,
+                'tagihan_listrik' => $request->tagihan_listrik,
+                'status' => 'Menunggu Konfirmasi'
+            ]);
+            Session::flash('success', 'Berhasil menambahkan data pengajuan');
+            return redirect($this->url());
+        } catch (QueryException $err) {
+            Session::flash('error', 'Gagal menambahkan data pengajuan');
+            return redirect($this->url());
+        }
     }
 
     public function detailPengajuan($bansosId, $id)
