@@ -1,3 +1,4 @@
+
 <div class="w-full transition-transform">
     <div class="w-full flex flex-wrap justify-between items-center px-2 py-2 gap-3">
         <form class="w-full flex flex-wrap sm:flex-row justify-between items-center gap-3">
@@ -49,7 +50,7 @@
                             <td class="px-6 py-4">{{ $value->alamat }}</td>
                             <td class="px-6 py-4">
                                 @if($url == 'rt')
-                                    <button type="button" class="px-4 py-3 w-fit bg-indigo-600 rounded-md">
+                                    <button type="button" id="recommendation-button" class="px-4 py-3 w-fit bg-indigo-600 rounded-md">
                                         <span class="font-semibold text-white text-sm">Rekomendasi</span>
                                     </button>
                                 @endif
@@ -85,4 +86,6 @@
         @endif
     </div>
 </div>
+
+
 
