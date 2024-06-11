@@ -145,7 +145,7 @@
                                 </div>
                             </div>
                         @endforeach
-                        @if($pengajuan)
+                        @if(count($pengajuan) > 0)
                             <span class="font-semibold text-xl text-neutral-900">Pengajuan Anggota</span>
                             <div class="relative w-full overflow-x-auto shadow-md mt-4">
                                 <table class="w-full text-sm text-left rtl:text-right bg-neutral-200">

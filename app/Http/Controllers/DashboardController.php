@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BantuanSosial;
 use App\Models\Keluarga;
 use App\Models\Pengajuan;
 use App\Models\RukunTetangga;
@@ -71,7 +72,9 @@ class DashboardController extends Controller
             return view('rt.index', ['url' => $url, 'page' => $page, 'activeMenu' => $activeMenu, 'nomor' => $nomor[0], 'pengajuan' => $pengajuan]);
         }
         else {
-            return view('warga.index', ['url' => $url, 'page' => $page, 'activeMenu' => $activeMenu]);
+            $bansos = BantuanSosial::where('tanggal_selesai', '>=', now())->get();
+            $keluarga = Keluarga::find($user->keluarga_id);
+            return view('warga.index', ['url' => $url, 'page' => $page, 'activeMenu' => $activeMenu, 'bansos' => $bansos, 'keluarga' => $keluarga]);
         }
     }
 }

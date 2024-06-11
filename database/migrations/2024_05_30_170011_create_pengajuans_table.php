@@ -28,7 +28,7 @@ return new class extends Migration
             $table->string('telepon', 16)->nullable();
             $table->unsignedBigInteger('rt_id')->nullable(false)->index();
             $table->enum('status', ['Menunggu Konfirmasi', 'Diterima', 'Ditolak', 'Selesai'])->nullable(false);
-            $table->enum('status_pengajuan', ['Keluarga', 'Warga']);
+            $table->enum('status_pengajuan', ['Keluarga', 'Warga'])->nullable(false);
             $table->string('username', 100)->nullable();
             $table->string('password', 100)->nullable();
             $table->timestamps();
