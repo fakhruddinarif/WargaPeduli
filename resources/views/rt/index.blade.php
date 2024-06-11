@@ -101,16 +101,14 @@
                         <button type="button" id="btn-riwayat-laporan" class="text-white bg-blue-500 hover:bg-blue-800 focus:outline-none px-4 py-3 rounded-md text-base w-fit">Selengkapnya</button>
                     </div>
                 </div>
-                
             </div>
         </div>
     </div>
 </section>
 
     <!-- Modal -->
-
     <div id="modal-penduduk" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center w-full mt-40">
-        <div class="bg-white rounded-xl shadow-lg w-full max-w-6xl fixed mt-10">
+        <div class="bg-white rounded-xl shadow-lg w-full max-w-6xl fixed mb-80 mt-28">
             <div class="flex justify-between items-center p-4 bg-blue-500 rounded-sm">
                 <h3 class="text-lg font-medium text-white">Data Penduduk</h3>
                 <button id="close-button2" class="text-white">
@@ -135,26 +133,7 @@
         document.getElementById('close-button-pengajuan').addEventListener('click', function() {
             var pengajuan = document.getElementById('pengajuan-penduduk');
             pengajuan.classList.add('hidden');
-            pengajuan.classList.remove('center');
         });
-
-        document.getElementById('btn-pengajuan').addEventListener('click', function() {
-            var pengajuan = document.getElementById('pengajuan-penduduk');
-            pengajuan.classList.remove('hidden');
-            pengajuan.classList.add('center');
-        });
-
-        document.getElementById('close-button-pengajuan').addEventListener('click', function() {
-            var pengajuan = document.getElementById('pengajuan-penduduk');
-            pengajuan.classList.add('hidden');
-            pengajuan.classList.remove('center');
-            document.getElementById('pengajuan-penduduk').style.display = 'block';
-        });
-
-        document.getElementById('data-button-keluarga').addEventListener('click', function() {
-            document.getElementById('btn-keluarga').classList.remove('hidden');
-        });
-
         document.getElementById('btn-pengajuan').addEventListener('click', function() {
             document.getElementById('pengajuan-penduduk').style.display = 'block';
         });
@@ -189,9 +168,6 @@
             document.getElementById('modal-penduduk').classList.remove('hidden');
         });
   
-        document.getElementById('close-button').addEventListener('click', function() {
-            document.getElementById('btn-keluarga').classList.add('hidden');
-        });
         document.getElementById('close-button2').addEventListener('click', function() {
             document.getElementById('modal-penduduk').classList.add('hidden');
         });
