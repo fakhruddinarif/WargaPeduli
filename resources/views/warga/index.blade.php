@@ -45,9 +45,17 @@
             </div>
             <div class="flex flex-row w-fit px-4 py-3 md:px-8 md:py-6 gap-4 justify-center items-center transform transition-all hover:-translate-y-2 duration-300 shadow-lg hover:shadow-2xl rounded-lg border">
                 <div class="w-full">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="#3b82f6" viewBox="0 0 24 24" strokeWidth={1.5} stroke="#fff" class="bg-blue-500 rounded-3xl ml-3 sm:mt-0 w-30 h-40">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z" />
-                    </svg>
+                    <svg class="bg-white rounded-3xl w-30 h-40" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                    <g fill="#3b82f6" stroke="#3b82f6" stroke-width="2">
+                        <rect x="2" y="10" width="30" height="40" rx="4" ry="4" fill="#3b82f6"></rect>
+                        <path d="M14,2 H50 a2,2 0 0,1 2,2 V52 a2,2 0 0,1 -2,2 H14 a2,2 0 0,1 -2,-2 V4 a2,2 0 0,1 2,-2 z" fill="#E0E0E0"></path>
+                        <path d="M14 16 H50" stroke="#3b82f6"></path>
+                        <path d="M14 24 H50" stroke="#3b82f6"></path>
+                        <path d="M14 32 H36" stroke="#3b82f6"></path>
+                        <path d="M8 16 L2 22 L8 28" stroke="#FFF" fill="none"></path>
+                        <path d="M8 22 H36" stroke="#FFF" fill="none"></path>
+                    </g>
+                </svg>
                 </div>
                 <div class="w-full flex flex-col justify-center items-center gap-4">
                     <div class="w-full px-2">
@@ -59,8 +67,8 @@
             </div>
             <div class="flex flex-row w-fit px-4 py-3 md:px-8 md:py-6 gap-4 justify-center items-center transform transition-all hover:-translate-y-2 duration-300 shadow-lg hover:shadow-2xl rounded-lg border">
                 <div class="w-full">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="#3b82f6" viewBox="0 0 24 24" strokeWidth={1.5} stroke="#fff" class="bg-blue-500 rounded-3xl ml-3 sm:mt-0 w-30 h-40">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z" />
+                    <svg class="bg-white rounded-lg sm:mt-0 w-32 h-32" viewBox="0 0 24 24" fill="#3b82f6" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-6h2v6zm4 0h-2v-4h2v4zm4 0h-2v-2h2v2z" fill="#3b82f6"/>
                     </svg>
                 </div>
                 <div class="w-full flex flex-col justify-center items-center gap-4">
@@ -73,14 +81,14 @@
             </div>
             <div class="flex flex-row w-fit px-4 py-3 md:px-8 md:py-6 gap-4 justify-center items-center transform transition-all hover:-translate-y-2 duration-300 shadow-lg hover:shadow-2xl rounded-lg border">
                 <div class="w-full">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="#3b82f6" viewBox="0 0 24 24" strokeWidth={1.5} stroke="#fff" class="bg-blue-500 rounded-3xl ml-3 sm:mt-0 w-30 h-40">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z" />
+                    <svg class="bg-white rounded-lg sm:mt-0 w-32 h-32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM3 19V5h18v14H3zm4-4h10v2H7v-2zm0-4h10v2H7v-2zm0-4h10v2H7V7z" fill="#3b82f6"/>
                     </svg>
                 </div>
                 <div class="w-full flex flex-col justify-center items-center gap-4">
                     <div class="w-full px-2">
                         <h3 class="text-xl font-semibold whitespace-nowrap">Riwayat Laporan</h3>
-                        <span class="text-base text-neutral-600 font-normal whitespace-nowrap">Laporan Uhuyy</span>
+                        <span class="text-base text-neutral-600 font-normal whitespace-nowrap">Riwayat Laporan Anda</span>
                     </div>
                     <button type="button" id="riwayat-laporan" class="text-white bg-blue-500 hover:bg-blue-800 focus:outline-none px-4 py-3 rounded-md text-base w-full">Selengkapnya</button>
                 </div>
@@ -119,7 +127,7 @@
                 </div>
                 <div class="w-full gap-1 flex flex-col justify-start items-start">
                     <label for="keterangan" class="block font-medium text-sm text-neutral-900">Keterangan</label>
-                    <input type="text" id="keterangan" name="keterangan" class="px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Keterangan">
+                    <textarea id="keterangan" name="keterangan" class="px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Keterangan"></textarea>
                 </div>
                 <div class="border-t flex justify-end pt-6 space-x-4">
                     <button id="btncancel" type="button" class="px-6 py-2 rounded-md text-black text-sm border-none outline-none bg-gray-200 hover:bg-gray-300 active:bg-gray-200">Cancel</button>
@@ -135,7 +143,12 @@
     <div class="w-full max-w-xl bg-white shadow-lg rounded-md p-6 relative">
         <div class="flex flex-row w-full gap-1 justify-start items-center px-2 py-1 bg-blue-500 rounded-t-lg">
             <a href="{{ url('/') }}" class="px-2 py-3 content-center"></a>
-            <span class="text-base font-semibold text-white">Pengajuan Bansos</span>
+            <span class="text-base font-semibold text-white mr-80">Pengajuan Bansos</span>
+            <button id="btncancelb" class="text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
         </div>
         <div class="flex flex-col w-full h-fit justify-center items-center border-2 rounded-b-lg gap-2 px-4 py-2">
             <div class="relative w-full overflow-x-auto shadow-md mt-4">
@@ -214,6 +227,93 @@
         </div>
     </div>
 </div>
+
+<!-- Modal Riwayat Bansos -->
+
+    <div id="modal-riwayat-bansos" class="hidden fixed inset-0 z-40 bg-neutral-600 bg-opacity-50  justify-center items-center w-full mt-40">
+        <div class="bg-white rounded-xl shadow-lg w-full max-w-6xl xl:mt-20 mt-20 mx-auto">
+            <div class="flex items-center justify-between p-4 bg-blue-500 rounded-sm">
+                <h3 class="text-lg font-medium text-white">Data Riwayat Mendapatkan Bansos</h3>
+                <button id="close-riwayat-bansos" class="text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="p-1 overflow-y-auto max-h-96 ">
+                <div class="relative w-full overflow-x-auto shadow-md">
+                <table class="table-auto w-full text-sm text-left rtl:text-right bg-neutral-200">
+                    <thead class="text-sm font-normal text-black">
+                        <tr class="md:table-row ">
+                            <th scope="col" class="px-6 py-3">NKK</th>
+                            <th scope="col" class="px-6 py-3">Ibu Kandung</th>
+                            <th scope="col" class="px-6 py-3">Status Keluarga</th>
+                            <th scope="col" class="px-6 py-3">Periode</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="bg-white border-b md:table-row">
+                            <th scope="row" class="px-6 py-4 font-normal text-neutral-900 whitespace-nowrap">1234567890</th>
+                            <td class="px-6 py-4">Jl. Pahlawan No. 123, Jakarta</td>
+                            <td class="px-6 py-4">John Doe</td>
+                            <td class="px-6 py-4">19 Juni 2012</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            </div>
+        </div>
+    </div>
+
+<!-- Modal Riwayat Laporan -->
+
+    <div id="modal-riwayat-laporan" class="hidden fixed inset-0 z-40 bg-neutral-600 bg-opacity-50  justify-center items-center w-full mt-40">
+        <div class="bg-white rounded-xl shadow-lg w-full max-w-6xl xl:mt-20 mt-20 mx-auto">
+            <div class="flex items-center justify-between p-4 bg-blue-500 rounded-sm">
+                <h3 class="text-lg font-medium text-white">Data Riwayat Laporan</h3>
+                <button id="close-riwayat-laporan" class="text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="p-1 overflow-y-auto max-h-96 ">
+                <div class="relative w-full overflow-x-auto shadow-md">
+                <table class="table-auto w-full text-sm text-left rtl:text-right bg-neutral-200">
+                    <thead class="text-sm font-normal text-black">
+                        <tr class="md:table-row ">
+                            <th scope="col" class="px-6 py-3">Nama</th>
+                            <th scope="col" class="px-6 py-3">Keterangan</th>
+                            <th scope="col" class="px-6 py-3">Status</th>
+                            <th scope="col" class="px-6 py-3">Tanggal</th>
+                            <th scope="col" class="px-6 py-3">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="bg-white border-b md:table-row">
+                            <th scope="row" class="px-6 py-4 font-normal text-neutral-900 whitespace-nowrap">ilul</th>
+                            <td class="px-6 py-4">Jl. Pahlawan No. 123, Jakarta</td>
+                            <td class="px-6 py-4">Diterima</td>
+                            <td class="px-6 py-4">19 Juni 2012</td>
+                            <td class="px-6 py-4">
+                                <div class="flex justify-start gap-4">
+                                    <button type="button" id="detail-riwayat-laporan" class="w-fit h-fit px-4 py-2 bg-blue-500 rounded-md">
+                                        <span class="font-semibold text-white">Detail</span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            </div>
+        </div>
+    </div>
+    @include('warga.detail_riwayat_laporan')
+
+     
+
+
     <script>
         $(document).ready(function(){
             showmodalbansos();
@@ -303,6 +403,39 @@
                 $('#modalpengaduan').fadeOut();
             });
         }
+        document.getElementById('riwayat-bansos').addEventListener('click', function() {
+            var riwayat_bansos = document.getElementById('modal-riwayat-bansos');
+            riwayat_bansos.classList.remove('hidden');
+        });
+        document.getElementById('close-riwayat-bansos').addEventListener('click', function() {
+            var riwayat_bansos = document.getElementById('modal-riwayat-bansos');
+            riwayat_bansos.classList.add('hidden');
+        });
+        
+         // riwayat laporan
+        document.getElementById('riwayat-laporan').addEventListener('click', function() {
+            var riwayat_laporan = document.getElementById('modal-riwayat-laporan');
+            riwayat_laporan.classList.remove('hidden');
+            riwayat_laporan.classList.add('center');
+        });
+
+        document.getElementById('close-riwayat-laporan').addEventListener('click', function() {
+            var riwayat_laporan = document.getElementById('modal-riwayat-laporan');
+            riwayat_laporan.classList.add('hidden');
+            riwayat_laporan.classList.remove('center');
+        });
+
+        //detail
+        document.getElementById('detail-riwayat-laporan').addEventListener('click', function() {
+            var detail_riwayat_bansos = document.getElementById('modal-detail-riwayat-laporan');
+            detail_riwayat_bansos.classList.remove('hidden');
+            detail_riwayat_bansos.classList.add('center');
+        });
+        document.getElementById('close-button-detail-riwayat-laporan').addEventListener('click', function() {
+            var detail_riwayat_bansos = document.getElementById('modal-detail-riwayat-laporan');
+            detail_riwayat_bansos.classList.add('hidden');
+            detail_riwayat_bansos.classList.remove('center');
+        });
     </script>
 @endsection
 
