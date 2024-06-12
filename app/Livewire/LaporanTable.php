@@ -9,6 +9,7 @@ use Livewire\WithPagination;
 
 class LaporanTable extends Component
 {
+    use WithPagination;
     private function url()
     {
         $url = '';
@@ -25,7 +26,6 @@ class LaporanTable extends Component
 
         return $url;
     }
-    use WithPagination;
     public $perPage = 10;
     public $search = '';
     public $filterStatus = '';

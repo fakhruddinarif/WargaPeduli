@@ -308,6 +308,7 @@ class BansosController extends Controller
     {
         $request->validate([
             'bansos_id' => 'required|integer',
+            'user_id' => 'required|string',
             'pendapatan' => 'numeric|required',
             'luas_bangunan' => 'numeric|required',
             'jumlah_tanggungan' => 'numeric|required',
@@ -316,14 +317,13 @@ class BansosController extends Controller
         ]);
 
         try {
-            $user = Auth::user();
-            if ($this->bansosService->pengajuanExist($request->bansos_id, $user->id)) {
+            if ($this->bansosService->pengajuanExist($request->bansos_id, $request->user_id)) {
                 Session::flash('error', 'Anda sudah mengajukan bantuan sosial ini');
                 return redirect($this->url());
             }
             DetailBantuanSosial::create([
                 'bansos_id' => $request->bansos_id,
-                'user_id' => $user->id,
+                'user_id' => $request->user_id,
                 'pendapatan' => $request->pendapatan,
                 'luas_bangunan' => $request->luas_bangunan,
                 'jumlah_tanggungan' => $request->jumlah_tanggungan,
