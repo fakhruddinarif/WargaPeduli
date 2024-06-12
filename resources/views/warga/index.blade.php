@@ -305,8 +305,8 @@
                     </thead>
                      <tbody>
                         @if(count($historyReport) > 0)
-                            <tr class="bg-white border-b md:table-row">
-                                @foreach($historyReport as $value)
+                            @foreach($historyReport as $value)
+                                <tr class="bg-white border-b md:table-row">
                                     <td class="px-6 py-4">{{ date('d/m/Y', strtotime($value->tanggal)) }}</td>
                                     <td class="px-6 py-4"> {{ $value->keterangan }}</td>
                                     <td class="px-6 py-4">{{ $value->status }}</td>
@@ -317,8 +317,8 @@
                                             </button>
                                         </div>
                                     </td>
-                                @endforeach
-                            </tr>
+                                </tr>
+                            @endforeach
                         @else
                             <tr>
                                 <td colspan="4" class="w-full bg-white text-center py-4 font-medium text-sm">Tidak ada data</td>
