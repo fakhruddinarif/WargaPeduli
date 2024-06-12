@@ -308,6 +308,41 @@ class BansosController extends Controller
     {
         $request->validate([
             'bansos_id' => 'required|integer',
+            'pendapatan' => 'numeric|required',
+            'luas_bangunan' => 'numeric|required',
+            'jumlah_tanggungan' => 'numeric|required',
+            'pajak_bumi' => 'numeric|required',
+            'tagihan_listrik' => 'numeric|required'
+        ]);
+
+        try {
+            $user = Auth::user();
+            if ($this->bansosService->pengajuanExist($request->bansos_id, $user->id)) {
+                Session::flash('error', 'Anda sudah mengajukan bantuan sosial ini');
+                return redirect($this->url());
+            }
+            DetailBantuanSosial::create([
+                'bansos_id' => $request->bansos_id,
+                'user_id' => $user->id,
+                'pendapatan' => $request->pendapatan,
+                'luas_bangunan' => $request->luas_bangunan,
+                'jumlah_tanggungan' => $request->jumlah_tanggungan,
+                'pajak_bumi' => $request->pajak_bumi,
+                'tagihan_listrik' => $request->tagihan_listrik,
+                'status' => 'Menunggu Konfirmasi'
+            ]);
+            Session::flash('success', 'Berhasil menambahkan data pengajuan');
+            return redirect($this->url());
+        } catch (QueryException $err) {
+            Session::flash('error', 'Gagal menambahkan data pengajuan');
+            return redirect($this->url());
+        }
+    }
+
+    public function storeRekomendasi(Request $request)
+    {
+        $request->validate([
+            'bansos_id' => 'required|integer',
             'user_id' => 'required|string',
             'pendapatan' => 'numeric|required',
             'luas_bangunan' => 'numeric|required',
@@ -331,10 +366,10 @@ class BansosController extends Controller
                 'tagihan_listrik' => $request->tagihan_listrik,
                 'status' => 'Menunggu Konfirmasi'
             ]);
-            Session::flash('success', 'Berhasil menambahkan data pengajuan');
+            Session::flash('success', 'Berhasil menambahkan rekomendasi bantuan sosial');
             return redirect($this->url());
         } catch (QueryException $err) {
-            Session::flash('error', 'Gagal menambahkan data pengajuan');
+            Session::flash('error', 'Gagal menambahkan rekomendasi bantuan sosial');
             return redirect($this->url());
         }
     }

@@ -40,10 +40,10 @@
         <div class="grid lg:grid-cols-2 items-center gap-y-6 bg-blue-500 rounded-md">
           <div class="max-lg:order-1 max-lg:text-center sm:p-12 p-4">
             <h2 id="animatedText" class="lg:text-5xl text-3xl font-bold mb-4 lg:!leading-[56px]"></h2>
-            <p class="mt-4 text-xl leading-relaxed">WargaPeduli adalah sebuah sistem `e-gevorment` yang berfokus pada tingkat rukun warga dan dibawahnya.Pada sistem ini nantinya meliputi manajemen pendataan penduduk,manajemen bantuan sosial, manajemen pengaduan atau saran, dan informasi tentang kegiatan pada tingkat rukun warga dan dibawahnya.Sistem ini telah melalui wawancara dari bapak ketua warga dengan nama `Bapak Sukron` yang tinggal di `Jalan Kalpataru RT.04 RW.03 Kec.Jatimulyo Kec.Lowokwaru Kota Malang`.</p>
+            <p class="mt-4 text-xl leading-relaxed">WargaPeduli adalah sebuah sistem e-gevorment yang berfokus pada tingkat rukun warga dan dibawahnya.Pada sistem ini nantinya meliputi manajemen pendataan penduduk,manajemen bantuan sosial, manajemen pengaduan atau saran, dan informasi tentang kegiatan pada tingkat rukun warga dan dibawahnya.Sistem ini telah melalui wawancara dari bapak ketua warga dengan nama Bapak Sukron yang tinggal di Jalan Kalpataru RT.04 RW.03 Kec.Jatimulyo Kec.Lowokwaru Kota Malang.</p>
           </div>
         @php
-          $images = ['2.jpg', '1.jpg', '3.jpg']; 
+          $images = ['2.jpg', '1.jpg', '3.jpg'];
         @endphp
         <div class="lg:h-[440px] flex items-center">
           <img id="dynamicImage" src="{{ asset($images[0]) }}" class="w-full h-full object-cover" alt="Dining Experience" />
@@ -55,21 +55,21 @@
                   <path stroke-linecap="round" strokeLinejoin="round" d="M16 19h4a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-2m-2.236-4a3 3 0 1 0 0-4M3 18v-1a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v1a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1Zm8-10a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
             </svg>
             <h3 class="text-xl font-bold mb-2 text-[#06b6d4]">Jumlah Warga</h3>
-            <p class="text-sm text-[#333]">700</p>
+            <p class="text-sm text-[#333]">{{ $countResident }} Warga</p>
           </div>
           <div class="bg-gray-100 p-6 rounded-md shadow-[0_0px_8px_0px_rgba(34,46,165,0.2)] border-t-4 border-sky-500 transition-all hover:-translate-y-4 relative">
              <svg xmlns="http://www.w3.org/2000/svg" fill="#0ea5e9" viewBox="0 0 24 24" strokeWidth={1.5} stroke="#0ea5e9" class="w-12 mb-4 inline-block bg-white p-3 rounded-md" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
               </svg>
             <h3 class="text-xl font-bold mb-2 text-[#0ea5e9]">Jumlah Keluarga</h3>
-            <p class="text-sm text-[#333]">900</p>
+            <p class="text-sm text-[#333]">{{ $countFamily }} Keluarga</p>
           </div>
           <div class="bg-gray-100 p-6 rounded-md shadow-[0_0px_8px_0px_rgba(34,46,165,0.2)] border-t-4 border-indigo-500 transition-all hover:-translate-y-4 relative">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-12 mb-4 inline-block bg-white p-3 rounded-md" strokeWidth={1.5} stroke="#6366f1" fill="#6366f1" aria-hidden="true">
               <path d="M399 384.2C376.9 345.8 335.4 320 288 320H224c-47.4 0-88.9 25.8-111 64.2c35.2 39.2 86.2 63.8 143 63.8s107.8-24.7 143-63.8zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256 16a72 72 0 1 0 0-144 72 72 0 1 0 0 144z"/>
             </svg>
             <h3 class="text-xl font-bold mb-2 text-[#6366f1]">Jumlah Rukun Tertangga</h3>
-            <p class="text-sm text-[#333]">900</p>
+            <p class="text-sm text-[#333]">8 Rukun Tetangga</p>
           </div>
           <div class="bg-gray-100 p-6 rounded-md shadow-[0_0px_8px_0px_rgba(34,46,165,0.2)] border-t-4 border-violet-500 transition-all hover:-translate-y-4 relative">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-12 mb-4 inline-block bg-white p-3 rounded-md" strokeWidth={1.5} stroke="#8b5cf6" fill="#8b5cf6" aria-hidden="true">
@@ -79,63 +79,26 @@
             <p class="text-sm text-[#333]">900</p>
           </div>
         </div>
-      </div>   
+      </div>
       <div class="bg-white font-[sans-serif] mt-40">
         <div class="max-w-8xl mx-9">
           <div class="text-center">
             <h2 class="text-3xl font-extrabold text-[#333] inline-block relative after:absolute after:w-4/6 after:h-1 after:left-0 after:right-0 after:-bottom-4 after:mx-auto after:bg-blue-500 after:rounded-full">BERITA TERKINI</h2>
           </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-10 mt-16 max-md:max-w-lg mx-auto lg:w-full">
-            <div class="bg-white cursor-pointer rounded overflow-hidden shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] relative top-0 hover:-top-4 transition-all duration-300">
-              <img src="https://readymadeui.com/Imagination.webp" alt="Blog Post 1" class="w-full h-60 object-cover" />
-              <div class="p-6">
-                <span class="text-sm block text-gray-400 mb-2">10 FEB 2023 | BY JOHN DOE</span>
-                <h3 class="text-xl font-bold text-[#333]">A Guide to Igniting Your Imagination</h3>
-                <hr class="my-6" />
-                <p class="text-gray-400 text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis accumsan, nunc et tempus blandit, metus mi consectetur felis turpis vitae ligula.</p>
-                <a href="#" id="readMore" class="mt-4 inline-block text-blue-600 text-sm hover:underline read-more">Selengkapnya</a>
-              </div>
-            </div>
-            <div class="bg-white cursor-pointer rounded overflow-hidden shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] relative top-0 hover:-top-4 transition-all duration-300">
-              <img src="https://readymadeui.com/Imagination.webp" alt="Blog Post 1" class="w-full h-60 object-cover" />
-              <div class="p-6">
-                <span class="text-sm block text-gray-400 mb-2">10 FEB 2023 | BY JOHN DOE</span>
-                <h3 class="text-xl font-bold text-[#333]">A Guide to Igniting Your Imagination</h3>
-                <hr class="my-6" />
-                <p class="text-gray-400 text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis accumsan, nunc et tempus blandit, metus mi consectetur felis turpis vitae ligula.</p>
-                <a href="#" class="mt-4 inline-block text-blue-600 text-sm hover:underline">Read More</a>
-              </div>
-            </div>
-            <div class="bg-white cursor-pointer rounded overflow-hidden shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] relative top-0 hover:-top-4 transition-all duration-300">
-              <img src="https://readymadeui.com/Imagination.webp" alt="Blog Post 1" class="w-full h-60 object-cover" />
-              <div class="p-6">
-                <span class="text-sm block text-gray-400 mb-2">10 FEB 2023 | BY JOHN DOE</span>
-                <h3 class="text-xl font-bold text-[#333]">A Guide to Igniting Your Imagination</h3>
-                <hr class="my-6" />
-                <p class="text-gray-400 text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis accumsan, nunc et tempus blandit, metus mi consectetur felis turpis vitae ligula.</p>
-                <a href="#" class="mt-4 inline-block text-blue-600 text-sm hover:underline">Read More</a>
-              </div>
-            </div>
-            <div class="bg-white cursor-pointer rounded overflow-hidden shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] relative top-0 hover:-top-4 transition-all duration-300">
-              <img src="https://readymadeui.com/Imagination.webp" alt="Blog Post 1" class="w-full h-60 object-cover" />
-              <div class="p-6">
-                <span class="text-sm block text-gray-400 mb-2">10 FEB 2023 | BY JOHN DOE</span>
-                <h3 class="text-xl font-bold text-[#333]">A Guide to Igniting Your Imagination</h3>
-                <hr class="my-6" />
-                <p class="text-gray-400 text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis accumsan, nunc et tempus blandit, metus mi consectetur felis turpis vitae ligula.</p>
-                <a href="#" class="mt-4 inline-block text-blue-600 text-sm hover:underline">Read More</a>
-              </div>
-            </div>
-            <div class="bg-white cursor-pointer rounded overflow-hidden shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] relative top-0 hover:-top-2 transition-all duration-300">
-              <img src="https://readymadeui.com/Imagination.webp" alt="Blog Post 1" class="w-full h-60 object-cover" />
-              <div class="p-6">
-                <span class="text-sm block text-gray-400 mb-2">10 FEB 2023 | BY JOHN DOE</span>
-                <h3 class="text-xl font-bold text-[#333]">A Guide to Igniting Your Imagination</h3>
-                <hr class="my-6" />
-                <p class="text-gray-400 text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis accumsan, nunc et tempus blandit, metus mi consectetur felis turpis vitae ligula.</p>
-                <a href="#" class="mt-4 inline-block text-blue-600 text-sm hover:underline">Read More</a>
-              </div>
-            </div>  
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-10 mt-16 max-md:max-w-lg mx-auto lg:w-full place-items-center items-center">
+            @foreach($berita as $value)
+                  <div class="bg-white cursor-pointer rounded overflow-hidden shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] relative top-0 hover:-top-4 transition-all duration-300">
+                      <img src="{{ asset($value->gambar) }}" alt="Blog Post 1" class="w-full h-60 object-cover" />
+                      <div class="p-6">
+                          <span class="text-sm block text-gray-400 mb-2">{{ date("d M Y", strtotime($value->tanggal)) }}</span>
+                          <h3 class="text-xl font-bold text-[#333]">{{ $value->judul }}</h3>
+                          <hr class="my-6" />
+                          <p class="text-gray-400 text-sm">{{ \Illuminate\Support\Str::limit($value->konten) }} @if(strlen($value->konten) > 100)
+                                  <button type="button" id="selengkapnya-{{ $value->id }}" class="inline-block text-blue-600 text-sm hover:underline read-more">Selengkapnya</button>
+                          @endif</p>
+                      </div>
+                  </div>
+            @endforeach
           </div>
         </div>
       </div>
@@ -145,20 +108,15 @@
               <h2 class="text-3xl font-extrabold text-[#333] inline-block relative after:absolute after:w-4/6 after:h-1 after:left-0 after:right-0 after:-bottom-4 after:mx-auto after:bg-blue-500 after:rounded-full">PENGUMUMAN</h2>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-12 mt-16 max-md:max-w-lg mx-auto ">
-              <div class="cursor-pointer rounded overflow-hidden group  bg-white outline-blue-500 hover:outline relative transition-all px-2 py-3">
-                  <span class="text-sm block text-gray-400 mb-2">10 FEB 2023</span>
-                  <h3 class="text-xl font-bold text-[#333] group-hover:text-blue-500 transition-all">A Guide to Igniting Your Imagination</h3>
-                  <div class="mt-4">
-                    <p class="text-gray-400 text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis accumsan, nunc et tempus blandit, metus mi consectetur felis turpis vitae ligula.</p>
-                  </div>
-              </div>
-              <div class="cursor-pointer rounded overflow-hidden group bg-white outline-blue-500 hover:outline  relative transition-all px-2 py-3">
-                  <span class="text-sm block text-gray-400 mb-2">10 FEB 2023</span>
-                  <h3 class="text-xl font-bold text-[#333] group-hover:text-blue-500 transition-all">A Guide to Igniting Your Imagination</h3>
-                  <div class="mt-4">
-                    <p class="text-gray-400 text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis accumsan, nunc et tempus blandit, metus mi consectetur felis turpis vitae ligula.</p>
-                  </div>
-              </div>
+              @foreach($pengumuman as $value)
+                    <div class="cursor-pointer rounded overflow-hidden group  bg-white outline-blue-500 hover:outline relative transition-all px-2 py-3">
+                        <span class="text-sm block text-gray-400 mb-2">{{ date("d M Y", strtotime($value->tanggal)) }}</span>
+                        <h3 class="text-xl font-bold text-[#333] group-hover:text-blue-500 transition-all">{{ $value->judul }}</h3>
+                        <div class="mt-4">
+                            <p class="text-gray-400 text-sm">{{ \Illuminate\Support\Str::limit($value->konten) }}</p>
+                        </div>
+                    </div>
+              @endforeach
             </div>
           </div>
           <div class="max-w-3xl mx-9">
@@ -166,20 +124,15 @@
               <h2 class="text-3xl font-extrabold text-[#333] inline-block relative after:absolute after:w-4/6 after:h-1 after:left-0 after:right-0 after:-bottom-4 after:mx-auto after:bg-blue-500 after:rounded-full">KEGIATAN</h2>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-12 mt-16 max-md:max-w-lg mx-auto  ">
-              <div class="cursor-pointer rounded overflow-hidden group  bg-white outline-blue-500 hover:outline  relative transition-all px-2 py-3">
-                  <span class="text-sm block text-gray-400 mb-2">10 FEB 2023</span>
-                  <h3 class="text-xl font-bold text-[#333] group-hover:text-blue-500 transition-all">A Guide to Igniting Your Imagination</h3>
-                  <div class="mt-4">
-                    <p class="text-gray-400 text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis accumsan, nunc et tempus blandit, metus mi consectetur felis turpis vitae ligula.</p>
-                  </div>
-              </div>
-              <div class="cursor-pointer rounded overflow-hidden group  bg-white outline-blue-500 hover:outline  relative transition-all px-2 py-3">
-                  <span class="text-sm block text-gray-400 mb-2">10 FEB 2023</span>
-                  <h3 class="text-xl font-bold text-[#333] group-hover:text-blue-500 transition-all">A Guide to Igniting Your Imagination</h3>
-                  <div class="mt-4">
-                    <p class="text-gray-400 text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis accumsan, nunc et tempus blandit, metus mi consectetur felis turpis vitae ligula.</p>
-                  </div>
-              </div>
+                @foreach($kegiatan as $value)
+                    <div class="cursor-pointer rounded overflow-hidden group  bg-white outline-blue-500 hover:outline  relative transition-all px-2 py-3">
+                        <span class="text-sm block text-gray-400 mb-2">{{ date("d M Y", strtotime($value->tanggal)) }}</span>
+                        <h3 class="text-xl font-bold text-[#333] group-hover:text-blue-500 transition-all">{{ $value->judul }}</h3>
+                        <div class="mt-4">
+                            <p class="text-gray-400 text-sm">{{ \Illuminate\Support\Str::limit($value->konten) }}</p>
+                        </div>
+                    </div>
+                @endforeach
             </div>
           </div>
       </div>
@@ -410,6 +363,7 @@
               </a>
           </div>
       </div>
+        </div>
       </footer>
     </div>
     <style>
@@ -482,19 +436,28 @@
             document.getElementById('dynamicImage').src = "{{ asset('') }}" + images[imageIndex];
         }, 5000);
 
-        document.getElementById('readMore').addEventListener('click', function () {
-            var modal = document.getElementById('modal');
-            modal.classList.remove('hidden');
-            modal.classList.add('center');
+        $(document).ready(function () {
+           var selengkapnya = $('[id^="selengkapnya-"]');
+           selengkapnya.each(function () {
+              $(this).click(function () {
+                  var id = $(this).attr('id').replace('selengkapnya-', '');
+                  $.get('/berita/' + id, function (data) {
+                      console.log(data);
+                      $('#judul').text(data.judul);
+                      $('#konten').text(data.konten);
+                      $('#gambar').attr('src', data.gambar ? data.gambar : '/no-image.png');
+                  });
+                  $('#modal').removeClass('hidden');
+                  $('#modal').addClass('center');
+                  $('#modal').addClass('flex');
+              });
+           });
         });
 
         document.getElementById('closeModal').addEventListener('click', function () {
             var modal = document.getElementById('modal');
             modal.classList.add('hidden');
             modal.classList.remove('flex');
-        });
-        document.getElementById('readMore').addEventListener('click', function () {
-            document.getElementById('modal').style.display = 'block';
         });
 
         const textBefore = 'Selamat Datang di Website ';

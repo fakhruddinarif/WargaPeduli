@@ -20,6 +20,7 @@ Route::post('/', [\App\Http\Controllers\AuthController::class, 'storelogin']);
 Route::get('/logout', [\App\Http\Controllers\AuthController::class, 'logout']);
 Route::post('/storePengajuan', [\App\Http\Controllers\AuthController::class, 'storepengajuan']);
 Route::post('/checkPengajuan', [\App\Http\Controllers\AuthController::class, 'checkPengajuan']);
+Route::get('/berita/{id}', [\App\Http\Controllers\InformasiController::class, 'berita']);
 
 Route::middleware('auth')->group(function () {
     Route::group(['middleware' => 'level:Admin'], function () {
@@ -154,7 +155,7 @@ Route::middleware('auth')->group(function () {
             });
             Route::prefix('/bansos')->group(function () {
                Route::get('/rekomendasi/{keluarga}', [\App\Http\Controllers\BansosController::class, 'rekomendasi']);
-               Route::post('/', [\App\Http\Controllers\BansosController::class, 'storePengajuan']);
+               Route::post('/', [\App\Http\Controllers\BansosController::class, 'storeRekomendasi']);
             });
         });
     });

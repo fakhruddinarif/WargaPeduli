@@ -137,4 +137,10 @@ class InformasiController extends Controller
             return redirect('/admin/informasi/' . $id);
         }
     }
+
+    public function berita($id)
+    {
+        $data = Informasi::find($id);
+        return response()->json($data);
+    }
 }
