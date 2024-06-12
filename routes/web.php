@@ -142,8 +142,12 @@ Route::middleware('auth')->group(function () {
             Route::put('/change_profile', [\App\Http\Controllers\UserController::class, 'changeProfile']);
             Route::post('/add_warga',[\App\Http\Controllers\PengajuanController::class, 'store']);
             Route::get('/', [\App\Http\Controllers\DashboardController::class, 'index']);
-            Route::put('/pengajuan/{id}/terima', [\App\Http\Controllers\PengajuanController::class, 'terima']);
-            Route::put('/pengajuan/{id}/tolak', [\App\Http\Controllers\PengajuanController::class, 'tolak']);
+            Route::get('/laporan/{id}', [\App\Http\Controllers\LaporanController::class, 'riwayat']);
+            Route::prefix('/pengajuan')->group(function () {
+                Route::put('/{id}/terima', [\App\Http\Controllers\PengajuanController::class, 'terima']);
+                Route::put('/{id}/tolak', [\App\Http\Controllers\PengajuanController::class, 'tolak']);
+                Route::get('/{id}', [\App\Http\Controllers\PengajuanController::class, 'detail']);
+            });
             Route::prefix('/penduduk')->group(function () {
                 Route::get('/keluarga/{id}', [\App\Http\Controllers\PendudukController::class, 'detailKeluarga']);
                 Route::get('/warga/{id}', [\App\Http\Controllers\PendudukController::class, 'detailWarga']);
@@ -167,6 +171,7 @@ Route::middleware('auth')->group(function () {
             Route::post('/create_laporan', [\App\Http\Controllers\LaporanController::class, 'store']);
             Route::post('/bansos/pengajuan', [\App\Http\Controllers\BansosController::class, 'storePengajuan']);
             Route::get('/', [\App\Http\Controllers\DashboardController::class, 'index']);
+            Route::get('/laporan/{id}', [\App\Http\Controllers\LaporanController::class, 'riwayat']);
         });
     });
 });

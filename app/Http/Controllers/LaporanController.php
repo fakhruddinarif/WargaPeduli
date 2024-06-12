@@ -106,4 +106,10 @@ class LaporanController extends Controller
             return redirect('/' . $this->url() .'/laporan');
         }
     }
+
+    public function riwayat($id)
+    {
+        $data = Laporan::find($id);
+        return response()->json($data);
+    }
 }

@@ -192,4 +192,13 @@ class PengajuanController extends Controller
             return redirect()->back();
         }
     }
+
+    public function detail($id)
+    {
+        $data = Pengajuan::join('rukun_tetangga', 'pengajuan.rt_id', '=', 'rukun_tetangga.id')
+            ->select('pengajuan.nkk', 'pengajuan.dokumen_kk', 'pengajuan.nik', 'pengajuan.dokumen_ktp', 'pengajuan.nama', 'pengajuan.alamat', 'rukun_tetangga.nomor', 'pengajuan.status_warga', 'pengajuan.telepon')
+            ->where('pengajuan.id', $id)
+            ->first();
+        return response()->json($data);
+    }
 }
