@@ -20,7 +20,7 @@
     </div>
     <div class="flex flex-col justify-between items-center w-full gap-8">
         <div class="h-fit w-full lg:w-2/3 flex flex-col gap-4 bg-neutral-200/50 px-8 py-6 rounded-lg">
-            <h1 class="text-neutral-900 text-4xl font-bold text-center">Selamat Datang Bapak RT 0{{ $nomor }} Pada Halaman</h1>
+            <h1 class="text-neutral-900 text-4xl font-bold text-center">Selamat Datang Bapak RT 0{{ $nomor[0]->nomor }} Pada Halaman</h1>
             <h2 class="text-neutral-900 text-4xl font-bold text-center">Utama Website Warga Peduli</h2>
             <p class="text-center text-neutral-900">Kelola data pribadi, pengajuan bansos, <br> dan sampaikan keluhan anda dengan mudah disini</p>
         </div>
@@ -124,31 +124,35 @@
     </div>
 
     <script>
-         document.getElementById('btn-pengajuan').addEventListener('click', function() {
+         /*document.getElementById('btn-pengajuan').addEventListener('click', function() {
             var pengajuan = document.getElementById('pengajuan-penduduk');
+            var detail = document.getElementById('detail-pengajuan');
             pengajuan.classList.remove('hidden');
             pengajuan.classList.add('center');
+            detail.classList.add('hidden');
         });
 
         document.getElementById('close-button-pengajuan').addEventListener('click', function() {
             var pengajuan = document.getElementById('pengajuan-penduduk');
             pengajuan.classList.add('hidden');
-        });
+        });*/
 
-        document.getElementById('btn-pengajuan').addEventListener('click', function() {
+        /*document.getElementById('btn-pengajuan').addEventListener('click', function() {
             document.getElementById('pengajuan-penduduk').style.display = 'block';
-        });
-         
+        });*/
+
         // riwayat bansos
         document.getElementById('btn-riwayat-bansos').addEventListener('click', function() {
             var riwayat_bansos = document.getElementById('modal-riwayat-bansos');
             riwayat_bansos.classList.remove('hidden');
             riwayat_bansos.classList.add('center');
+            document.getElementById('detail-pengajuan-penduduk').classList.add('hidden');
         });
         document.getElementById('close-button-riwayat-bansos').addEventListener('click', function() {
             var riwayat_bansos = document.getElementById('modal-riwayat-bansos');
             riwayat_bansos.classList.add('hidden');
             riwayat_bansos.classList.remove('center');
+            document.getElementById('detail-pengajuan-penduduk').classList.add('hidden');
         });
 
         // riwayat laporan
@@ -156,22 +160,23 @@
             var riwayat_laporan = document.getElementById('modal-riwayat-laporan');
             riwayat_laporan.classList.remove('hidden');
             riwayat_laporan.classList.add('center');
+            document.getElementById('detail-pengajuan-penduduk').classList.add('hidden');
         });
 
         document.getElementById('close-button-riwayat-laporan').addEventListener('click', function() {
             var riwayat_laporan = document.getElementById('modal-riwayat-laporan');
             riwayat_laporan.classList.add('hidden');
             riwayat_laporan.classList.remove('center');
+            document.getElementById('detail-pengajuan-penduduk').classList.add('hidden');
         });
 
         //Warga
         document.getElementById('data-button-warga').addEventListener('click', function() {
             document.getElementById('modal-penduduk').classList.remove('hidden');
         });
-  
+
         document.getElementById('close-button2').addEventListener('click', function() {
             document.getElementById('modal-penduduk').classList.add('hidden');
         });
     </script>
-</section>
 @endsection

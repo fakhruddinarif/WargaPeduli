@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BantuanSosial;
 use App\Models\DetailBantuanSosial;
+use App\Models\User;
 use App\Services\BansosService;
 use App\Services\MabacService;
 use App\Services\SawService;
@@ -374,5 +375,14 @@ class BansosController extends Controller
             Log::error($err);
             return redirect('/rw/bansos/pengajuan/' . $user->bansos_id);
         }
+    }
+
+    public function rekomendasi($keluarga)
+    {
+        $data = User::join('keluarga', 'user.keluarga_id', '=', 'keluarga.id')
+            ->select('user.id', 'pendapatan', 'luas_bangunan', 'jumlah_tanggungan', 'pajak_bumi', 'tagihan_listrik')
+            ->where('keluarga.id', $keluarga)
+            ->get();
+        return response()->json($data);
     }
 }

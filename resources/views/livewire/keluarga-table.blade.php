@@ -48,9 +48,9 @@
                             <td class="px-6 py-4">{{ $value->nama }}</td>
                             <td class="px-6 py-4">{{ $value->jumlah_anggota }}</td>
                             <td class="px-6 py-4">{{ $value->alamat }}</td>
-                            <td class="px-6 py-4">
+                            <td class="px-6 py-4 flex flex-wrap gap-2">
                                 @if($url == 'rt')
-                                    <button type="button" id="recommendation-button" class="px-4 py-3 w-fit bg-indigo-600 rounded-md">
+                                    <button type="button" data-id="{{ $value->id }}" id="recommendation-button-{{ $value->id }}" class="px-4 py-3 w-fit bg-indigo-600 rounded-md">
                                         <span class="font-semibold text-white text-sm">Rekomendasi</span>
                                     </button>
                                 @endif

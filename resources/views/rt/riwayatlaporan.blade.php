@@ -14,27 +14,33 @@
                 <table class="table-auto w-full text-sm text-left rtl:text-right bg-neutral-200">
                     <thead class="text-sm font-normal text-black">
                         <tr class="md:table-row ">
-                            <th scope="col" class="px-6 py-3">Nama</th>
+                            <th scope="col" class="px-6 py-3">Tanggal</th>
                             <th scope="col" class="px-6 py-3">Keterangan</th>
                             <th scope="col" class="px-6 py-3">Status</th>
-                            <th scope="col" class="px-6 py-3">Tanggal</th>
                             <th scope="col" class="px-6 py-3">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="bg-white border-b md:table-row">
-                            <th scope="row" class="px-6 py-4 font-normal text-neutral-900 whitespace-nowrap">ilul</th>
-                            <td class="px-6 py-4">Jl. Pahlawan No. 123, Jakarta</td>
-                            <td class="px-6 py-4">Diterima</td>
-                            <td class="px-6 py-4">19 Juni 2012</td>
-                            <td class="px-6 py-4">
-                                <div class="flex justify-start gap-4">
-                                    <button type="button" id="btn-detail-riwayat-laporan" class="w-fit h-fit px-4 py-2 bg-blue-500 rounded-md">
-                                        <span class="font-semibold text-white">Detail</span>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
+                        @if(count($historyReport) > 0)
+                            <tr class="bg-white border-b md:table-row">
+                                @foreach($historyReport as $value)
+                                    <td class="px-6 py-4">{{ date('d/m/Y', strtotime($value->tanggal)) }}</td>
+                                    <td class="px-6 py-4"> {{ $value->keterangan }}</td>
+                                    <td class="px-6 py-4">{{ $value->status }}</td>
+                                    <td class="px-6 py-4">
+                                        <div class="flex justify-start gap-4">
+                                            <button type="button" class="w-fit h-fit px-4 py-2 bg-blue-500 rounded-md">
+                                                <span class="font-semibold text-white">Detail</span>
+                                            </button>
+                                        </div>
+                                    </td>
+                                @endforeach
+                            </tr>
+                        @else
+                            <tr>
+                                <td colspan="4" class="w-full bg-white text-center py-4 font-medium text-sm">Tidak ada data</td>
+                            </tr>
+                        @endif
                     </tbody>
                 </table>
             </div>

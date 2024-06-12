@@ -28,6 +28,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/profil', [\App\Http\Controllers\UserController::class, 'profil']);
             Route::put('/change_profile', [\App\Http\Controllers\UserController::class, 'changeProfile']);
             Route::get('/', [\App\Http\Controllers\DashboardController::class, 'index']);
+            Route::post('/pengajuan/penduduk/{id}', [\App\Http\Controllers\PengajuanController::class, 'proses']);
             // Penduduk
             Route::prefix('/penduduk')->group(function () {
                 Route::get('/', [\App\Http\Controllers\PendudukController::class, 'index']);
@@ -146,6 +147,10 @@ Route::middleware('auth')->group(function () {
             Route::prefix('/penduduk')->group(function () {
                 Route::get('/keluarga/{id}', [\App\Http\Controllers\PendudukController::class, 'detailKeluarga']);
                 Route::get('/warga/{id}', [\App\Http\Controllers\PendudukController::class, 'detailWarga']);
+            });
+            Route::prefix('/bansos')->group(function () {
+               Route::get('/rekomendasi/{keluarga}', [\App\Http\Controllers\BansosController::class, 'rekomendasi']);
+               Route::post('/', [\App\Http\Controllers\BansosController::class, 'storePengajuan']);
             });
         });
     });
