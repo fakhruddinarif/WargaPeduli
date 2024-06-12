@@ -63,7 +63,7 @@
         </div>
     </div>
 
- <div id="detail-pengajuan" class="hidden flex fixed inset-0 z-40 bg-neutral-600 bg-opacity-50  justify-center items-center w-full">
+ <div id="detail-pengajuan-penduduk" class="hidden flex fixed inset-0 z-40 bg-neutral-600 bg-opacity-50  justify-center items-center w-full">
      <div class="bg-white rounded-xl shadow-lg w-full max-w-6xl xl:mt-20 mt-10 mx-auto">
          <div class="flex items-center justify-between p-4 bg-blue-500 rounded-sm">
              <h3 class="text-lg font-medium text-white">Detail Pengajuan Penduduk</h3>
@@ -83,7 +83,7 @@
     $(document).ready(function() {
         // Mendapatkan referensi ke elemen modal
         var pengajuanPenduduk = $('#pengajuan-penduduk');
-        var detailPengajuan = $('#detail-pengajuan');
+        var detailPengajuan = $('#detail-pengajuan-penduduk');
 
         // Mendapatkan semua tombol detail
         var detailButtons = $('[id^="btn-"]');

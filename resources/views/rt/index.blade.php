@@ -146,12 +146,13 @@
             var riwayat_bansos = document.getElementById('modal-riwayat-bansos');
             riwayat_bansos.classList.remove('hidden');
             riwayat_bansos.classList.add('center');
+            document.getElementById('detail-pengajuan-penduduk').classList.add('hidden');
         });
         document.getElementById('close-button-riwayat-bansos').addEventListener('click', function() {
             var riwayat_bansos = document.getElementById('modal-riwayat-bansos');
             riwayat_bansos.classList.add('hidden');
             riwayat_bansos.classList.remove('center');
-            document.getElementById('detail-pengajuan').classList.add('hidden');
+            document.getElementById('detail-pengajuan-penduduk').classList.add('hidden');
         });
 
         // riwayat laporan
@@ -159,13 +160,14 @@
             var riwayat_laporan = document.getElementById('modal-riwayat-laporan');
             riwayat_laporan.classList.remove('hidden');
             riwayat_laporan.classList.add('center');
+            document.getElementById('detail-pengajuan-penduduk').classList.add('hidden');
         });
 
         document.getElementById('close-button-riwayat-laporan').addEventListener('click', function() {
             var riwayat_laporan = document.getElementById('modal-riwayat-laporan');
             riwayat_laporan.classList.add('hidden');
             riwayat_laporan.classList.remove('center');
-            document.getElementById('detail-pengajuan').classList.add('hidden');
+            document.getElementById('detail-pengajuan-penduduk').classList.add('hidden');
         });
 
         //Warga

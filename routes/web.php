@@ -148,6 +148,10 @@ Route::middleware('auth')->group(function () {
                 Route::get('/keluarga/{id}', [\App\Http\Controllers\PendudukController::class, 'detailKeluarga']);
                 Route::get('/warga/{id}', [\App\Http\Controllers\PendudukController::class, 'detailWarga']);
             });
+            Route::prefix('/bansos')->group(function () {
+               Route::get('/rekomendasi/{keluarga}', [\App\Http\Controllers\BansosController::class, 'rekomendasi']);
+               Route::post('/', [\App\Http\Controllers\BansosController::class, 'storePengajuan']);
+            });
         });
     });
 });
