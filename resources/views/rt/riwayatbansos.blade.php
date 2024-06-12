@@ -15,19 +15,33 @@
                     <thead class="text-sm font-normal text-black">
                         <tr class="md:table-row ">
                             <th scope="col" class="px-6 py-3">NKK</th>
-                            <th scope="col" class="px-6 py-3">Ibu Kandung</th>
-                            <th scope="col" class="px-6 py-3">Status Keluarga</th>
-                            <th scope="col" class="px-6 py-3">Periode</th>
+                            <th scope="col" class="px-6 py-3">Kepala Keluarga</th>
+                            <th scope="col" class="px-6 py-3">Jenis Bansos</th>
+                            <th scope="col" class="px-6 py-3">Tanggal Mulai</th>
+                            <th scope="col" class="px-6 py-3">Tanggal Selesai</th>
+                            <th scope="col" class="px-6 py-3">Status</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr class="bg-white border-b md:table-row">
-                            <th scope="row" class="px-6 py-4 font-normal text-neutral-900 whitespace-nowrap">1234567890</th>
-                            <td class="px-6 py-4">Jl. Pahlawan No. 123, Jakarta</td>
-                            <td class="px-6 py-4">John Doe</td>
-                            <td class="px-6 py-4">19 Juni 2012</td>
+                   <tbody>
+                    @if(count($historyBansos) > 0)
+                        @foreach($historyBansos as $value)
+                            <tr class="bg-white border-b md:table-row">
+                                <td class="px-6 py-4">{{ isset($value->user_id) ? $value->User->Keluarga->nkk : 'N/A' }}</td>
+                                <td class="px-6 py-4">
+                                    {{ isset($value->user_id) ? optional($value->User->Keluarga->Warga->where('status_keluarga', 'Kepala Keluarga')->first())->nama : 'N/A' }}
+                                </td>                            
+                                <td class="px-6 py-4">{{ isset($value->bansos_id) ? $value->BantuanSosial->jenis : 'N/A' }}</td>
+                                <td class="px-6 py-4">{{ isset($value->bansos_id) ? date('d/m/Y', strtotime($value->BantuanSosial->tanggal_mulai)) : 'N/A' }}</td>
+                                <td class="px-6 py-4">{{ isset($value->bansos_id) ? date('d/m/Y', strtotime($value->BantuanSosial->tanggal_selesai)) : 'N/A' }}</td>
+                                <td class="px-6 py-4">{{ $value->status }}</td>
+                            </tr>
+                        @endforeach
+                    @else
+                        <tr>
+                            <td colspan="5" class="w-full bg-white text-center py-4 font-medium text-sm">Tidak ada data</td>
                         </tr>
-                    </tbody>
+                    @endif
+                   </tbody>
                 </table>
             </div>
             </div>
