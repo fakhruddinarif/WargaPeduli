@@ -29,7 +29,7 @@
                                     <td class="px-6 py-4">{{ $value->status }}</td>
                                     <td class="px-6 py-4">
                                         <div class="flex justify-start gap-4">
-                                            <button type="button" class="w-fit h-fit px-4 py-2 bg-blue-500 rounded-md">
+                                            <button type="button" id="detail-riwayat-laporan-rt" class="w-fit h-fit px-4 py-2 bg-blue-500 rounded-md">
                                                 <span class="font-semibold text-white">Detail</span>
                                             </button>
                                         </div>
@@ -49,14 +49,16 @@
     </div>
     @include('rt.detail_laporan')
    <script>
-     document.getElementById('btn-detail-riwayat-laporan').addEventListener('click', function() {
-            var detail_riwayat_bansos = document.getElementById('modal-detail-riwayat-laporan');
-            detail_riwayat_bansos.classList.remove('hidden');
-            detail_riwayat_bansos.classList.add('center');
+        document.getElementById('detail-riwayat-laporan-rt').addEventListener('click', function() {
+            var detail_riwayat_laporan = document.getElementById('modal-detail-riwayat-laporan-rt');
+            var riwayat_laporan = document.getElementById('modal-riwayat-laporan');
+            detail_riwayat_laporan.classList.remove('hidden');
+            riwayat_laporan.classList.add('hidden'); 
+            riwayat_laporan.classList.remove('center'); 
         });
-        document.getElementById('close-button-detail-riwayat-laporan').addEventListener('click', function() {
-            var detail_riwayat_bansos = document.getElementById('modal-detail-riwayat-laporan');
-            detail_riwayat_bansos.classList.add('hidden');
-            detail_riwayat_bansos.classList.remove('center');
+        document.getElementById('close-button-detail-riwayat-laporan-rt').addEventListener('click', function() {
+            var detail_riwayat_laporan = document.getElementById('modal-detail-riwayat-laporan-rt');
+            detail_riwayat_laporan.classList.add('hidden');
+            detail_riwayat_laporan.classList.remove('center');
         });
 </script>
