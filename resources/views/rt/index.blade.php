@@ -124,7 +124,7 @@
     </div>
 
     <script>
-         /*document.getElementById('btn-pengajuan').addEventListener('click', function() {
+         document.getElementById('btn-pengajuan').addEventListener('click', function() {
             var pengajuan = document.getElementById('pengajuan-penduduk');
             var detail = document.getElementById('detail-pengajuan');
             pengajuan.classList.remove('hidden');
@@ -135,11 +135,11 @@
         document.getElementById('close-button-pengajuan').addEventListener('click', function() {
             var pengajuan = document.getElementById('pengajuan-penduduk');
             pengajuan.classList.add('hidden');
-        });*/
+        });
 
-        /*document.getElementById('btn-pengajuan').addEventListener('click', function() {
+        document.getElementById('btn-pengajuan').addEventListener('click', function() {
             document.getElementById('pengajuan-penduduk').style.display = 'block';
-        });*/
+        });
 
         // riwayat bansos
         document.getElementById('btn-riwayat-bansos').addEventListener('click', function() {

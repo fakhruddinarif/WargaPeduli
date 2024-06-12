@@ -234,7 +234,7 @@
     <div id="modal-riwayat-bansos" class="hidden fixed inset-0 z-40 bg-neutral-600 bg-opacity-50  justify-center items-center w-full mt-40">
         <div class="bg-white rounded-xl shadow-lg w-full max-w-6xl xl:mt-20 mt-20 mx-auto">
             <div class="flex items-center justify-between p-4 bg-blue-500 rounded-sm">
-                <h3 class="text-lg font-medium text-white">Data Riwayat Mendapatkan Bansos</h3>
+                <h3 class="text-lg font-medium text-white">Data Riwayat Bansos</h3>
                 <button id="close-riwayat-bansos" class="text-white">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" class="w-6 h-6">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -261,7 +261,7 @@
                                     <td class="px-6 py-4">{{ isset($value->user_id) ? $value->User->Keluarga->nkk : 'N/A' }}</td>
                                     <td class="px-6 py-4">
                                         {{ isset($value->user_id) ? optional($value->User->Keluarga->Warga->where('status_keluarga', 'Kepala Keluarga')->first())->nama : 'N/A' }}
-                                    </td>                            
+                                    </td>
                                     <td class="px-6 py-4">{{ isset($value->bansos_id) ? $value->BantuanSosial->jenis : 'N/A' }}</td>
                                     <td class="px-6 py-4">{{ isset($value->bansos_id) ? date('d/m/Y', strtotime($value->BantuanSosial->tanggal_mulai)) : 'N/A' }}</td>
                                     <td class="px-6 py-4">{{ isset($value->bansos_id) ? date('d/m/Y', strtotime($value->BantuanSosial->tanggal_selesai)) : 'N/A' }}</td>
@@ -312,7 +312,7 @@
                                     <td class="px-6 py-4">{{ $value->status }}</td>
                                     <td class="px-6 py-4">
                                         <div class="flex justify-start gap-4">
-                                            <button type="button" id="detail-riwayat-laporan" class="w-fit h-fit px-4 py-2 bg-blue-500 rounded-md">
+                                            <button type="button" id="detail-riwayat-laporan-{{ $value->id }}" class="w-fit h-fit px-4 py-2 bg-blue-500 rounded-md">
                                                 <span class="font-semibold text-white">Detail</span>
                                             </button>
                                         </div>
@@ -332,7 +332,7 @@
     </div>
     @include('warga.detail_riwayat_laporan')
 
-     
+
 
 
     <script>
@@ -395,6 +395,30 @@
             $('#cancel-form').click(function () {
                $('#form-bansos').fadeOut();
             });
+
+            var detailRiwayatLaporan = $('[id^=detail-riwayat-laporan-]');
+            detailRiwayatLaporan.on('click', function() {
+                var detail = $('#modal-detail-riwayat-laporan');
+                var modal = $('#modal-riwayat-laporan');
+                detail.removeClass('hidden');
+                detail.addClass('center');
+                modal.addClass('hidden');
+
+                var id = $(this).attr('id').replace('detail-riwayat-laporan-', '');
+                $.get('/warga/laporan/' + id, function (data) {
+                    console.log(data);
+                    $('#data-laporan-bukti').attr('src', data.bukti ? data.bukti : '/no-image.png');
+                    $('#data-laporan-tanggal').text(data.tanggal ? data.tanggal : 'N/A');
+                    $('#data-laporan-keterangan').text(data.keterangan ? data.keterangan : 'N/A');
+                    $('#data-laporan-status').text(data.status ? data.status : 'N/A');
+                });
+            });
+        });
+
+        document.getElementById('close-button-detail-riwayat-laporan').addEventListener('click', function() {
+            var detail_riwayat_bansos = document.getElementById('modal-detail-riwayat-laporan');
+            detail_riwayat_bansos.classList.add('hidden');
+            detail_riwayat_bansos.classList.remove('center');
         });
 
         function showmodalbansos(){
@@ -432,7 +456,7 @@
             var riwayat_bansos = document.getElementById('modal-riwayat-bansos');
             riwayat_bansos.classList.add('hidden');
         });
-        
+
          // riwayat laporan
         document.getElementById('riwayat-laporan').addEventListener('click', function() {
             var riwayat_laporan = document.getElementById('modal-riwayat-laporan');
@@ -451,8 +475,8 @@
             var detail_riwayat_laporan = document.getElementById('modal-detail-riwayat-laporan');
             var riwayat_laporan = document.getElementById('modal-riwayat-laporan');
             detail_riwayat_laporan.classList.remove('hidden');
-            riwayat_laporan.classList.add('hidden'); 
-            riwayat_laporan.classList.remove('center'); 
+            riwayat_laporan.classList.add('hidden');
+            riwayat_laporan.classList.remove('center');
         });
         document.getElementById('close-button-detail-riwayat-laporan').addEventListener('click', function() {
             var detail_riwayat_bansos = document.getElementById('modal-detail-riwayat-laporan');

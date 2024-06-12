@@ -29,7 +29,7 @@
                                     <td class="px-6 py-4">{{ $value->status }}</td>
                                     <td class="px-6 py-4">
                                         <div class="flex justify-start gap-4">
-                                            <button type="button" id="detail-riwayat-laporan-rt" class="w-fit h-fit px-4 py-2 bg-blue-500 rounded-md">
+                                            <button type="button" id="detail-riwayat-laporan-{{ $value->id }}" class="w-fit h-fit px-4 py-2 bg-blue-500 rounded-md">
                                                 <span class="font-semibold text-white">Detail</span>
                                             </button>
                                         </div>
@@ -49,13 +49,24 @@
     </div>
     @include('rt.detail_laporan')
    <script>
-        document.getElementById('detail-riwayat-laporan-rt').addEventListener('click', function() {
-            var detail_riwayat_laporan = document.getElementById('modal-detail-riwayat-laporan-rt');
-            var riwayat_laporan = document.getElementById('modal-riwayat-laporan');
-            detail_riwayat_laporan.classList.remove('hidden');
-            riwayat_laporan.classList.add('hidden'); 
-            riwayat_laporan.classList.remove('center'); 
-        });
+       $(document).ready(function() {
+           var detailRiwayatLaporan = $('[id^="detail-riwayat-laporan-"]');
+           detailRiwayatLaporan.each(function() {
+               $(this).click(function () {
+                   var id = $(this).attr('id').replace('detail-riwayat-laporan-', '');
+                   $.get('/rt/laporan/' + id, function (data) {
+                       console.log(data);
+                       $('#data-laporan-bukti').attr('src', data.bukti ? data.bukti : '/no-image.png');
+                       $('#data-laporan-tanggal').text(data.tanggal ? data.tanggal : 'N/A');
+                       $('#data-laporan-keterangan').text(data.keterangan ? data.keterangan : 'N/A');
+                       $('#data-laporan-status').text(data.status ? data.status : 'N/A');
+                   })
+                   $('#modal-detail-riwayat-laporan-rt').removeClass('hidden');
+                   $('#modal-riwayat-laporan').addClass('hidden');
+                   $('#modal-riwayat-laporan').removeClass('center');
+               });
+           });
+       });
         document.getElementById('close-button-detail-riwayat-laporan-rt').addEventListener('click', function() {
             var detail_riwayat_laporan = document.getElementById('modal-detail-riwayat-laporan-rt');
             detail_riwayat_laporan.classList.add('hidden');
