@@ -41,4 +41,5 @@ class Keluarga extends Model
     {
         $query->where('nkk', 'like', "%{$value}%");
     }
+
 }

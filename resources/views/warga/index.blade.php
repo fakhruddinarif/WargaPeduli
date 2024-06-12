@@ -2,6 +2,7 @@
 @section('template')
 @include('layouts.navigation')
 @include('layouts.navbar')
+
 <section id="content" class="bg-white flex flex-wrap justify-start items-start mt-[164px] w-full gap-4 py-8 px-5 overflow-y-scroll">
     <div class="w-full flex justify-center items-center">
         @if(Session::has('success'))
@@ -31,7 +32,7 @@
         <div class="flex w-full flex-wrap justify-center items-center gap-4">
             <div class="flex flex-row w-fit px-4 py-3 md:px-8 md:py-6 gap-4 justify-center items-center transform transition-all hover:-translate-y-2 duration-300 shadow-lg hover:shadow-2xl rounded-lg border">
                 <div class="w-full">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="#3b82f6" viewBox="0 0 24 24" strokeWidth={1.5} stroke="#fff" class="bg-white rounded-3xl w-30 h-40">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="#3b82f6" viewBox="0 0 24 24" strokeWidth={1.5} stroke="#fff" class="bg-white rounded-3xl w-32 h-32">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 0 1 .865-.501 48.172 48.172 0 0 0 3.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z" />
                     </svg>
                 </div>
@@ -45,7 +46,7 @@
             </div>
             <div class="flex flex-row w-fit px-4 py-3 md:px-8 md:py-6 gap-4 justify-center items-center transform transition-all hover:-translate-y-2 duration-300 shadow-lg hover:shadow-2xl rounded-lg border">
                 <div class="w-full">
-                    <svg class="bg-white rounded-3xl w-30 h-40" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                    <svg class="bg-white rounded-3xl w-32 h-32" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
                     <g fill="#3b82f6" stroke="#3b82f6" stroke-width="2">
                         <rect x="2" y="10" width="30" height="40" rx="4" ry="4" fill="#3b82f6"></rect>
                         <path d="M14,2 H50 a2,2 0 0,1 2,2 V52 a2,2 0 0,1 -2,2 H14 a2,2 0 0,1 -2,-2 V4 a2,2 0 0,1 2,-2 z" fill="#E0E0E0"></path>
@@ -246,18 +247,32 @@
                     <thead class="text-sm font-normal text-black">
                         <tr class="md:table-row ">
                             <th scope="col" class="px-6 py-3">NKK</th>
-                            <th scope="col" class="px-6 py-3">Ibu Kandung</th>
-                            <th scope="col" class="px-6 py-3">Status Keluarga</th>
-                            <th scope="col" class="px-6 py-3">Periode</th>
+                            <th scope="col" class="px-6 py-3">Kepala Keluarga</th>
+                            <th scope="col" class="px-6 py-3">Jenis Bansos</th>
+                            <th scope="col" class="px-6 py-3">Tanggal Mulai</th>
+                            <th scope="col" class="px-6 py-3">Tanggal Selesai</th>
+                            <th scope="col" class="px-6 py-3">Status</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="bg-white border-b md:table-row">
-                            <th scope="row" class="px-6 py-4 font-normal text-neutral-900 whitespace-nowrap">1234567890</th>
-                            <td class="px-6 py-4">Jl. Pahlawan No. 123, Jakarta</td>
-                            <td class="px-6 py-4">John Doe</td>
-                            <td class="px-6 py-4">19 Juni 2012</td>
-                        </tr>
+                        @if(count($historyBansos) > 0)
+                            @foreach($historyBansos as $value)
+                                <tr class="bg-white border-b md:table-row">
+                                    <td class="px-6 py-4">{{ isset($value->user_id) ? $value->User->Keluarga->nkk : 'N/A' }}</td>
+                                    <td class="px-6 py-4">
+                                        {{ isset($value->user_id) ? optional($value->User->Keluarga->Warga->where('status_keluarga', 'Kepala Keluarga')->first())->nama : 'N/A' }}
+                                    </td>                            
+                                    <td class="px-6 py-4">{{ isset($value->bansos_id) ? $value->BantuanSosial->jenis : 'N/A' }}</td>
+                                    <td class="px-6 py-4">{{ isset($value->bansos_id) ? date('d/m/Y', strtotime($value->BantuanSosial->tanggal_mulai)) : 'N/A' }}</td>
+                                    <td class="px-6 py-4">{{ isset($value->bansos_id) ? date('d/m/Y', strtotime($value->BantuanSosial->tanggal_selesai)) : 'N/A' }}</td>
+                                    <td class="px-6 py-4">{{ $value->status }}</td>
+                                </tr>
+                            @endforeach
+                        @else
+                            <tr>
+                                <td colspan="5" class="w-full bg-white text-center py-4 font-medium text-sm">Tidak ada data</td>
+                            </tr>
+                        @endif
                     </tbody>
                 </table>
             </div>
@@ -282,27 +297,33 @@
                 <table class="table-auto w-full text-sm text-left rtl:text-right bg-neutral-200">
                     <thead class="text-sm font-normal text-black">
                         <tr class="md:table-row ">
-                            <th scope="col" class="px-6 py-3">Nama</th>
+                            <th scope="col" class="px-6 py-3">Tanggal</th>
                             <th scope="col" class="px-6 py-3">Keterangan</th>
                             <th scope="col" class="px-6 py-3">Status</th>
-                            <th scope="col" class="px-6 py-3">Tanggal</th>
                             <th scope="col" class="px-6 py-3">Aksi</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr class="bg-white border-b md:table-row">
-                            <th scope="row" class="px-6 py-4 font-normal text-neutral-900 whitespace-nowrap">ilul</th>
-                            <td class="px-6 py-4">Jl. Pahlawan No. 123, Jakarta</td>
-                            <td class="px-6 py-4">Diterima</td>
-                            <td class="px-6 py-4">19 Juni 2012</td>
-                            <td class="px-6 py-4">
-                                <div class="flex justify-start gap-4">
-                                    <button type="button" id="detail-riwayat-laporan" class="w-fit h-fit px-4 py-2 bg-blue-500 rounded-md">
-                                        <span class="font-semibold text-white">Detail</span>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
+                     <tbody>
+                        @if(count($historyReport) > 0)
+                            <tr class="bg-white border-b md:table-row">
+                                @foreach($historyReport as $value)
+                                    <td class="px-6 py-4">{{ date('d/m/Y', strtotime($value->tanggal)) }}</td>
+                                    <td class="px-6 py-4"> {{ $value->keterangan }}</td>
+                                    <td class="px-6 py-4">{{ $value->status }}</td>
+                                    <td class="px-6 py-4">
+                                        <div class="flex justify-start gap-4">
+                                            <button type="button" id="detail-riwayat-laporan" class="w-fit h-fit px-4 py-2 bg-blue-500 rounded-md">
+                                                <span class="font-semibold text-white">Detail</span>
+                                            </button>
+                                        </div>
+                                    </td>
+                                @endforeach
+                            </tr>
+                        @else
+                            <tr>
+                                <td colspan="4" class="w-full bg-white text-center py-4 font-medium text-sm">Tidak ada data</td>
+                            </tr>
+                        @endif
                     </tbody>
                 </table>
             </div>
@@ -427,9 +448,11 @@
 
         //detail
         document.getElementById('detail-riwayat-laporan').addEventListener('click', function() {
-            var detail_riwayat_bansos = document.getElementById('modal-detail-riwayat-laporan');
-            detail_riwayat_bansos.classList.remove('hidden');
-            detail_riwayat_bansos.classList.add('center');
+            var detail_riwayat_laporan = document.getElementById('modal-detail-riwayat-laporan');
+            var riwayat_laporan = document.getElementById('modal-riwayat-laporan');
+            detail_riwayat_laporan.classList.remove('hidden');
+            riwayat_laporan.classList.add('hidden'); 
+            riwayat_laporan.classList.remove('center'); 
         });
         document.getElementById('close-button-detail-riwayat-laporan').addEventListener('click', function() {
             var detail_riwayat_bansos = document.getElementById('modal-detail-riwayat-laporan');
