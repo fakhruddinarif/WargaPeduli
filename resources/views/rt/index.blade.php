@@ -96,7 +96,7 @@
                     <div class="w-full flex flex-col justify-start items-start gap-4">
                         <div class="w-full px-2">
                             <h3 class="text-xl font-semibold whitespace-nowrap">Riwayat Laporan</h3>
-                            <span class="text-base text-neutral-600 font-normal whitespace-nowrap">Data Riwayat Laporan</span>
+                            <span class="text-base text-neutral-600 font-normal whitespace-nowrap">Riwayat Laporan Anda</span>
                         </div>
                         <button type="button" id="btn-riwayat-laporan" class="text-white bg-blue-500 hover:bg-blue-800 focus:outline-none px-4 py-3 rounded-md text-base w-fit">Selengkapnya</button>
                     </div>
@@ -106,9 +106,9 @@
     </div>
 </section>
 
-    <!-- Modal -->
+    <!-- Modal Penduduk -->
     <div id="modal-penduduk" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center w-full mt-40">
-        <div class="bg-white rounded-xl shadow-lg w-full max-w-6xl fixed mb-32 mt-28">
+        <div class="bg-white rounded-xl shadow-lg w-full max-w-6xl fixed mb-72 mt-28">
             <div class="flex justify-between items-center p-4 bg-blue-500 rounded-sm">
                 <h3 class="text-lg font-medium text-white">Data Penduduk</h3>
                 <button id="close-button2" class="text-white">

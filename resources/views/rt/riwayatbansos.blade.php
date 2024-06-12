@@ -18,7 +18,6 @@
                             <th scope="col" class="px-6 py-3">Ibu Kandung</th>
                             <th scope="col" class="px-6 py-3">Status Keluarga</th>
                             <th scope="col" class="px-6 py-3">Periode</th>
-                            <th scope="col" class="px-6 py-3">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -27,13 +26,6 @@
                             <td class="px-6 py-4">Jl. Pahlawan No. 123, Jakarta</td>
                             <td class="px-6 py-4">John Doe</td>
                             <td class="px-6 py-4">19 Juni 2012</td>
-                            <td class="px-6 py-4">
-                                <div class="flex justify-start gap-4">
-                                    <button type="button" id="btn-detail-riwayat-bansos" class="w-fit h-fit px-4 py-2 bg-blue-500 rounded-md">
-                                        <span class="font-semibold text-white">Detail</span>
-                                    </button>
-                                </div>
-                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -41,15 +33,3 @@
             </div>
         </div>
     </div>
-<script>
-     document.getElementById('btn-detail-riwayat-bansos').addEventListener('click', function() {
-            var detail_riwayat_bansos = document.getElementById('modal-detail-riwayat-bansos');
-            detail_riwayat_bansos.classList.remove('hidden');
-            detail_riwayat_bansos.classList.add('center');
-        });
-        document.getElementById('close-button-detail-riwayat-bansos').addEventListener('click', function() {
-            var detail_riwayat_bansos = document.getElementById('modal-detail-riwayat-bansos');
-            detail_riwayat_bansos.classList.add('hidden');
-            detail_riwayat_bansos.classList.remove('center');
-        });
-</script>

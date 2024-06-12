@@ -47,4 +47,16 @@
             </div>
         </div>
     </div>
-
+    @include('rt.detail_laporan')
+   <script>
+     document.getElementById('btn-detail-riwayat-laporan').addEventListener('click', function() {
+            var detail_riwayat_bansos = document.getElementById('modal-detail-riwayat-laporan');
+            detail_riwayat_bansos.classList.remove('hidden');
+            detail_riwayat_bansos.classList.add('center');
+        });
+        document.getElementById('close-button-detail-riwayat-laporan').addEventListener('click', function() {
+            var detail_riwayat_bansos = document.getElementById('modal-detail-riwayat-laporan');
+            detail_riwayat_bansos.classList.add('hidden');
+            detail_riwayat_bansos.classList.remove('center');
+        });
+</script>
