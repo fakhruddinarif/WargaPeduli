@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Informasi;
+use App\Models\Keluarga;
 use App\Models\Pengajuan;
 use App\Models\RukunTetangga;
+use App\Models\Warga;
 use App\Services\ChartService;
 use App\Services\PendudukService;
 use App\Services\UserService;
@@ -28,7 +31,22 @@ class AuthController extends Controller
     public function landingPage()
     {
         $rt = RukunTetangga::all();
-        return view('welcome', ['rt' => $rt]);
+        $countResident = Warga::count();
+        $countFamily = Keluarga::count();
+        $berita = Informasi::where('jenis', 'Berita')
+            ->orderBy('tanggal', 'desc')
+            ->take(5)
+            ->get();
+        $pengumuman = Informasi::where('jenis', 'Pengumuman')
+            ->orderBy('tanggal', 'desc')
+            ->take(2)
+            ->get();
+        $kegiatan = Informasi::where('jenis', 'Kegiatan')
+            ->orderBy('tanggal', 'desc')
+            ->take(2)
+            ->get();
+
+        return view('welcome', ['rt' => $rt, 'countResident' => $countResident, 'countFamily' => $countFamily, 'berita' => $berita, 'pengumuman' => $pengumuman, 'kegiatan' => $kegiatan]);
     }
 
     public function checkPengajuan(Request $request) {
