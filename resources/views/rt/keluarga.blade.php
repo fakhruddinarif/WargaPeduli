@@ -1,5 +1,5 @@
-<div id="modal-keluarga" class="hidden fixed z-40 inset-0 bg-neutral-600 bg-opacity-50 flex justify-center items-center w-full">
-        <div class="bg-white rounded-xl shadow-lg w-full max-w-6xl mt-28" >
+<div id="modal-keluarga" class="hidden fixed z-40 inset-0 bg-neutral-600 bg-opacity-50 flex justify-center items-center  w-full gap-4 py-8 px-5">
+        <div class="bg-white rounded-xl shadow-lg w-full max-w-6xl mb-40 mt-28" >
             <div class="flex justify-between items-center p-4 bg-blue-500 rounded-sm" >
                 <h3 class="text-lg font-medium text-white">Data Keluarga</h3>
                 <button id="close-button-keluarga" class="text-white">
@@ -8,7 +8,7 @@
                     </svg>
                 </button>
             </div>
-            <div class="p-1 overflow-y-auto max-h-96">
+            <div class="p-4 overflow-y-auto max-h-96">
                 <livewire:keluarga-table />
             </div>
         </div>

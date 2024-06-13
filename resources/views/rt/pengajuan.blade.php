@@ -1,5 +1,5 @@
- <div id="pengajuan-penduduk" class="hidden fixed inset-0 z-40 bg-neutral-600 bg-opacity-50  justify-center items-center w-full mt-40">
-        <div class="bg-white rounded-xl shadow-lg w-full max-w-6xl xl:mt-40 mt-20 mx-auto">
+ <div id="pengajuan-penduduk" class="hidden fixed inset-0 z-40 bg-neutral-600 bg-opacity-50  flex justify-center items-center mt-[164px] w-full gap-4 py-8 px-5">
+        <div class="bg-white rounded-xl shadow-lg w-full max-w-6xl mb-40 mt-20 mx-auto">
             <div class="flex items-center justify-between p-4 bg-blue-500 rounded-sm">
                 <h3 class="text-lg font-medium text-white">Data Pengajuan Penduduk</h3>
                 <button id="close-button-pengajuan" class="text-white">
@@ -8,7 +8,7 @@
                     </svg>
                 </button>
             </div>
-            <div class="p-1 overflow-y-auto max-h-96 ">
+            <div class="p-4 overflow-y-auto max-h-96 ">
                 <div class="relative w-full overflow-x-auto shadow-md">
                 <table class="table-auto w-full text-sm text-left rtl:text-right bg-neutral-200">
                     <thead class="text-sm font-normal text-black">

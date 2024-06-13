@@ -1,6 +1,6 @@
 
-    <div id="modal-riwayat-laporan" class="hidden fixed inset-0 z-40 bg-neutral-600 bg-opacity-50  justify-center items-center w-full mt-40">
-        <div class="bg-white rounded-xl shadow-lg w-full max-w-6xl xl:mt-20 mt-20 mx-auto">
+    <div id="modal-riwayat-laporan" class="hidden fixed inset-0 z-40 bg-neutral-600 bg-opacity-50  flex justify-center items-center  w-full gap-4 py-8 px-5">
+        <div class="bg-white rounded-xl shadow-lg w-full max-w-6xl mb-72 mt-20">
             <div class="flex items-center justify-between p-4 bg-blue-500 rounded-sm">
                 <h3 class="text-lg font-medium text-white">Data Riwayat Laporan</h3>
                 <button id="close-button-riwayat-laporan" class="text-white">
