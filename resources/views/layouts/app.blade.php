@@ -71,7 +71,7 @@
                 sidebar.removeClass('-translate-x-full');
                 content.css('marginLeft', sidebarWidth + 'px');
             }
-            if ($(window).width() < 640) {
+            if ($(window).width() < 768) {
                 dateTitle.addClass('hidden');
             }
             else {
@@ -84,7 +84,7 @@
                 sidebar.removeClass('-translate-x-full');
                 content.css('marginLeft', sidebarWidth + 'px');
             }
-            if ($(window).width() < 640) {
+            if ($(window).width() < 768) {
                 dateTitle.addClass('hidden');
             }
             else {

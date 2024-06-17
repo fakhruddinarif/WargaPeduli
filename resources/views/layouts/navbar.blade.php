@@ -15,7 +15,7 @@
               <span class="self-center text-base font-semibold sm:text-xl whitespace-nowrap">Warga Peduli</span>
                 </a>
             </div>
-            <div class="w-full flex flex-row justify-end {{ $url == 'admin' || $url == 'rw' ? 'sm:justify-between' : '' }} items-center px-2 py-3 sm:px-4">
+            <div class="w-full flex flex-row justify-end {{ $url == 'admin' || $url == 'rw' ? 'md:justify-between' : '' }} items-center px-2 py-3 sm:px-4">
                 @if($url == 'admin' || $url == 'rw')
                     <div id="text-date-title" class="flex flex-col justify-center items-stretch gap-0 sm:gap-3">
                         <span class="font-medium text-xs text-neutral-500 md:text-sm">{{ \Carbon\Carbon::now()->isoFormat('D MMMM Y') }}</span>
