@@ -3,7 +3,7 @@
 @include('layouts.navigation')
 @include('layouts.navbar')
 
-<section id="content" class="bg-white flex flex-wrap justify-start items-start mt-[164px] w-full gap-4 py-8 px-5 overflow-y-scroll">
+<section id="content" class="bg-white flex flex-wrap justify-start items-start mt-[164px] w-full gap-4 py-8 px-5 overflow-y-scroll" style="scrollbar-width: none; -ms-overflow-style: none;">
     <div class="w-full flex justify-center items-center">
         @if(Session::has('success'))
             <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50" role="alert">
@@ -232,7 +232,7 @@
 <!-- Modal Riwayat Bansos -->
 
     <div id="modal-riwayat-bansos" class="hidden fixed inset-0 z-40 bg-neutral-600 bg-opacity-50  flex justify-center items-center  w-full gap-4 py-8 px-5">
-        <div class="bg-white rounded-xl shadow-lg w-full max-w-6xl mb-40 mt-28">
+        <div class="bg-white rounded-xl shadow-lg w-full max-w-6xl sm:max-w-5xl xs:max-w-full mt-[160px]">
             <div class="flex items-center justify-between p-4 bg-blue-500 rounded-sm">
                 <h3 class="text-lg font-medium text-white">Data Riwayat Bansos</h3>
                 <button id="close-riwayat-bansos" class="text-white">
@@ -283,7 +283,7 @@
 <!-- Modal Riwayat Laporan -->
 
     <div id="modal-riwayat-laporan" class="hidden fixed inset-0 z-40 bg-neutral-600 bg-opacity-50  flex justify-center items-center  w-full gap-4 py-8 px-5">
-        <div class="bg-white rounded-xl shadow-lg w-full max-w-6xl mb-40 mt-28">
+        <div class="bg-white rounded-xl shadow-lg w-full max-w-6xl sm:max-w-4xl xs:max-w-full mt-[160px]">
             <div class="flex items-center justify-between p-4 bg-blue-500 rounded-sm">
                 <h3 class="text-lg font-medium text-white">Data Riwayat Laporan</h3>
                 <button id="close-riwayat-laporan" class="text-white">

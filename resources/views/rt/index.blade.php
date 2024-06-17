@@ -6,7 +6,7 @@
 @include('rt.riwayatlaporan')
 @include('layouts.navigation')
 @include('layouts.navbar')
-<section id="content" class="bg-white flex flex-wrap justify-start items-start mt-[164px] w-full gap-4 py-8 px-5 overflow-y-scroll">
+<section id="content" class="bg-white flex flex-wrap justify-start items-start mt-[164px] w-full gap-4 py-8 px-5 overflow-y-scroll" style="scrollbar-width: none; -ms-overflow-style: none;">
     <div class="w-full flex justify-center items-center">
         @if(Session::has('success'))
             <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50" role="alert">
@@ -107,8 +107,8 @@
 </section>
 
     <!-- Modal Penduduk -->
-    <div id="modal-penduduk" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center w-full mt-40">
-        <div class="bg-white rounded-xl shadow-lg w-full max-w-6xl fixed mb-72 mt-28">
+    <div id="modal-penduduk" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center  w-full gap-4 py-8 px-5">
+        <div class="bg-white rounded-xl shadow-lg w-full max-w-6xl sm:max-w-4xl xs:max-w-full mt-[160px]">
             <div class="flex justify-between items-center p-4 bg-blue-500 rounded-sm">
                 <h3 class="text-lg font-medium text-white">Data Penduduk</h3>
                 <button id="close-button2" class="text-white">

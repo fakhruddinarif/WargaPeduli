@@ -1,6 +1,6 @@
 
-    <div id="modal-detail-riwayat-laporan-rt" class="hidden fixed inset-0 z-40 bg-neutral-600 bg-opacity-50  justify-center items-center w-full mt-40">
-        <div class="bg-white rounded-xl shadow-lg w-full max-w-6xl xl:mt-20  mx-auto">
+    <div id="modal-detail-riwayat-laporan-rt" class="hidden fixed inset-0 z-40 bg-neutral-600 bg-opacity-50  flex justify-center items-center  w-full gap-4 py-8 px-5">
+        <div class="bg-white rounded-xl shadow-lg w-full max-w-6xl sm:max-w-4xl xs:max-w-full mt-[160px]">
             <div class="flex items-center justify-between p-4 bg-blue-500 rounded-sm mx-auto">
                 <h3 class="text-lg font-medium text-white">Detail Laporan</h3>
                 <button id="close-button-detail-riwayat-laporan-rt" class="text-white">
@@ -17,19 +17,19 @@
                     </div>
                     <div class="flex flex-col gap-2 w-full justify-start items-start">
                         <span class="font-medium text-base text-neutral-900">Tanggal</span>
-                        <div class="px-4 py-3 rounded border w-full">
+                        <div class="rounded border w-full">
                             <span id="data-laporan-tanggal" class="font-normal text-sm text-neutral-900"></span>
                         </div>
                     </div>
                     <div class="flex flex-col gap-2 w-full justify-start items-start">
                         <span class="font-medium text-base text-neutral-900">Keterangan</span>
-                        <div class="px-4 py-3 rounded border w-full">
-                            <textarea id="data-laporan-keterangan" class="font-normal text-sm text-neutral-900"></textarea>
+                        <div class="rounded border w-full">
+                            <textarea id="data-laporan-keterangan" class="font-normal text-sm text-neutral-900 px-4 py-3 w-full"></textarea>
                         </div>
                     </div>
                     <div class="flex flex-col gap-2 w-full justify-start items-start">
                         <span class="font-medium text-base text-neutral-900">Status</span>
-                        <div class="px-4 py-3 rounded border w-full">
+                        <div class="rounded border w-full">
                             <span id="data-laporan-status" class="font-normal text-sm text-neutral-900"></span>
                         </div>
                     </div>
