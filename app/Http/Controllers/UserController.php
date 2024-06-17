@@ -60,17 +60,19 @@ class UserController extends Controller
         $url = $this->url();
         $page = "Profil";
         $user = Auth::user();
-        $pengajuan = Pengajuan::where('nkk', $user->keluarga->nkk)
-            ->where('status', '=', 'Menunggu Konfirmasi')
-            ->get();
         $data = User::join('keluarga', 'user.keluarga_id', '=', 'keluarga.id')
             ->join('warga', 'keluarga.id', '=', 'warga.keluarga_id')
             ->join('rukun_tetangga', 'warga.rt_id', '=', 'rukun_tetangga.id')
             ->where('user.keluarga_id', $user->keluarga_id)
             ->select('keluarga.nkk', 'warga.nik', 'warga.nama', 'keluarga.dokumen as kk', 'warga.dokumen as ktp', 'warga.jenis_kelamin', 'warga.tempat_lahir', 'warga.tanggal_lahir', 'warga.alamat', 'warga.ibu_kandung', 'warga.status_keluarga', 'warga.telepon', 'nomor', 'pendapatan', 'luas_bangunan', 'jumlah_tanggungan', 'pajak_bumi', 'tagihan_listrik', 'keluarga.id')
             ->get();
-
-        return view('profil', ['url' => $url, 'page' => $page, 'data' => $data, 'user' => $user, 'pengajuan' => $pengajuan]);
+        if ($url != 'admin') {
+            $pengajuan = Pengajuan::where('nkk', $user->keluarga->nkk)
+                ->where('status', '=', 'Menunggu Konfirmasi')
+                ->get();
+            return view('profil', ['url' => $url, 'page' => $page, 'data' => $data, 'user' => $user, 'pengajuan' => $pengajuan]);
+        }
+        return view('profil', ['url' => $url, 'page' => $page, 'data' => $data, 'user' => $user]);
     }
 
     public function create()
