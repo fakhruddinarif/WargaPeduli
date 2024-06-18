@@ -64,7 +64,7 @@
     </div>
 
  <div id="detail-pengajuan-penduduk" class="hidden flex fixed inset-0 z-40 bg-neutral-600 bg-opacity-50  flex justify-center items-center  w-full gap-4 py-8 px-5">
-     <div class="bg-white rounded-xl shadow-lg w-full max-w-6xl sm:max-w-4xl xs:max-w-full mt-[280px] mx-auto">
+     <div class="bg-white rounded-xl shadow-lg w-full max-w-6xl sm:max-w-5xl xs:max-w-full mt-[160px] mx-auto">
          <div class="flex items-center justify-between p-4 bg-blue-500 rounded-sm">
              <h3 class="text-lg font-medium text-white">Detail Pengajuan Penduduk</h3>
              <button id="close-detail-pengajuan" class="text-white">
