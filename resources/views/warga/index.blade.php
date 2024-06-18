@@ -140,11 +140,11 @@
 </div>
 
 <!-- Modal Bansos -->
-<div id="modalbansos" class="fixed inset-0 p-4 flex flex-wrap justify-center items-center w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] overflow-auto font-[sans-serif]" style="display: none;">
-    <div class="w-full max-w-xl bg-white shadow-lg rounded-md p-6 relative">
-        <div class="flex flex-row w-full gap-1 justify-start items-center px-2 py-1 bg-blue-500 rounded-t-lg">
-            <a href="{{ url('/') }}" class="px-2 py-3 content-center"></a>
-            <span class="text-base font-semibold text-white mr-80">Pengajuan Bansos</span>
+<div id="modalbansos" class="hidden fixed inset-0 z-40 bg-neutral-600 bg-opacity-50  flex justify-center items-center  w-full gap-4 py-8 px-5" style="display: none;">
+    <div class="bg-white rounded-xl shadow-lg w-full max-w-6xl sm:max-w-5xl xs:max-w-full mt-[160px] mx-auto">
+        <div class="flex items-center justify-between p-4 bg-blue-500 rounded-sm">
+            {{-- <a href="{{ url('/') }}" class=""></a> --}}
+            <h3 class="text-lg font-medium text-white justify-center">Pengajuan Bansos</h3>
             <button id="btncancelb" class="text-white">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" class="w-6 h-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
