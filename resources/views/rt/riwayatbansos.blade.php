@@ -1,6 +1,6 @@
 
-    <div id="modal-riwayat-bansos" class="hidden fixed inset-0 z-40 bg-neutral-600 bg-opacity-50  justify-center items-center w-full mt-40">
-        <div class="bg-white rounded-xl shadow-lg w-full max-w-6xl xl:mt-20 mt-20 mx-auto">
+    <div id="modal-riwayat-bansos" class="hidden fixed  z-40 inset-0 bg-neutral-600 bg-opacity-50  flex justify-center items-center  w-full gap-4 py-8 px-5">
+        <div class="bg-white rounded-xl shadow-lg w-full max-w-6xl sm:max-w-5xl xs:max-w-full mt-[160px]">
             <div class="flex items-center justify-between p-4 bg-blue-500 rounded-sm">
                 <h3 class="text-lg font-medium text-white">Data Riwayat Mendapatkan Bansos</h3>
                 <button id="close-button-riwayat-bansos" class="text-white">
@@ -10,7 +10,7 @@
                 </button>
             </div>
             <div class="p-1 overflow-y-auto max-h-96 ">
-                <div class="relative w-full overflow-x-auto shadow-md">
+                <div class="relative w-full overflow-x-auto shadow-md mt-4">
                 <table class="table-auto w-full text-sm text-left rtl:text-right bg-neutral-200">
                     <thead class="text-sm font-normal text-black">
                         <tr class="md:table-row ">

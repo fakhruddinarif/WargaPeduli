@@ -1,6 +1,6 @@
-<div id="modal-rekomendasi" class="hidden fixed z-40 inset-0 bg-neutral-600 bg-opacity-50 flex justify-center items-center mt-[164px] w-full gap-4 py-8 px-5">
-    <div class="bg-white rounded-xl shadow-lg w-full max-w-6xl mb-40 mt-28">
-        <div class="flex justify-between items-center p-4 bg-blue-500 rounded-sm">
+<div id="modal-rekomendasi" class="hidden fixed z-40 inset-0 bg-neutral-600 bg-opacity-50 flex justify-center items-center  w-full gap-4 py-8 px-5">
+    <div class="bg-white rounded-xl shadow-lg w-full max-w-6xl sm:max-w-5xl xs:max-w-full mt-[160px]">
+        <div class="flex justify-between items-center p-4 bg-blue-500 rounded-sm mx-auto">
             <h3 class="text-lg font-medium text-white">Pilih Bantuan Sosial</h3>
             <button id="close-button-rekomendasi" class="text-white">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" class="w-6 h-6">
@@ -8,7 +8,7 @@
                 </svg>
             </button>
         </div>
-        <div class="p-4 overflow-y-auto max-h-96">
+        <div class="p-1 overflow-y-auto max-h-96">
             <div class="relative w-full overflow-x-auto shadow-md mt-4">
                 <table class="w-full text-sm text-left rtl:text-right bg-neutral-200">
                     <thead class="text-sm font-normal text-black">
@@ -47,8 +47,8 @@
     </div>
 </div>
 
-<div id="modal-form-bansos" class="hidden fixed z-40 inset-0 bg-neutral-600 bg-opacity-50 flex justify-center items-center mt-[164px] w-full gap-4 py-8 px-5">
-    <div class="bg-white rounded-xl shadow-lg w-full max-w-6xl mb-40 mt-28 p-4 overflow-y-auto max-h-96">
+<div id="modal-form-bansos" class="hidden fixed z-40 inset-0 bg-neutral-600 bg-opacity-50 flex justify-center items-center  w-full gap-4 py-8 px-5">
+    <div class="bg-white rounded-xl shadow-lg w-full max-w-6xl mt-[160px] sm:max-w-5xl xs:max-w-full overflow-y-scroll max-h-96">
         <div class="flex justify-between items-center p-4 bg-blue-500 rounded-sm">
             <h3 class="text-lg font-medium text-white">Form Pengajuan Bantuan Sosial</h3>
             <button id="close-button-form" class="text-white">
@@ -61,7 +61,7 @@
             @csrf
             <input type="hidden" id="bansos_id" name="bansos_id">
             <input type="hidden" id="user_id" name="user_id">
-            <div class="w-full gap-1 flex flex-col justify-start items-start">
+            <div class="w-full gap-1 flex flex-col justify-start items-start ">
                 <label for="pendapatan" class="block font-medium text-sm text-neutral-900">Pendapatan</label>
                 <input type="text" id="pendapatan" name="pendapatan" class="input-number px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Pendapatan">
             </div>
@@ -92,6 +92,7 @@
         var recommendationButtons = $('[id^="recommendation-button-"]');
         var modalRekomendasi = $('#modal-rekomendasi');
         var modaFormBansos = $('#modal-form-bansos');
+        var modalKeluarga = $('#modal-keluarga');
         var closeButtonRekomendasi = $('#close-button-rekomendasi');
         var sectionBansos = $('[id^="section-bansos-"]');
         var closeButtonForm = $('#close-button-form');
@@ -111,6 +112,7 @@
             var keluargaId = $(this).data('id');
             modalRekomendasi.removeClass('hidden');
             modaFormBansos.addClass('hidden');
+            modalKeluarga.addClass('hidden');
             $.ajax({
                 url: 'rt/bansos/rekomendasi/' + keluargaId,
                 type: 'GET',

@@ -1,7 +1,7 @@
- <div id="pengajuan-penduduk" class="hidden fixed inset-0 z-40 bg-neutral-600 bg-opacity-50  justify-center items-center w-full mt-40">
-        <div class="bg-white rounded-xl shadow-lg w-full max-w-6xl xl:mt-40 mt-20 mx-auto">
+ <div id="pengajuan-penduduk" class="hidden fixed inset-0 z-40 bg-neutral-600 bg-opacity-50  flex justify-center items-center  w-full gap-4 py-8 px-5">
+        <div class="bg-white rounded-xl shadow-lg w-full max-w-6xl sm:max-w-4xl xs:max-w-full mt-[280px] mx-auto">
             <div class="flex items-center justify-between p-4 bg-blue-500 rounded-sm">
-                <h3 class="text-lg font-medium text-white">Data Pengajuan Penduduk</h3>
+                <h3 class="text-lg font-medium text-white justify-center">Data Pengajuan Penduduk</h3>
                 <button id="close-button-pengajuan" class="text-white">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" class="w-6 h-6">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -63,8 +63,8 @@
         </div>
     </div>
 
- <div id="detail-pengajuan-penduduk" class="hidden flex fixed inset-0 z-40 bg-neutral-600 bg-opacity-50  justify-center items-center w-full">
-     <div class="bg-white rounded-xl shadow-lg w-full max-w-6xl mt-40 mx-auto">
+ <div id="detail-pengajuan-penduduk" class="hidden flex fixed inset-0 z-40 bg-neutral-600 bg-opacity-50  flex justify-center items-center  w-full gap-4 py-8 px-5">
+     <div class="bg-white rounded-xl shadow-lg w-full max-w-6xl sm:max-w-5xl xs:max-w-full mt-[160px] mx-auto">
          <div class="flex items-center justify-between p-4 bg-blue-500 rounded-sm">
              <h3 class="text-lg font-medium text-white">Detail Pengajuan Penduduk</h3>
              <button id="close-detail-pengajuan" class="text-white">
@@ -80,7 +80,7 @@
              </div>
              <div class="flex flex-col gap-2 w-full justify-start items-start">
                  <span class="font-medium text-base text-neutral-900">NKK</span>
-                 <div class="px-4 py-3 rounded border w-full">
+                 <div class="rounded border w-full">
                      <span id="data-pengajuan-nkk" class="font-normal text-sm text-neutral-900"></span>
                  </div>
              </div>
@@ -90,37 +90,37 @@
              </div>
              <div class="flex flex-col gap-2 w-full justify-start items-start">
                  <span class="font-medium text-base text-neutral-900">NIK</span>
-                 <div class="px-4 py-3 rounded border w-full">
+                 <div class="rounded border w-full">
                      <span id="data-pengajuan-nik" class="font-normal text-sm text-neutral-900"></span>
                  </div>
              </div>
              <div class="flex flex-col gap-2 w-full justify-start items-start">
                  <span class="font-medium text-base text-neutral-900">Nama</span>
-                 <div class="px-4 py-3 rounded border w-full">
+                 <div class="rounded border w-full">
                      <span id="data-pengajuan-nama" class="font-normal text-sm text-neutral-900"></span>
                  </div>
              </div>
              <div class="flex flex-col gap-2 w-full justify-start items-start">
                  <span class="font-medium text-base text-neutral-900">Alamat</span>
-                 <div class="px-4 py-3 rounded border w-full">
+                 <div class="rounded border w-full">
                      <span id="data-pengajuan-alamat" class="font-normal text-sm text-neutral-900"></span>
                  </div>
              </div>
              <div class="flex flex-col gap-2 w-full justify-start items-start">
                  <span class="font-medium text-base text-neutral-900">RT</span>
-                 <div class="px-4 py-3 rounded border w-full">
+                 <div class="rounded border w-full">
                      <span id="data-pengajuan-rt" class="font-normal text-sm text-neutral-900"></span>
                  </div>
              </div>
              <div class="flex flex-col gap-2 w-full justify-start items-start">
                  <span class="font-medium text-base text-neutral-900">Status Warga</span>
-                 <div class="px-4 py-3 rounded border w-full">
+                 <div class="rounded border w-full">
                      <span id="data-pengajuan-status-warga" class="font-normal text-sm text-neutral-900"></span>
                  </div>
              </div>
              <div class="flex flex-col gap-2 w-full justify-start items-start">
                  <span class="font-medium text-base text-neutral-900">Telepon</span>
-                 <div class="px-4 py-3 rounded border w-full">
+                 <div class="rounded border w-full">
                      <span id="data-pengajuan-telepon" class="font-normal text-sm text-neutral-900"></span>
                  </div>
              </div>
