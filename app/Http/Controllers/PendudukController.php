@@ -404,16 +404,16 @@ class PendudukController extends Controller
                 } else {
                     $keluarga->delete();
                 }
-                RiwayatWarga::create([
-                    'warga_id' => $warga->id,
-                    'tanggal' => now(),
-                    'status' => $data['status'],
-                    'surat' => $data['surat']
-                ]);
-                DB::commit();
-                Session::flash('success', 'Data Warga Berhasil Diarsipkan');
-                return redirect('/admin/penduduk');
             }
+            RiwayatWarga::create([
+                'warga_id' => $warga->id,
+                'tanggal' => now(),
+                'status' => $data['status'],
+                'surat' => $data['surat']
+            ]);
+            DB::commit();
+            Session::flash('success', 'Data Warga Berhasil Diarsipkan');
+            return redirect('/admin/penduduk');
         } catch (QueryException $e) {
             DB::rollBack(); // Jika ada kesalahan, rollback transaksi
 

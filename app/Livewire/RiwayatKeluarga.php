@@ -34,7 +34,6 @@ class RiwayatKeluarga extends Component
         $data = \App\Models\RiwayatKeluarga::join('keluarga', 'riwayat_keluarga.keluarga_id', '=', 'keluarga.id')
             ->join('warga', 'keluarga.id', '=', 'warga.keluarga_id')
             ->select('nkk', 'nama', 'tanggal', 'status', 'riwayat_keluarga.keluarga_id', 'riwayat_keluarga.id', 'surat')
-            ->where('keluarga.id', '9c3dc33f-3ab4-45b5-b693-504a94f62885')
             ->where('warga.status_keluarga', 'Kepala Keluarga')
             ->paginate($this->perPage);
         return view('livewire.riwayat-keluarga', [
