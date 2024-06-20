@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('template')
-    <section class="w-full bg-neutral-50">
-        <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+    <section class="w-full bg-neutral-50" id="form-login">
+        <div  class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0" >
             @if (Session::has('error'))
                 <div class="w-fit p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
                     <ul>
@@ -13,9 +13,9 @@
                 <img class="w-8 h-8 mr-2" src="{{ asset('logo.png') }}" alt="logo">
                 WargaPeduli
             </a>
-            <div class="w-full bg-white rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0">
-                <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-                    <div class="flex flex-row justify-start items-center gap-2">
+            <div class="w-full bg-white rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0" >
+                <div class="p-6 space-y-4 md:space-y-6 sm:p-8" >
+                     <div class="flex flex-row justify-start items-center gap-2">
                         <a href="{{ url('/') }}" class="w-fit p-2">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#000000" viewBox="0 0 256 256"><path d="M228,128a12,12,0,0,1-12,12H69l51.52,51.51a12,12,0,0,1-17,17l-72-72a12,12,0,0,1,0-17l72-72a12,12,0,0,1,17,17L69,116H216A12,12,0,0,1,228,128Z"></path></svg>
                         </a>
@@ -23,7 +23,7 @@
                             Login
                         </h1>
                     </div>
-                    <form class="space-y-4 md:space-y-6" method="post" action="{{ url('/') }}" id="form-login">
+                    <form class="space-y-4 md:space-y-6" method="post" action="{{ url('/') }}" >
                         @csrf
                         <div>
                             <label for="username" class="block mb-2 text-sm font-medium text-neutral-900">Username</label>
@@ -39,11 +39,11 @@
                             <a href="#" onclick="openModal()" class="font-medium text-blue-600 hover:underline">Pengajuan</a>
                         </p>
                     </form>
-                    @include('components.modals.modal_pengajuan_penduduk')
                 </div>
             </div>
         </div>
     </section>
+    @include('components.modals.modal_pengajuan_penduduk')
 @endsection
 <script>
     function openModal() {
