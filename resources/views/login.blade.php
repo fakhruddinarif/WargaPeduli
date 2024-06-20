@@ -23,7 +23,7 @@
                             Login
                         </h1>
                     </div>
-                    <form class="space-y-4 md:space-y-6" method="post" action="{{ url('/') }}">
+                    <form class="space-y-4 md:space-y-6" method="post" action="{{ url('/') }}" id="form-login">
                         @csrf
                         <div>
                             <label for="username" class="block mb-2 text-sm font-medium text-neutral-900">Username</label>
@@ -33,24 +33,35 @@
                             <label for="password" class="block mb-2 text-sm font-medium text-neutral-900">Password</label>
                             <input type="password" name="password" id="password" placeholder="••••••••" class="bg-neutral-50 border border-neutral-300 text-neutral-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-3" required="">
                         </div>
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-start">
-                                <div class="flex items-center h-5">
-                                    <input id="remember" aria-describedby="remember" type="checkbox" class="w-4 h-4 border border-neutral-300 rounded bg-neutral-50 focus:ring-3 focus:ring-blue-300">
-                                </div>
-                                <div class="ml-3 text-sm">
-                                    <label for="remember" class="text-neutral-500">Ingat Saya</label>
-                                </div>
-                            </div>
-                            <a href="#" class="text-sm font-medium text-blue-500 hover:underline">Lupa Password?</a>
-                        </div>
                         <button type="submit" class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Login</button>
                         <p class="text-sm font-light text-gray-500 dark:text-gray-400">
-                            Tidak punya akun? <a href="{{ url('/pengajuan') }}" class="font-medium text-blue-600 hover:underline">Pengajuan</a>
+                            Tidak punya akun? 
+                            <a href="#" onclick="openModal()" class="font-medium text-blue-600 hover:underline">Pengajuan</a>
                         </p>
                     </form>
+                    @include('components.modals.modal_pengajuan_penduduk')
                 </div>
             </div>
         </div>
     </section>
 @endsection
+<script>
+    function openModal() {
+        $('#form-pengajuan').css({
+            'position': 'fixed',
+            'top': '50%',
+            'left': '50%',
+            'transform': 'translate(-11%, -55%)',
+            'display': 'block',
+            'width': '100%',  // menentukan lebar modal
+            'height': '80%', // menentukan tinggi modal
+            'overflow': 'auto' // menambahkan scroll jika konten lebih besar dari modal
+        });
+        $('#form-login').hide(); // menyembunyikan form login
+
+    }
+    function closeModal() {
+        $('#form-pengajuan').hide();
+        $('#form-login').show(); // menampilkan form login
+    }
+</script>

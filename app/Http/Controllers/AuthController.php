@@ -114,6 +114,7 @@ class AuthController extends Controller
     public function index()
     {
         $user = Auth::user();
+        $rt = RukunTetangga::all();
         if ($user) {
             if ($user->level_id == '1') {
                 return redirect('/admin');
@@ -129,7 +130,7 @@ class AuthController extends Controller
             }
 
         }
-        return view('login');
+        return view('login', ['rt' => $rt]);
     }
     public function storelogin(Request $request)
     {

@@ -26,7 +26,7 @@
     @include('components.modals.modal_pengajuan_penduduk')
     @include('components.modals.modal_pengajuan_alert')
     @include('components.modals.modal_detail_pengajuan_penduduk')
-    <div class="w-full h-screen overflow-y-scroll">
+    <div class="w-full h-screen overflow-y-scroll" style="scrollbar-width: none; -ms-overflow-style: none;">
       <div class="font-sans text-[#fff] mt-36 px-4 mx-4 ">
         @if(Session::has('success'))
               <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50" role="alert">
@@ -72,10 +72,10 @@
             <p class="text-sm text-[#333]">8 Rukun Tetangga</p>
           </div>
           <div class="bg-gray-100 p-6 rounded-md shadow-[0_0px_8px_0px_rgba(34,46,165,0.2)] border-t-4 border-violet-500 transition-all hover:-translate-y-4 relative">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-12 mb-4 inline-block bg-white p-3 rounded-md" strokeWidth={1.5} stroke="#8b5cf6" fill="#8b5cf6" aria-hidden="true">
-              <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#8b5cf6" class="w-12 mb-4 inline-block bg-white p-3 rounded-md">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-1.1 0-2-.9-2-2h4c0 1.1-.9 2-2 2zm6.39-3.56l-1.39-1.39C16.79 14.5 16 13.3 16 12h-2v-2h-4v2H8c0 1.3-.79 2.5-1.39 3.05l-1.39 1.39C5.3 15.53 4.25 13.84 4.25 12S5.3 8.47 6.64 7.12L8 8.5c1.1-1.1 2.7-1.5 4-1.5s2.9.4 4 1.5l1.39-1.39C18.7 8.47 19.75 10.16 19.75 12s-1.05 3.53-2.36 4.44z"/>
             </svg>
-            <h3 class="text-xl font-bold mb-2 text-[#8b5cf6]">Jumlah Informasi</h3>
+            <h3 class="text-xl font-bold mb-2 text-[#8b5cf6]">Jumlah Periode Bansos</h3>
             <p class="text-sm text-[#333]">900</p>
           </div>
         </div>
@@ -269,7 +269,7 @@
           </div>
         </div>
       </div> --}}
-      <footer class="bg-white mt-28  dark:bg-blue-600">
+      <footer class="bg-blue-600 mt-28  dark:bg-blue-600">
         <div class="bg-blue-500 py-4">
           <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
             <div class="flex flex-col items-center justify-between gap-2 md:flex-row">
@@ -282,7 +282,7 @@
         </div>
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1760.181186461192!2d112.6278674897429!3d-7.9499599971348!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd629da4fc0dee3%3A0xa6cdb5f259d93312!2sJl.%20Kalpataru%20No.83A%2C%20RW.02%2C%20Jatimulyo%2C%20Kec.%20Lowokwaru%2C%20Kota%20Malang%2C%20Jawa%20Timur%2065141!5e0!3m2!1sid!2sid!4v1717936363149!5m2!1sid!2sid" class="h-[400px]  w-[100%] " style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 
-        <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8 bg-white dark:bg-blue-600">
+        <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8 bg-blue-600 dark:bg-blue-600">
         <div class="md:flex md:justify-between">
           <div class="mb-6 md:mb-0">
               <a href="" class="flex items-center">
