@@ -131,7 +131,7 @@ class UserController extends Controller
             Session::flash('success', 'Akun berhasil disimpan');
             return redirect('/admin/akun');
         } catch (QueryException $err) {
-            Session::flash('errors', 'Terjadi kesalahan saat menyimpan akun: ' . $err->getMessage());
+            Session::flash('error', 'Terjadi kesalahan saat menyimpan akun: ' . $err->getMessage());
             return redirect('/admin/akun/create')->withInput();
         }
     }
@@ -169,7 +169,7 @@ class UserController extends Controller
             }
             return redirect('/admin/akun/' . $id)->with('success', 'Akun berhasil diubah');
         } catch (QueryException $err) {
-            Session::flash('errors', 'Terjadi kesalahan saat menyimpan akun: ' . $err->getMessage());
+            Session::flash('error', 'Terjadi kesalahan saat menyimpan akun: ' . $err->getMessage());
             return redirect('/admin/akun/' . $id)->withInput();
         }
     }

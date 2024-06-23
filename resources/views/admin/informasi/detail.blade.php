@@ -1,14 +1,6 @@
 @extends('layouts.template')
 @section('content')
-    @if (Session::has('errors'))
-        <div class="w-full p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
-            <ul>
-                @foreach(Session::get('errors')->all() as $error)
-                    <li class="font-medium">{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @elseif(Session::has('success'))
+    @if(Session::has('success'))
         <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50" role="alert">
             <span class="font-medium">{{ Session::get('success')}}</span>
         </div>
@@ -35,10 +27,15 @@
                 <div class="w-full gap-1 flex flex-col justify-start items-start">
                     <label for="judul" class="block font-medium text-sm text-neutral-900">Judul<span class="font-medium text-sm text-red-600">*</span></label>
                     <input type="text" id="judul" name="judul" class="px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Judul" value="{{ $data->judul }}">
+                    @error('judul')
+                        <span class="text-red-600 text-xs font-semibold">Judul wajib terisi.</span>
                 </div>
                 <div class="w-full gap-1 flex flex-col justify-start items-start">
                     <label for="konten" class="block font-medium text-sm text-neutral-900">Konten<span class="font-medium text-sm text-red-600">*</span></label>
                     <textarea id="konten" name="konten" rows="10" cols="50" class="px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Konten">{{ $data->konten }}</textarea>
+                    @error('konten')
+                        <span class="text-red-600 text-xs font-semibold">Konten wajib terisi.</span>
+                    @enderror
                 </div>
                 <div class="w-full gap-1 flex flex-col justify-start items-start">
                     <label for="jenis" class="block font-medium text-sm text-neutral-900">Jenis Informasi<span class="font-medium text-sm text-red-600">*</span></label>
@@ -48,6 +45,9 @@
                             <option class="font normal text-sm text-black" value="{{ $value }}" {{ $value === $data->jenis ? 'selected' : '' }}>{{ $value }}</option>
                         @endforeach
                     </select>
+                    @error('jenis')
+                        <span class="text-red-600 text-xs font-semibold">Jenis Informasi wajib terisi.</span>
+                    @enderror
                 </div>
                 <div class="w-full gap-1 flex flex-col justify-start items-start">
                     <label for="gambar" class="block font-medium text-sm text-neutral-900">Gambar<span class="font-medium text-sm text-red-600">*</span></label>

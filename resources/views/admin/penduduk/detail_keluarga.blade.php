@@ -2,11 +2,7 @@
 @section('content')
     @if (Session::has('error'))
         <div class="w-full p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
-            <ul>
-                @foreach(Session::get('errors')->all() as $error)
-                    <li class="font-medium">{{ $error }}</li>
-                @endforeach
-            </ul>
+            <span class="font-medium">{{ Session::get('error')}}</span>
         </div>
     @elseif(Session::has('success'))
         <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50" role="alert">
@@ -65,6 +61,9 @@
             <div class="w-full gap-1 flex flex-col justify-start items-start">
                 <label for="nkk" class="block font-medium text-sm text-neutral-900">Nomor Kartu Keluarga<span class="font-medium text-sm text-red-600">*</span></label>
                 <input type="text" id="nkk" name="nkk" class="px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Nomor Kartu Keluarga" value="{{ $data->nkk }}" {{ $url == 'admin' ? '' : 'readonly' }}>
+                @error('nkk')
+                <span class="text-red-600 text-xs font-semibold">NKK wajib diisi.</span>
+                @enderror
             </div>
             <div class="w-full gap-1 flex flex-col justify-start items-start">
                 <label for="pendapatan" class="block font-medium text-sm text-neutral-900">Pendapatan</label>

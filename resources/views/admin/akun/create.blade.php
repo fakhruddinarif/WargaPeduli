@@ -5,15 +5,6 @@
             <span class="font-medium">{{ Session::get('error') }}</span>
         </div>
     @endif
-    @if (Session::has('errors'))
-        <div class="w-full p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
-            <ul>
-                @foreach(Session::get('errors')->all() as $error)
-                    <li class="font-medium">{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
     <div class="w-full flex flex-col justify-center items-center rounded-lg border-2">
         <div class="w-full flex flex-row justify-between items-center bg-blue-500 rounded-tr-lg rounded-tl-lg px-4 py-2">
             <div class="w-fit h-fit">
@@ -31,10 +22,16 @@
                 <div class="w-full gap-1 flex flex-col justify-start items-start">
                     <label for="username" class="block font-medium text-sm text-neutral-900">Username<span class="font-medium text-sm text-red-600">*</span></label>
                     <input type="text" id="username" name="username" class="px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Username">
+                    @error('username')
+                        <span class="text-red-600 font-semibold text-xs">Username harus diisi.</span>
+                    @enderror
                 </div>
                 <div class="w-full gap-1 flex flex-col justify-start items-start">
                     <label for="password" class="block font-medium text-sm text-neutral-900">Password<span class="font-medium text-sm text-red-600">*</span></label>
                     <input type="password" id="password" name="password" class="px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Password">
+                    @error('password')
+                        <span class="text-red-600 font-semibold text-xs">Password harus diisi.</span>
+                    @enderror
                 </div>
                 <div class="w-full gap-1 flex flex-col justify-start items-start">
                     <label for="level_id" class="block font-medium text-sm text-neutral-900">Level<span class="font-medium text-sm text-red-600">*</span></label>
@@ -44,6 +41,9 @@
                             <option class="font normal text-sm text-black" value="{{ $value->id }}">{{ $value->nama }}</option>
                         @endforeach
                     </select>
+                    @error('level_id')
+                        <span class="text-red-600 font-semibold text-xs">Level harus diisi.</span>
+                    @enderror
                 </div>
                 <div class="w-full gap-1 flex flex-col justify-start items-start">
                     <label for="keluarga_id" class="block font-medium text-sm text-neutral-900">Nomor Kartu Keluarga<span class="font-medium text-sm text-red-600">*</span></label>
@@ -53,6 +53,9 @@
                             <option class="font normal text-sm text-black" value="{{ $value->id }}">{{ $value->nkk }} - {{ $value->nama }}</option>
                         @endforeach
                     </select>
+                    @error('keluarga_id')
+                        <span class="text-red-600 font-semibold text-xs">NKK harus diisi.</span>
+                    @enderror
                 </div>
                 <button type="submit" class="px-4 py-3 bg-blue-500 rounded-md">
                     <span class="font-medium text-sm text-white">Simpan</span>

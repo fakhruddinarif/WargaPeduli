@@ -2,11 +2,7 @@
 @section('content')
     @if (Session::has('error'))
         <div class="w-full p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
-            <ul>
-                @foreach(Session::get('errors')->all() as $error)
-                    <li class="font-medium">{{ $error }}</li>
-                @endforeach
-            </ul>
+            <span class="font-medium">{{ Session::get('success')}}</span>
         </div>
     @elseif(Session::has('success'))
         <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50" role="alert">

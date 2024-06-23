@@ -75,7 +75,7 @@ class InformasiController extends Controller
             Session::flash('success', 'Informasi berhasil ditambahkan');
             return redirect('/admin/informasi');
         } catch (QueryException $e) {
-            Session::flash('errors', 'Informasi gagal ditambahkan');
+            Session::flash('error', 'Informasi gagal ditambahkan');
             return redirect('/admin/informasi/create')->withInput();
         }
     }
@@ -116,7 +116,7 @@ class InformasiController extends Controller
             Session::flash('success', 'Informasi berhasil diubah');
             return redirect('/admin/informasi/' . $id);
         } catch (QueryException $e) {
-            Session::flash('errors', 'Informasi gagal diubah');
+            Session::flash('error', 'Informasi gagal diubah');
             return redirect('/admin/informasi/' . $id)->withInput();
         }
     }

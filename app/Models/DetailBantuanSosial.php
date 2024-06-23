@@ -26,4 +26,11 @@ class DetailBantuanSosial extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
+
+    public static function countWaitingConfirmation($bansosId)
+    {
+        return self::where('bansos_id', $bansosId)
+            ->where('status', 'Menunggu Konfirmasi')
+            ->count();
+    }
 }

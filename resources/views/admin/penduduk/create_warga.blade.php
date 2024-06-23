@@ -1,14 +1,6 @@
 @extends('layouts.template')
 @section('content')
-    @if (Session::has('errors'))
-        <div class="w-full p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
-            <ul>
-                @foreach(Session::get('errors')->all() as $error)
-                    <li class="font-medium">{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-        @elseif (Session::has('error'))
+    @if (Session::has('error'))
         <div class="w-full p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
             <ul>
                 <li class="font-medium">{{ Session::get('error') }}</li>
@@ -36,6 +28,9 @@
                         <span class="font-medium text-white text-sm">Tambah Data Warga</span>
                     </button>
                 </div>
+                @php
+                    $i = $i ?? 0;
+                @endphp
                 <div id="form" class="w-full flex flex-col justify-end items-end gap-4"></div>
                 <div class="flex flex-row justify-between items-end w-full">
                     @if($isCreateKeluarga)
@@ -43,7 +38,7 @@
                             <span class="font-medium text-sm text-white">Sebelumnya</span>
                         </a>
                     @endif
-                    <button type="submit" class="px-4 py-3 bg-blue-500 rounded-md">
+                    <button id="save-button" type="submit" class="px-4 py-3 bg-blue-500 rounded-md">
                         <span class="font-medium text-sm text-white">Simpan</span>
                     </button>
                 </div>
@@ -55,6 +50,7 @@
 <script>
     var i = 0;
     var now = 0;
+    var oldData = @json(old());
 
     function checkElementExist(id) {
         var element = document.getElementById(id);
@@ -92,8 +88,34 @@
         return wargaElements.length;
     }
 
+    function getOldData(key, i) {
+        return oldData[key] && oldData[key][i - 1] !== null ? oldData[key][i - 1] : '';
+    }
+
+    function selectedData(key, i) {
+        var oldKey = getOldData(key, i);
+        var selectKey = document.getElementById(key + i);
+        for (var j = 0; j < selectKey.options.length; j++) {
+            if (selectKey.options[j].value == oldKey) {
+                selectKey.options[j].selected = true;
+                break;
+            }
+        }
+    }
     function addForm() {
         i++;
+        @php
+        $i++
+        @endphp
+
+        var oldNik = getOldData('nik', i);
+        var oldNama = getOldData('nama', i);
+        var oldTempatLahir = getOldData('tempat_lahir', i);
+        var oldTanggalLahir = getOldData('tanggal_lahir', i);
+        var oldAlamat = getOldData('alamat', i);
+        var oldIbuKandung = getOldData('ibu_kandung', i);
+        var oldTelepon = getOldData('telepon', i);
+
         var buttonForm = document.getElementById('button-form');
         buttonForm.insertAdjacentHTML('beforeend', `
         <button onclick="changeBorderButton(`+i+`)" type="button" id="warga`+i+`" class="min-w-48 h-fit rounded-md px-2 py-4 text-left flex flex-col justify-start items-start border-2">
@@ -113,6 +135,9 @@
                         <option class="font normal text-sm text-black" value="{{ $value->id }}">{{ $value->nkk }} - {{ $value->nama }}</option>
                     @endforeach
                 </select>
+                @error('keluarga_id.' . $i - 1)
+                    <span class="text-red-600 font-semibold text-xs">Nomor Kartu Keluarga harus diisi.</span>
+                @enderror
             </div>
             @endif
             <div class="col-span-full w-full">
@@ -133,14 +158,23 @@
                     <p class="text-xs leading-5 text-neutral-600">PNG, JPG, GIF up to 2MB</p>
                 </div>
             </div>
+            @error('dokumen.' . $i - 1)
+            <span class="text-xs font-semibold text-red-600">Dokumen gagal diunggah.</span>
+            @enderror
         </div>
         <div class="w-full gap-1 flex flex-col justify-start items-start">
-            <label class="block font-medium text-sm text-neutral-900">Nomor Tanda Penduduk<span class="font-medium text-sm text-red-600">*</span></label>
-            <input type="text" id="nik`+i+`" name="nik[]" class="px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Nomor Tanda Penduduk">
+            <label class="block font-medium text-sm text-neutral-900">Nomor Induk Kependudukan<span class="font-medium text-sm text-red-600">*</span></label>
+            <input type="text" id="nik`+i+`" name="nik[]" class="px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Nomor Tanda Penduduk" value="`+ oldNik +`">
+            @error('nik.' . $i - 1)
+                <span class="text-red-600 font-semibold text-xs">NIK harus diisi.</span>
+            @enderror
         </div>
         <div class="w-full gap-1 flex flex-col justify-start items-start">
             <label class="block font-medium text-sm text-neutral-900">Nama Lengkap<span class="font-medium text-sm text-red-600">*</span></label>
-            <input type="text" id="nama`+i+`" name="nama[]" class="px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Nama Lengkap">
+            <input type="text" id="nama`+i+`" name="nama[]" class="px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Nama Lengkap" value="`+ oldNama +`">
+            @error('nama.' . $i - 1)
+                <span class="text-red-600 font-semibold text-xs">Nama harus diisi.</span>
+            @enderror
         </div>
         <div class="w-full gap-1 flex flex-col justify-start items-start">
             <label class="block font-medium text-sm text-neutral-900">Jenis Kelamin<span class="font-medium text-sm text-red-600">*</span></label>
@@ -150,24 +184,39 @@
                     <option class="font normal text-sm text-black" value="{{ $value }}">{{ $value }}</option>
                 @endforeach
             </select>
+            @error('jenis_kelamin.' . $i - 1)
+                <span class="text-red-600 font-semibold text-xs">Jenis Kelamin harus diisi.</span>
+            @enderror
         </div>
         <div class="w-full gap-1 flex flex-col justify-start items-start">
             <label class="block font-medium text-sm text-neutral-900">Tempat Lahir<span class="font-medium text-sm text-red-600">*</span></label>
-            <input type="text" id="tempat_lahir`+i+`" name="tempat_lahir[]" class="px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Tempat Lahir">
+            <input type="text" id="tempat_lahir`+i+`" name="tempat_lahir[]" class="px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Tempat Lahir" value="`+ oldTempatLahir +`">
+            @error('tempat_lahir.' . $i - 1)
+                <span class="text-red-600 font-semibold text-xs">Tempat Lahir harus diisi.</span>
+            @enderror
         </div>
         <div class="w-full gap-1 flex flex-col justify-start items-start">
             <label class="block font-medium text-sm text-neutral-900">Tanggal Lahir<span class="font-medium text-sm text-red-600">*</span></label>
-            <input type="date" id="tanggal_lahir`+i+`" name="tanggal_lahir[]" class="px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Tanggal Lahir">
+            <input type="date" id="tanggal_lahir`+i+`" name="tanggal_lahir[]" class="px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Tanggal Lahir" value="`+ oldTanggalLahir +`">
+            @error('tanggal_lahir.' . $i - 1)
+                <span class="text-red-600 font-semibold text-xs">Tanggal Lahir harus diisi.</span>
+            @enderror
         </div>
          @if(!$isCreateKeluarga)
         <div class="w-full gap-1 flex flex-col justify-start items-start">
             <label class="block font-medium text-sm text-neutral-900">Alamat<span class="font-medium text-sm text-red-600">*</span></label>
-            <input type="text" id="alamat`+i+`" name="alamat[]" class="px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Alamat">
+            <input type="text" id="alamat`+i+`" name="alamat[]" class="px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Alamat" value="`+ oldAlamat +`">
+            @error('alamat.' . $i - 1)
+                <span class="text-red-600 font-semibold text-xs">Alamat harus diisi.</span>
+            @enderror
         </div>
         @endif
         <div class="w-full gap-1 flex flex-col justify-start items-start">
             <label class="block font-medium text-sm text-neutral-900">Nama Ibu Kandung<span class="font-medium text-sm text-red-600">*</span></label>
-            <input type="text" id="ibu_kandung`+i+`" name="ibu_kandung[]" class="px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Alamat">
+            <input type="text" id="ibu_kandung`+i+`" name="ibu_kandung[]" class="px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Nama Ibu Kandung"  value="`+ oldIbuKandung +`">
+            @error('ibu_kandung.' . $i - 1)
+                <span class="text-red-600 font-semibold text-xs">Nama Ibu Kandung harus diisi.</span>
+            @enderror
         </div>
          @if(!$isCreateKeluarga)
         <div class="w-full gap-1 flex flex-col justify-start items-start">
@@ -178,6 +227,9 @@
                     <option class="font normal text-sm text-black" value="{{ $value->id }}">RT 0{{ $value->nomor }}</option>
                 @endforeach
             </select>
+            @error('rt_id.' . $i - 1)
+                <span class="text-red-600 font-semibold text-xs">RT harus diisi.</span>
+            @enderror
         </div>
       @endif
         <div class="w-full gap-1 flex flex-col justify-start items-start">
@@ -188,6 +240,9 @@
                     <option class="font normal text-sm text-black" value="{{ $value }}">{{ $value }}</option>
                 @endforeach
             </select>
+            @error('status_keluarga.' . $i - 1)
+                <span class="text-red-600 font-semibold text-xs">Status Keluarga harus diisi.</span>
+            @enderror
         </div>
         <div class="w-full gap-1 flex flex-col justify-start items-start">
             <label class="block font-medium text-sm text-neutral-900">Status Warga<span class="font-medium text-sm text-red-600">*</span></label>
@@ -197,12 +252,23 @@
                     <option class="font normal text-sm text-black" value="{{ $value }}">{{ $value }}</option>
                 @endforeach
             </select>
+            @error('status_warga.' . $i - 1)
+                <span class="text-red-600 font-semibold text-xs">Status Warga harus diisi.</span>
+            @enderror
         </div>
         <div class="w-full gap-1 flex flex-col justify-start items-start">
             <label class="block font-medium text-sm text-neutral-900">Nomor Telepon</label>
-            <input type="tel" id="telepon`+i+`" name="telepon[]" class="px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Nomor Telepon">
+            <input type="tel" id="telepon`+i+`" name="telepon[]" class="px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Nomor Telepon" value="`+ oldTelepon +`">
+            @error('telepon.' . $i - 1)
+                <span class="text-red-600 font-semibold text-xs">Nomor telepon tidak sesuai.</span>
+            @enderror
         </div>
     </div>`);
+        selectedData('keluarga_id', i);
+        selectedData('jenis_kelamin', i);
+        selectedData('rt_id', i);
+        selectedData('status_keluarga', i);
+        selectedData('status_warga', i);
 
         var dokumen = document.getElementById('dokumen' + i);
         var preview = document.getElementById('preview' + i);
@@ -266,6 +332,16 @@
             changeBorderButton(now);
         }
 
+        if (getNumberOfWargaElements() > 1) {
+            var currentForm = document.getElementById('field-form' + i);
+            currentForm.classList.add('hidden');
+        }
+
+        var keluargaId = document.getElementById('keluarga_id' + i);
+        keluargaId.addEventListener('change', function() {
+            fetchKeluarga(keluargaId.value, i);
+        });
+
         var textNama = document.getElementById('text-nama' + i);
         var nama = document.getElementById('nama' + i);
         var textStatus = document.getElementById('text-status' + i);
@@ -277,6 +353,28 @@
         statusKeluarga.addEventListener('change', function() {
             textStatus.innerText = statusKeluarga.value === '' ? '---/---' : statusKeluarga.value;
         });
+    }
+
+    function fetchKeluarga(id, i) {
+        fetch('/data-keluarga/' + id)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("HTTP error " + response.status);
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Lakukan sesuatu dengan data yang diterima
+                var alamat = document.getElementById('alamat' + i);
+                var statusWarga = document.getElementById('status_warga' + i);
+                var rt = document.getElementById('rt_id' + i);
+                alamat.value = data[0].alamat;
+                statusWarga.value = data[0].status_warga;
+                rt.value = data[0].rt_id;
+            })
+            .catch(function() {
+                console.log("Fetch error");
+            });
     }
 
     function removeData(id) {
@@ -301,5 +399,14 @@
             }
         }
         changeBorderButton(now);
+    }
+
+    window.onload = function() {
+        var oldData = @json(old());
+        if (oldData) {
+            for (var i = 0; i < oldData.nik.length; i++) {
+                addForm();
+            }
+        }
     }
 </script>
