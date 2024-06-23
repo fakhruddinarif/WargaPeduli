@@ -363,6 +363,7 @@ class PendudukController extends Controller
                     'warga_id' => $warga->id,
                     'tanggal' => now(),
                     'status' => $data['status'],
+                    'surat' => $data['surat']
                 ]);
             }
 
