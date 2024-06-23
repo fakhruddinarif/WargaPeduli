@@ -29,6 +29,7 @@
                     <input type="text" id="judul" name="judul" class="px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Judul" value="{{ $data->judul }}">
                     @error('judul')
                         <span class="text-red-600 text-xs font-semibold">Judul wajib terisi.</span>
+                    @enderror
                 </div>
                 <div class="w-full gap-1 flex flex-col justify-start items-start">
                     <label for="konten" class="block font-medium text-sm text-neutral-900">Konten<span class="font-medium text-sm text-red-600">*</span></label>
