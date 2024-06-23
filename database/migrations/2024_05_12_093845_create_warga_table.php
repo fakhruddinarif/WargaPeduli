@@ -23,7 +23,7 @@ return new class extends Migration
             $table->enum('status_warga', ['Menetap', 'Pendatang', 'Merantau'])->nullable(false);
             $table->enum('status_keluarga', ['Kepala Keluarga', 'Istri', 'Anak', 'Cucu', 'Menantu', 'Lainnya'])->nullable(false);
             $table->string('telepon', 16)->nullable();
-            $table->uuid('keluarga_id')->index();
+            $table->uuid('keluarga_id')->nullable();
             $table->unsignedBigInteger('rt_id')->nullable(false)->index();
             $table->string('dokumen', 255)->nullable();
             $table->timestamps();

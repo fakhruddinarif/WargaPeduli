@@ -5,15 +5,6 @@
             <span class="font-medium">{{ Session::get('error') }}</span>
         </div>
     @endif
-    @if (Session::has('errors'))
-        <div class="w-full p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
-            <ul>
-                @foreach(Session::get('errors')->all() as $error)
-                    <li class="font-medium">{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
     <div class="w-full flex flex-col justify-center items-center rounded-lg border-2">
         <div class="w-full flex flex-row justify-between items-center bg-blue-500 rounded-tr-lg rounded-tl-lg px-4 py-2">
             <div class="w-fit h-fit">
@@ -29,12 +20,18 @@
             <form method="POST" enctype="multipart/form-data" action="{{ url('/admin/bansos/') }}" class="w-full flex flex-col justify-end items-end gap-4">
                 @csrf
                 <div class="w-full gap-1 flex flex-col justify-start items-start">
-                    <label for="mulai" class="block font-medium text-sm text-neutral-900">Mulai<span class="font-medium text-sm text-red-600">*</span></label>
+                    <label for="mulai" class="block font-medium text-sm text-neutral-900">Tanggal Mulai<span class="font-medium text-sm text-red-600">*</span></label>
                     <input type="date" id="mulai" name="mulai" class="px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Tanggal Mulai">
+                    @error('mulai')
+                        <span class="text-red-600 font-semibold text-xs">Tanggal mulai harus diisi.</span>
+                    @enderror
                 </div>
                 <div class="w-full gap-1 flex flex-col justify-start items-start">
-                    <label for="selesai" class="block font-medium text-sm text-neutral-900">Selesai<span class="font-medium text-sm text-red-600">*</span></label>
+                    <label for="selesai" class="block font-medium text-sm text-neutral-900">Tanggal Selesai<span class="font-medium text-sm text-red-600">*</span></label>
                     <input type="date" id="selesai" name="selesai" class="px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Tanggal Selesai">
+                    @error('selesai')
+                        <span class="text-red-600 font-semibold text-xs">Tanggal selesai harus diisi.</span>
+                    @enderror
                 </div>
                 <div class="w-full gap-1 flex flex-col justify-start items-start">
                     <label for="jenis" class="block font-medium text-sm text-neutral-900">Jenis Bantuan Sosial<span class="font-medium text-sm text-red-600">*</span></label>
@@ -44,10 +41,16 @@
                             <option class="font normal text-sm text-black" value="{{ $value }}">{{ $value }}</option>
                         @endforeach
                     </select>
+                    @error('jenis')
+                        <span class="text-red-600 font-semibold text-xs">Jenis bantuan sosial harus diisi.</span>
+                    @enderror
                 </div>
                 <div class="w-full gap-1 flex flex-col justify-start items-start">
                     <label for="kapasitas" class="block font-medium text-sm text-neutral-900">Kapasitas<span class="font-medium text-sm text-red-600">*</span></label>
                     <input type="number" id="kapasitas" name="kapasitas" class="px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Kapasitas">
+                    @error('kapasitas')
+                        <span class="text-red-600 font-semibold text-xs">Kapasitas harus diisi.</span>
+                    @enderror
                 </div>
                 <button type="submit" class="px-4 py-3 bg-blue-500 rounded-md">
                     <span class="font-medium text-sm text-white">Simpan</span>

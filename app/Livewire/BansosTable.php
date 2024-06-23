@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\BantuanSosial;
+use App\Models\DetailBantuanSosial;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;

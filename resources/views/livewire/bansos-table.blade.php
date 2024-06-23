@@ -39,7 +39,7 @@
                             <td class="px-6 py-4">{{ date('d/m/Y', strtotime($value->tanggal_selesai)) }}</td>
                             <td class="px-6 py-4">{{ $value->jenis }}</td>
                             <td class="px-6 py-4">{{ $value->kapasitas }}</td>
-                            <td class="px-6 py-4 flex flex-wrap gap-4">
+                            <td class="px-6 py-4 flex flex-wrap gap-4 items-center">
                                 <a href="{{ url('/' . $url .'/bansos/' . $value->id) }}" class="mr-2 w-fit h-fit px-6 py-2 bg-blue-500 rounded-md">
                                     <span class="font-semibold text-white">Detail</span>
                                 </a>
@@ -47,9 +47,16 @@
                                     <span class="font-semibold text-white">Prioritas</span>
                                 </button>
                                 @if($url == 'rw')
-                                    <a href="{{ url('/' . $url .'/bansos/pengajuan/' . $value->id) }}" class="mr-2 w-fit h-fit px-6 py-2 bg-amber-500 rounded-md">
-                                        <span class="font-semibold text-white">Validasi</span>
-                                    </a>
+                                    <div class="w-fit relative">
+                                        <a href="{{ url('/' . $url .'/bansos/pengajuan/' . $value->id) }}" class="mr-2 w-fit h-fit px-6 py-2 bg-amber-500 rounded-md">
+                                            <span class="font-semibold text-white">Validasi</span>
+                                        </a>
+                                        @if(\App\Models\DetailBantuanSosial::countWaitingConfirmation($value->id) > 0)
+                                            <div class="rounded-full bg-white w-6 h-6 p-1 absolute -top-4 right-0 flex items-start justify-center shadow-sm border">
+                                                <span class="text-amber-500 text-xs">{{ \App\Models\DetailBantuanSosial::countWaitingConfirmation($value->id) }}</span>
+                                            </div>
+                                        @endif
+                                    </div>
                                 @endif
                             </td>
                         </tr>

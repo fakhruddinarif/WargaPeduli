@@ -87,7 +87,7 @@ class PendudukController extends Controller
             $request->session()->put('keluarga', $data);
 
         } catch(QueryException $err) {
-            Session::flash('error', 'Terjadi kesalahan saat menyimpan data keluarga: ' . $err->getMessage());
+            Session::flash('error', 'Terjadi kesalahan saat menyimpan data keluarga atau terdapat data yang sama');
             return redirect('/admin/penduduk/create/keluarga')->withInput();
         }
 
@@ -121,6 +121,7 @@ class PendudukController extends Controller
     {
         $rules = [
             'dokumen.*' => 'image|max:2048|nullable|mimes:jpg,png,jpeg,gif,svg',
+            'keluarga_id.*' => 'nullable|string',
             'nik.*' => 'required|unique:warga,nik|string',
             'nama.*' => 'required|max:100|string',
             'jenis_kelamin.*' => 'required|string',
@@ -131,7 +132,6 @@ class PendudukController extends Controller
             'status_warga.*' => 'required|string',
             'status_keluarga.*' => 'required|string',
             'telepon.*' => 'nullable|string',
-            'keluarga_id.*' => 'required|string',
             'rt_id.*' => 'required|integer'
         ];
         $isCreateKeluarga = $request->has('create') && $request->get('create') === 'keluarga';
@@ -207,7 +207,7 @@ class PendudukController extends Controller
             return redirect('/admin/penduduk');
         } catch (QueryException $err) {
             DB::rollBack();
-            Session::flash('error', 'Terjadi kesalahan saat menyimpan data penduduk: ' . $err->getMessage());
+            Session::flash('error', 'Terjadi kesalahan saat menyimpan data penduduk atau terdapat data yang sama');
             return redirect('/admin/penduduk/')->withInput();
         }
     }
@@ -246,6 +246,8 @@ class PendudukController extends Controller
     public function updateKeluarga(Request $request ,$id)
     {
         $this->rulesKeluarga['nkk'] = 'required|string|unique:keluarga,nkk,' . $id;
+        unset($this->rulesKeluarga['rt_id']);
+        unset($this->rulesKeluarga['alamat']);
         $request->validate($this->rulesKeluarga);
         try {
             $data = $request->all();
@@ -261,7 +263,7 @@ class PendudukController extends Controller
             Session::flash('success', 'Data Keluarga Berhasil Diperbarui');
             return redirect('/admin/penduduk/keluarga/' . $id);
         } catch (QueryException $err) {
-            Session::flash('error', 'Terjadi kesalahan saat memperbarui data keluarga: ' . $err->getMessage());
+            Session::flash('error', 'Terjadi kesalahan saat memperbarui data keluarga atau terdapat data yang sama');
             return redirect('/admin/penduduk/keluarga/' . $id)->withInput();
         }
     }
@@ -299,7 +301,7 @@ class PendudukController extends Controller
             Session::flash('success', 'Data Warga Berhasil Diperbarui');
             return redirect('/admin/penduduk/warga/' . $id);
         } catch (QueryException $err) {
-            Session::flash('error', 'Terjadi kesalahan saat memperbarui data keluarga: ' . $err->getMessage());
+            Session::flash('error', 'Terjadi kesalahan saat memperbarui data keluarga atau terdapat data yang sama');
             return redirect('/admin/penduduk/warga/' . $id)->withInput();
         }
     }
@@ -371,7 +373,7 @@ class PendudukController extends Controller
         } catch (QueryException $err) {
             DB::rollBack(); // Jika ada kesalahan, rollback transaksi
 
-            Session::flash('error', 'Terjadi kesalahan saat mengarsipkan data keluarga: ' . $err->getMessage());
+            Session::flash('error', 'Terjadi kesalahan saat mengarsipkan data keluarga');
             return redirect('/admin/penduduk/keluarga/' . $id);
         }
     }
@@ -417,8 +419,16 @@ class PendudukController extends Controller
         } catch (QueryException $e) {
             DB::rollBack(); // Jika ada kesalahan, rollback transaksi
 
-            Session::flash('error', 'Terjadi kesalahan saat mengarsipkan data warga: ' . $e->getMessage());
+            Session::flash('error', 'Terjadi kesalahan saat mengarsipkan data warga');
             return redirect('/admin/penduduk/warga/' . $id);
         }
+    }
+
+    public function getDataByKeluarga($id)
+    {
+        $data = Warga::select('alamat', 'status_warga', 'rt_id')->where('keluarga_id', $id)
+            ->distinct()
+            ->get();
+        return response()->json($data);
     }
 }

@@ -21,6 +21,7 @@ Route::get('/logout', [\App\Http\Controllers\AuthController::class, 'logout']);
 Route::post('/storePengajuan', [\App\Http\Controllers\AuthController::class, 'storepengajuan']);
 Route::post('/checkPengajuan', [\App\Http\Controllers\AuthController::class, 'checkPengajuan']);
 Route::get('/berita/{id}', [\App\Http\Controllers\InformasiController::class, 'berita']);
+Route::get('/data-keluarga/{id}', [\App\Http\Controllers\PendudukController::class, 'getDataByKeluarga']);
 
 Route::middleware('auth')->group(function () {
     Route::group(['middleware' => 'level:Admin'], function () {

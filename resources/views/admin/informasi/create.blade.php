@@ -5,11 +5,6 @@
             <span class="font-medium">{{ Session::get('error') }}</span>
         </div>
     @endif
-    @if (Session::has('errors'))
-        <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
-            <span class="font-medium">{{ Session::get('errors')}}</span>
-        </div>
-    @endif
     <div class="w-full flex flex-col justify-center items-center rounded-lg border-2">
         <div class="w-full flex flex-row justify-between items-center bg-blue-500 rounded-tr-lg rounded-tl-lg px-4 py-2">
             <div class="w-fit h-fit">
@@ -27,10 +22,16 @@
                 <div class="w-full gap-1 flex flex-col justify-start items-start">
                     <label for="judul" class="block font-medium text-sm text-neutral-900">Judul<span class="font-medium text-sm text-red-600">*</span></label>
                     <input type="text" id="judul" name="judul" class="px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Judul">
+                    @error('judul')
+                        <span class="text-xs font-semibold text-red-600">Judul wajib diisi.</span>
+                    @enderror
                 </div>
                 <div class="w-full gap-1 flex flex-col justify-start items-start">
                     <label for="konten" class="block font-medium text-sm text-neutral-900">Konten<span class="font-medium text-sm text-red-600">*</span></label>
                     <textarea id="konten" name="konten" rows="10" cols="50" class="px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Konten"></textarea>
+                    @error('konten')
+                        <span class="text-xs font-semibold text-red-600">Konten wajib diisi.</span>
+                    @enderror
                 </div>
                 <div class="w-full gap-1 flex flex-col justify-start items-start">
                     <label for="jenis" class="block font-medium text-sm text-neutral-900">Jenis Informasi<span class="font-medium text-sm text-red-600">*</span></label>
@@ -40,10 +41,16 @@
                             <option class="font normal text-sm text-black" value="{{ $value }}">{{ $value }}</option>
                         @endforeach
                     </select>
+                    @error('jenis')
+                        <span class="text-xs font-semibold text-red-600">Jenis Informasi wajib diisi.</span>
+                    @enderror
                 </div>
                 <div class="w-full gap-1 flex flex-col justify-start items-start">
                     <label for="gambar" class="block font-medium text-sm text-neutral-900">Gambar<span class="font-medium text-sm text-red-600">*</span></label>
                     <input class="w-full px-2 py-3 text-sm text-neutral-900 border border-neutral-300 rounded-lg cursor-pointer bg-neutral-50 focus:outline-none" id="gambar" name="gambar" type="file">
+                    @error('gambar')
+                        <span class="text-xs font-semibold text-red-600">Gambar wajib diisi.</span>
+                    @enderror
                 </div>
                 <button type="submit" class="px-4 py-3 bg-blue-500 rounded-md">
                     <span class="font-medium text-sm text-white">Simpan</span>

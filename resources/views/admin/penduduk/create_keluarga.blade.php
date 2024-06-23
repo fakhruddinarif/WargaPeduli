@@ -1,14 +1,10 @@
 @extends('layouts.template')
 @section('content')
-    @if (Session::has('errors'))
-    <div class="w-full p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
-        <ul>
-            @foreach(Session::get('errors')->all() as $error)
-                <li class="font-medium">{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-    @endif
+    @if (Session::has('error'))
+        <div class="w-full p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
+            <span class="font-medium">{{ Session::get('error') }}</span>
+        </div>
+   @endif
     <div class="w-full flex flex-col justify-center items-center rounded-lg border-2">
         <div class="w-full flex flex-row justify-between items-center bg-blue-500 rounded-tr-lg rounded-tl-lg px-4 py-2">
             <div class="w-fit h-fit">
@@ -41,14 +37,23 @@
                             <p class="text-xs leading-5 text-neutral-600">PNG, JPG, GIF up to 2MB</p>
                         </div>
                     </div>
+                    @error('dokumen')
+                    <span class="text-xs font-semibold text-red-600">Dokumen gagal diunggah.</span>
+                    @enderror
                 </div>
                 <div class="w-full gap-1 flex flex-col justify-start items-start">
                     <label for="nkk" class="block font-medium text-sm text-neutral-900">Nomor Kartu Keluarga<span class="font-medium text-sm text-red-600">*</span></label>
                     <input type="text" id="nkk" name="nkk" class="px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Nomor Kartu Keluarga">
+                    @error('nkk')
+                    <span class="text-xs font-semibold text-red-600">NKK wajib diisi.</span>
+                    @enderror
                 </div>
                 <div class="w-full gap-1 flex flex-col justify-start items-start">
                     <label for="alamat" class="block font-medium text-sm text-neutral-900">Alamat<span class="font-medium text-sm text-red-600">*</span></label>
                     <input type="text" id="alamat" name="alamat" class="px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Alamat">
+                    @error('alamat')
+                    <span class="text-xs font-semibold text-red-600">Alamat wajib diisi.</span>
+                    @enderror
                 </div>
                 <div class="w-full gap-1 flex flex-col justify-start items-start">
                     <label for="rt_id" class="block font-medium text-sm text-neutral-900">Rukun Tetangga<span class="font-medium text-sm text-red-600">*</span></label>
@@ -58,26 +63,44 @@
                             <option class="font normal text-sm text-black" value="{{ $value->id }}">RT 0{{ $value->nomor }}</option>
                         @endforeach
                     </select>
+                    @error('rt_id')
+                    <span class="text-xs font-semibold text-red-600">RT wajib diisi.</span>
+                    @enderror
                 </div>
                 <div class="w-full gap-1 flex flex-col justify-start items-start">
                     <label for="pendapatan" class="block font-medium text-sm text-neutral-900">Pendapatan</label>
                     <input type="text" id="pendapatan" name="pendapatan" class="input-number px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Pendapatan">
+                    @error('pendapatan')
+                    <span class="text-xs font-semibold text-red-600">{{ $message }}</span>
+                    @enderror
                 </div>
                 <div class="w-full gap-1 flex flex-col justify-start items-start">
                     <label for="luas_bangunan" class="block font-medium text-sm text-neutral-900">Luas Bangunan</label>
                     <input type="text" id="luas_bangunan" name="luas_bangunan" class="input-number px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Luas Bangunan">
+                    @error('luas_bangunan')
+                    <span class="text-xs font-semibold text-red-600">{{ $message }}</span>
+                    @enderror
                 </div>
                 <div class="w-full gap-1 flex flex-col justify-start items-start">
                     <label for="jumlah_tanggungan" class="block font-medium text-sm text-neutral-900">Jumlah Tanggungan</label>
                     <input type="text" id="jumlah_tanggungan" name="jumlah_tanggungan" class="input-number px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Jumlah Tanggungan">
+                    @error('jumlah_tanggungan')
+                    <span class="text-xs font-semibold text-red-600">{{ $message }}</span>
+                    @enderror
                 </div>
                 <div class="w-full gap-1 flex flex-col justify-start items-start">
                     <label for="pajak_bumi" class="block font-medium text-sm text-neutral-900">Pajak Bumi</label>
                     <input type="text" id="pajak_bumi" name="pajak_bumi" class="input-number px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Pajak Bumi">
+                    @error('pajak_bumi')
+                    <span class="text-xs font-semibold text-red-600">{{ $message }}</span>
+                    @enderror
                 </div>
                 <div class="w-full gap-1 flex flex-col justify-start items-start">
                     <label for="tagihan_listrik" class="block font-medium text-sm text-neutral-900">Tagihan Listrik</label>
                     <input type="text" id="tagihan_listrik" name="tagihan_listrik" class="input-number px-2 py-3 font-normal text-sm text-black rounded-lg w-full border-2" placeholder="Masukkan Tagihan Listrik">
+                    @error('tagihan_listrik')
+                    <span class="text-xs font-semibold text-red-600">{{ $message }}</span>
+                    @enderror
                 </div>
                 <button type="submit" class="px-4 py-3 bg-blue-500 rounded-md">
                     <span class="font-medium text-sm text-white">Selanjutnya</span>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BantuanSosial;
 use App\Models\Informasi;
 use App\Models\Keluarga;
 use App\Models\Pengajuan;
@@ -13,6 +14,7 @@ use App\Services\UserService;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
@@ -33,6 +35,7 @@ class AuthController extends Controller
         $rt = RukunTetangga::all();
         $countResident = Warga::count();
         $countFamily = Keluarga::count();
+        $countBansosActive = BantuanSosial::where('tanggal_selesai', '>', DB::raw('CURRENT_DATE'))->count();
         $berita = Informasi::where('jenis', 'Berita')
             ->orderBy('tanggal', 'desc')
             ->take(5)
@@ -46,7 +49,7 @@ class AuthController extends Controller
             ->take(2)
             ->get();
 
-        return view('welcome', ['rt' => $rt, 'countResident' => $countResident, 'countFamily' => $countFamily, 'berita' => $berita, 'pengumuman' => $pengumuman, 'kegiatan' => $kegiatan]);
+        return view('welcome', ['rt' => $rt, 'countResident' => $countResident, 'countFamily' => $countFamily, 'berita' => $berita, 'pengumuman' => $pengumuman, 'kegiatan' => $kegiatan, 'countBansosActive' => $countBansosActive]);
     }
 
     public function checkPengajuan(Request $request) {
