@@ -10,7 +10,7 @@ export default defineConfig({
     ],
 
     // Create Prodcution Build
-    server: {
-        https: true,
-    }
+    // server: {
+    //     https: true,
+    // }
 });

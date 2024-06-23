@@ -48,7 +48,7 @@
 </div>
 
 <div id="modal-form-bansos" class="hidden fixed z-40 inset-0 bg-neutral-600 bg-opacity-50 flex justify-center items-center  w-full gap-4 py-8 px-5">
-    <div class="bg-white rounded-xl shadow-lg w-full max-w-6xl mt-[160px] sm:max-w-5xl xs:max-w-full overflow-y-scroll max-h-96">
+    <div class="bg-white rounded-xl shadow-lg w-full max-w-6xl mt-[160px] sm:max-w-5xl xs:max-w-full ">
         <div class="flex justify-between items-center p-4 bg-blue-500 rounded-sm">
             <h3 class="text-lg font-medium text-white">Form Pengajuan Bantuan Sosial</h3>
             <button id="close-button-form" class="text-white">
@@ -57,7 +57,7 @@
                 </svg>
             </button>
         </div>
-        <form method="POST" action="{{ url($url . '/bansos') }}" class="flex flex-col justify-start items-start gap-4 w-full px-4 py-4">
+        <form method="POST" action="{{ url($url . '/bansos') }}" class="flex flex-col justify-start items-start gap-4 w-full px-4 py-4 overflow-y-auto max-h-96">
             @csrf
             <input type="hidden" id="bansos_id" name="bansos_id">
             <input type="hidden" id="user_id" name="user_id">

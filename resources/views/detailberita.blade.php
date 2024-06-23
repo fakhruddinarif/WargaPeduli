@@ -11,11 +11,11 @@
     }
 </style>
 
-<div id="modal" class="fixed z-10 inset-0 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true" style="animation: slide-down 0.5s ease-out;">
+<div id="modal" class="fixed z-10 inset-0 overflow-auto hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true" style="animation: slide-down 0.5s ease-out;">
     <div class="flex items-start justify-start min-h-screen pt-4 px-4 pb-20 text-center w-full sm:block sm:p-0">
         <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
         <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true"></span>
-        <div class="inline-block align-bottom bg-white rounded-lg text-left  shadow-xl transform transition-all sm:mt-40 sm:mb-3 sm:align-middle sm:max-w-4xl sm:w-full mt-32 overflow-auto max-h-screen" id="modal">
+        <div class="inline-block align-bottom bg-white rounded-lg text-left  shadow-xl transform transition-all sm:mt-40 sm:mb-3 sm:align-middle sm:max-w-4xl sm:w-full" id="modal">
             <div class="bg-white sm:px-3 sm:py-2 rounded-md ">
                 <div class="bg-gray-50 px-2 py-2 flex justify-end">
                     <!-- Button close -->
